@@ -1,0 +1,118 @@
+export default function AboutPage() {
+  return (
+    <>
+      <section className="relative bg-gradient-to-br from-sky-900 via-sky-800 to-sky-700 py-28 sm:py-36">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-2xl sm:text-3xl lg:text-4xl font-light italic leading-relaxed text-white/95">
+            &ldquo;Being Well Travelled Isn&rsquo;t About The Number Of Cruises You&rsquo;ve Been On &mdash; It&rsquo;s About The Depth Of The Memories You Bring Home.&rdquo;
+          </p>
+          <div className="mt-8 w-16 h-0.5 bg-amber-400 mx-auto" />
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-16">
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Our Story</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">How It Started</h2>
+        </div>
+        <div className="max-w-3xl mx-auto space-y-8 text-gray-600 text-base sm:text-lg leading-[1.8]">
+          <p>
+            QuestAshore was born on a sun-drenched pier in the South Pacific. Our founder, a veteran cruise traveler, noticed something
+            year after year &mdash; the same overcrowded tours, the same inflated prices, and the same missed opportunities to truly connect
+            with the islands.
+          </p>
+          <p>
+            Determined to change that, we set out to build something different. Not just a booking platform, but a curated gateway to
+            authentic experiences beyond the gangway. Every excursion we offer is hand-picked, locally operated, and built around the
+            belief that the best travel happens when you step off the beaten path.
+          </p>
+          <p>
+            Today, QuestAshore partners with vetted local guides across Vanuatu, New Caledonia, and Fiji to deliver shore excursions
+            that prioritise quality, safety, and cultural respect &mdash; all at transparent pier-side prices.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative bg-white rounded-3xl border border-gray-200 shadow-sm p-10 sm:p-14 lg:p-16">
+            <div className="absolute -top-4 left-8 inline-block bg-amber-500 text-white text-xs font-bold uppercase tracking-[0.15em] px-5 py-1.5 rounded-full">
+              Giving Back
+            </div>
+            <div className="mt-4 space-y-6 text-gray-600 text-base sm:text-lg leading-[1.8]">
+              <p>
+                At QuestAshore, we believe travel should leave a positive footprint. A portion of every booking goes directly toward
+                community and conservation initiatives in the ports we visit &mdash; from supporting local marine protected areas to
+                funding educational programs for island youth.
+              </p>
+              <blockquote className="border-l-4 border-amber-400 pl-6 py-2 my-8">
+                <p className="text-xl sm:text-2xl font-light italic text-gray-700 leading-relaxed">
+                  &ldquo;The value of a man resides in what he gives &mdash; and not in what he is capable of receiving.&rdquo;
+                </p>
+                <footer className="mt-2 text-sm text-gray-500">&mdash; Albert Einstein</footer>
+              </blockquote>
+              <p>
+                Whether it&rsquo;s reef restoration in Lifou or school supplies in Port Vila, your journey with us helps sustain the
+                very places you&rsquo;ve come to experience. Because the best adventures are the ones that give back.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-16">
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Why Choose Us</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Our Advantages</h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
+            <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-emerald-100 transition-colors">
+              <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Travel With Confidence</h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              All excursions are vetted, insured, and operated by trusted local partners.
+            </p>
+          </div>
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
+            <div className="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-sky-100 transition-colors">
+              <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Back to Ship Guaranteed</h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              We coordinate with your ship&apos;s schedule. If delayed, we get you to the next port at no cost.
+            </p>
+          </div>
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
+            <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-amber-100 transition-colors">
+              <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Payment Plan ($)</h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              Secure your adventure with a deposit and pay the rest before you sail &mdash; interest-free.
+            </p>
+          </div>
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
+            <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-rose-100 transition-colors">
+              <svg className="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Giving Back</h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              A portion of every booking supports local communities and marine conservation.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
