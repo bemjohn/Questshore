@@ -5,62 +5,51 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-2xl sm:text-3xl lg:text-4xl font-light italic leading-relaxed text-white/95">
-            &ldquo;Being Well Travelled Isn&rsquo;t About The Number Of Cruises You&rsquo;ve Been On &mdash; It&rsquo;s About The Depth Of The Memories You Bring Home.&rdquo;
+            &ldquo;Being Well Travelled Isn&rsquo;t About The Number Of Cruises You&rsquo;ve Taken Or The Ports You&rsquo;ve Visited&mdash;It&rsquo;s About How You Deeply Connect With Each Destination&rdquo;
           </p>
           <div className="mt-8 w-16 h-0.5 bg-amber-400 mx-auto" />
         </div>
       </section>
-
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Our Story</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">How It Started</h2>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Adventure Beyond The Shore</h2>
         </div>
         <div className="max-w-3xl mx-auto space-y-8 text-gray-600 text-base sm:text-lg leading-[1.8]">
           <p>
-            QuestAshore was born on a sun-drenched pier in the South Pacific. Our founder, a veteran cruise traveler, noticed something
-            year after year &mdash; the same overcrowded tours, the same inflated prices, and the same missed opportunities to truly connect
-            with the islands.
+            QuestAshore is all about encouraging cruise guests to adventure beyond the shore. We believe every port holds something extraordinary waiting to be discovered. And making each destination exciting and accessible with our bucket list experiences.
           </p>
           <p>
-            Determined to change that, we set out to build something different. Not just a booking platform, but a curated gateway to
-            authentic experiences beyond the gangway. Every excursion we offer is hand-picked, locally operated, and built around the
-            belief that the best travel happens when you step off the beaten path.
+            Travel is a great teacher. Our founder experienced firsthand how inflated shore excursion pricing could stop curious travelers from truly exploring ports. That frustration sparked a vision: to create a better, meaningful, and more affordable discovery channel without ever compromising on quality.
           </p>
           <p>
-            Today, QuestAshore partners with vetted local guides across Vanuatu, New Caledonia, and Fiji to deliver shore excursions
-            that prioritise quality, safety, and cultural respect &mdash; all at transparent pier-side prices.
+            What started as a personal passion project has grown into a global network trusted by families, solos, and singles alike. Today, QuestAshore partners with vetted local guides across the South Pacific and beyond to deliver shore excursions that prioritise quality, safety, and cultural respect at transparent pier-side prices.
           </p>
         </div>
       </section>
-
       <section className="bg-gray-50 py-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative bg-white rounded-3xl border border-gray-200 shadow-sm p-10 sm:p-14 lg:p-16">
             <div className="absolute -top-4 left-8 inline-block bg-amber-500 text-white text-xs font-bold uppercase tracking-[0.15em] px-5 py-1.5 rounded-full">
-              Giving Back
+              Do More With Your Booking
             </div>
             <div className="mt-4 space-y-6 text-gray-600 text-base sm:text-lg leading-[1.8]">
               <p>
-                At QuestAshore, we believe travel should leave a positive footprint. A portion of every booking goes directly toward
-                community and conservation initiatives in the ports we visit &mdash; from supporting local marine protected areas to
-                funding educational programs for island youth.
+                A portion of every booking profit directly helps local causes, empowers small business owners, and betters communities across the ports we visit. From funding education programs in Vanuatu to supporting women-led enterprises in Fiji, your journey with us creates ripples of positive change.
               </p>
               <blockquote className="border-l-4 border-amber-400 pl-6 py-2 my-8">
-                <p className="text-xl sm:text-2xl font-light italic text-gray-700 leading-relaxed">
-                  &ldquo;The value of a man resides in what he gives &mdash; and not in what he is capable of receiving.&rdquo;
+                <p className="text-xl sm:text-2xl font-light italic text-gray-700 leading-relaxed uppercase tracking-wide">
+                  &ldquo;IT IS EVERY MAN&rsquo;S OBLIGATION TO PUT BACK INTO THE WORLD AT LEAST THE EQUIVALENT OF WHAT HE TAKES OUT OF IT&rdquo;
                 </p>
                 <footer className="mt-2 text-sm text-gray-500">&mdash; Albert Einstein</footer>
               </blockquote>
               <p>
-                Whether it&rsquo;s reef restoration in Lifou or school supplies in Port Vila, your journey with us helps sustain the
-                very places you&rsquo;ve come to experience. Because the best adventures are the ones that give back.
+                Whether it&rsquo;s reef restoration in Lifou or school supplies in Port Vila, your booking helps sustain the very places you&rsquo;ve come to experience. Because the best adventures are the ones that give back.
               </p>
             </div>
           </div>
         </div>
       </section>
-
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Why Choose Us</span>

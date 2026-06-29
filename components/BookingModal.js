@@ -12,8 +12,12 @@ export default function BookingModal() {
     timeSlot: "",
     adults: 1,
     children: 0,
+    excursionName: "",
+    destinationPort: "",
+    destinationId: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     function handleKeydown(e) {
@@ -32,6 +36,7 @@ export default function BookingModal() {
   function closeModal() {
     setOpen(false);
     setSubmitted(false);
+    setError(false);
   }
 
   useEffect(() => {
@@ -44,7 +49,14 @@ export default function BookingModal() {
         const name = modal.dataset.excursion || "";
         const dest = modal.dataset.destination || "";
         const destId = modal.dataset.destinationId || "";
-        setForm((prev) => ({ ...prev, excursionName: name, destinationPort: dest, destinationId: destId }));
+        const requiresTime = modal.dataset.requiresTime === "true";
+        setForm((prev) => ({
+          ...prev,
+          excursionName: name,
+          destinationPort: dest,
+          destinationId: destId,
+          timeSlot: requiresTime ? prev.timeSlot : "",
+        }));
       }
     });
     observer.observe(modal, { attributes: true, attributeFilter: ["class"] });
@@ -56,12 +68,34 @@ export default function BookingModal() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setSubmitted(true);
+    setError(false);
+
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/";
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "form-name": "booking-inquiry",
+          ...form,
+        }),
+      });
+
+      if (!res.ok && endpoint !== "/") {
+        throw new Error("Form submission failed");
+      }
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    }
   }
 
   if (!open) return null;
+
+  const requiresTime = form.excursionName === "A Swim With Sea Turtle Experience";
 
   return (
     <div
@@ -105,9 +139,11 @@ export default function BookingModal() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-6 space-y-4" data-netlify="true" name="booking-inquiry">
+            <input type="hidden" name="form-name" value="booking-inquiry" />
             <input type="hidden" name="excursionName" value={form.excursionName || ""} />
             <input type="hidden" name="destinationPort" value={form.destinationPort || ""} />
+            <input type="hidden" name="destinationId" value={form.destinationId || ""} />
 
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -166,12 +202,13 @@ export default function BookingModal() {
               </div>
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Preferred Time
+                  Preferred Time {requiresTime ? "*" : ""}
                 </label>
                 <select
                   name="timeSlot"
                   value={form.timeSlot}
                   onChange={handleChange}
+                  required={requiresTime}
                   className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer"
                 >
                   <option value="">Select time</option>
@@ -237,7 +274,7 @@ export default function BookingModal() {
                   <span className="w-8 text-center font-bold text-gray-900">{form.children}</span>
                   <button
                     type="button"
-                    onClick={() => setForm((p) => ({ ...p, children: p.children + 1 }))}
+                    onClick={() => setForm((p) => ({ ...p, children: Math.max(0, p.children + 1) }))}
                     className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer"
                   >
                     <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,6 +284,12 @@ export default function BookingModal() {
                 </div>
               </div>
             </div>
+
+            {error && (
+              <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2">
+                Something went wrong. Please try again or email us directly.
+              </p>
+            )}
 
             <p className="text-xs text-gray-400">
               Your booking inquiry will be sent directly to our team. We&apos;ll respond within 24 hours.

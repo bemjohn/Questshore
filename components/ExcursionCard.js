@@ -42,6 +42,10 @@ export default function ExcursionCard({ excursion, destinationPort, destinationI
       <div className="p-5 flex flex-col flex-1">
         <h3 className="text-lg font-bold text-gray-900 mb-3">{excursion.name}</h3>
 
+        {excursion.description && (
+          <p className="text-sm text-gray-500 mb-4 leading-relaxed">{excursion.description}</p>
+        )}
+
         <ul className="space-y-1.5 mb-5 flex-1">
           {excursion.highlights.map((h, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -60,6 +64,7 @@ export default function ExcursionCard({ excursion, destinationPort, destinationI
               modal.dataset.excursion = excursion.name;
               modal.dataset.destination = destinationPort;
               modal.dataset.destinationId = destinationId;
+              modal.dataset.requiresTime = String(!!excursion.requiresTime);
               modal.classList.remove("hidden");
               modal.classList.add("flex");
             }
