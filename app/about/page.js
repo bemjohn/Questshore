@@ -1,8 +1,12 @@
 export default function AboutPage() {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-sky-900 via-sky-800 to-sky-700 py-28 sm:py-36">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
+      <section className="relative py-28 sm:py-36 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80')" }}
+        />
+        <div className="absolute inset-0 bg-slate-900/40" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-2xl sm:text-3xl lg:text-4xl font-light italic leading-relaxed text-white/95">
             &ldquo;Being Well Travelled Isn&rsquo;t About The Number Of Cruises You&rsquo;ve Taken Or The Ports You&rsquo;ve Visited&mdash;It&rsquo;s About How You Deeply Connect With Each Destination&rdquo;
