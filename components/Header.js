@@ -26,7 +26,7 @@ export default function Header() {
               if (link.hasDropdown) {
                 return (
                   <div key={link.label} className="relative group">
-                    <button className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-sky-700 transition-colors cursor-pointer py-4 -my-4">
+                    <Link href={link.href} className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-sky-700 transition-colors py-4 -my-4">
                       {link.label}
                       <svg
                         className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
@@ -36,7 +36,7 @@ export default function Header() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
-                    </button>
+                    </Link>
                     <div className="absolute right-0 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
                         {countries.map((country) => {

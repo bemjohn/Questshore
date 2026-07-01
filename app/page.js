@@ -68,7 +68,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Giving Back</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                We don’t just partner with locals—we give back too. A portion of each experience hosted supports community initiatives like education, women-led businesses, and local conservation effort to create a positive impact.
+                We don’t just partner with locals; we give back too. A portion of each experience hosted supports community initiatives like education, women-led businesses, and local conservation effort to create a positive impact.
               </p>
             </div>
           </div>
