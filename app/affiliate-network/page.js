@@ -25,15 +25,18 @@ export default function AffiliateNetworkPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(false);
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/";
     try {
-      const res = await fetch(endpoint, {
+      const formData = new FormData(e.target);
+      const res = await fetch("/__forms.html", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "form-name": "affiliate-network", ...form }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
       });
-      if (!res.ok && endpoint !== "/") throw new Error("Form submission failed");
-      setSubmitted(true);
+      if (res.status === 200) {
+        setSubmitted(true);
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch {
       setError(true);
     }
@@ -231,7 +234,6 @@ export default function AffiliateNetworkPage() {
             <form
               onSubmit={handleSubmit}
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6"
-              data-netlify="true"
               name="affiliate-network"
             >
               <input type="hidden" name="form-name" value="affiliate-network" />

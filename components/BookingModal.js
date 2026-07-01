@@ -72,22 +72,19 @@ export default function BookingModal() {
     e.preventDefault();
     setError(false);
 
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/";
-
     try {
-      const res = await fetch(endpoint, {
+      const body = new URLSearchParams({ "form-name": "booking-inquiry", ...form });
+      const res = await fetch("/__forms.html", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "form-name": "booking-inquiry",
-          ...form,
-        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
       });
 
-      if (!res.ok && endpoint !== "/") {
+      if (res.status === 200) {
+        setSubmitted(true);
+      } else {
         throw new Error("Form submission failed");
       }
-      setSubmitted(true);
     } catch {
       setError(true);
     }
@@ -139,7 +136,7 @@ export default function BookingModal() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 space-y-4" data-netlify="true" name="booking-inquiry">
+          <form onSubmit={handleSubmit} className="p-6 space-y-4" name="booking-inquiry">
             <input type="hidden" name="form-name" value="booking-inquiry" />
             <input type="hidden" name="excursionName" value={form.excursionName || ""} />
             <input type="hidden" name="destinationPort" value={form.destinationPort || ""} />
