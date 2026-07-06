@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Users, Briefcase, Sparkles } from "lucide-react";
 
 export default function GroupExcursionsPage() {
   const [form, setForm] = useState({
@@ -75,28 +76,47 @@ export default function GroupExcursionsPage() {
             Whatever your crew looks like, we craft the perfect shore day.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-6 rounded-2xl bg-white group">
-            <div className="text-4xl mb-4">???????????</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Family & Milestone Celebrations</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Keep multi-generational families together with pacing, vehicles, and activities perfect for both kids and grandparents.
-            </p>
+        <div className="flex flex-col gap-16 max-w-5xl mx-auto px-4 mt-16">
+
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            <div className="w-full md:w-1/2">
+              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">01</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Family & Milestone Celebrations</h3>
+              <p className="text-gray-500 leading-relaxed">
+                Keep multi-generational families together with pacing, vehicles, and activities perfect for both kids and grandparents.
+              </p>
+            </div>
+            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-indigo-50 to-blue-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
+              <Users className="text-indigo-400" size={48} />
+            </div>
           </div>
-          <div className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-6 rounded-2xl bg-white group">
-            <div className="text-4xl mb-4">??</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Corporate & Incentive Groups</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Reward your team with exclusive private island tours, catamaran charters, or custom team-building events coordinated around your ship’s docking window.
-            </p>
+
+          <div className="flex flex-col md:flex-row-reverse items-center gap-10">
+            <div className="w-full md:w-1/2">
+              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">02</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Corporate & Incentive Groups</h3>
+              <p className="text-gray-500 leading-relaxed">
+                Reward your team with exclusive private island tours, catamaran charters, or custom team-building events coordinated around your ship's docking window.
+              </p>
+            </div>
+            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-blue-50 to-cyan-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
+              <Briefcase className="text-blue-400" size={48} />
+            </div>
           </div>
-          <div className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-6 rounded-2xl bg-white group">
-            <div className="text-4xl mb-4">??</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Wedding & Private Parties</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Create an unforgettable pre- or post-wedding island day trip curated with private local guides, custom dining setups, and premium transport.
-            </p>
+
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            <div className="w-full md:w-1/2">
+              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">03</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Wedding & Private Parties</h3>
+              <p className="text-gray-500 leading-relaxed">
+                Create an unforgettable pre- or post-wedding island day trip curated with private local guides, custom dining setups, and premium transport.
+              </p>
+            </div>
+            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-rose-50 to-pink-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
+              <Sparkles className="text-rose-400" size={48} />
+            </div>
           </div>
+
         </div>
       </section>
       <section className="bg-gray-50 py-20">

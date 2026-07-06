@@ -1,59 +1,110 @@
+"use client";
+
+import { useState } from 'react';
+
 export default function AboutPage() {
+  const [activeTab, setActiveTab] = useState('how-it-started');
   return (
     <>
-      <section className="relative py-28 sm:py-36 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80')" }}
+      <section className="w-full min-h-[70vh] md:min-h-[85vh] relative flex items-end pb-12 md:pb-20 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1920&q=80"
+          alt="Group of travelers laughing and exploring a tropical coastal port city on a shore excursion"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         />
-        <div className="absolute inset-0 bg-slate-900/40" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-2xl sm:text-3xl lg:text-4xl font-light italic leading-relaxed text-white/95">
-            &ldquo;Being Well Travelled Isn&rsquo;t About The Number Of Cruises You&rsquo;ve Taken Or The Ports You&rsquo;ve Visited&mdash;It&rsquo;s About How You Deeply Connect With Each Destination&rdquo;
-          </p>
-          <div className="mt-8 w-16 h-0.5 bg-amber-400 mx-auto" />
-        </div>
-      </section>
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center mb-16">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Our Story</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Adventure Beyond The Shore</h2>
-        </div>
-        <div className="max-w-3xl mx-auto space-y-8 text-gray-600 text-base sm:text-lg leading-[1.8]">
-          <p>
-            QuestAshore is all about encouraging cruise guests to adventure beyond the shore. We believe every port holds something extraordinary waiting to be discovered. And making each destination exciting and accessible with our bucket list experiences.
-          </p>
-          <p>
-            Travel is a great teacher. Our founder experienced firsthand how inflated shore excursion pricing could stop curious travelers from truly exploring ports. That frustration sparked a vision: to create a better, meaningful, and more affordable discovery channel without ever compromising on quality.
-          </p>
-          <p>
-            What started as a personal passion project has grown into a global network trusted by families, solos, and singles alike. Today, QuestAshore partners with vetted local guides across the South Pacific and beyond to deliver shore excursions that prioritise quality, safety, and cultural respect at transparent pier-side prices.
+        <div className="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute inset-0 z-10" />
+        <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <h1 className="text-white text-5xl md:text-7xl font-serif tracking-tight mb-4 font-normal relative z-20">About us</h1>
+          <p className="text-white/90 text-base md:text-xl max-w-2xl leading-relaxed font-light tracking-wide relative z-20">
+            QuestAshore is all about encouraging cruise guests to adventure beyond the shore..And making each destination exciting and accessible with our bucket list experiences.
           </p>
         </div>
       </section>
-      <section className="bg-gray-50 py-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative bg-white rounded-3xl border border-gray-200 shadow-sm p-10 sm:p-14 lg:p-16">
-            <div className="absolute -top-4 left-8 inline-block bg-amber-500 text-white text-xs font-bold uppercase tracking-[0.15em] px-5 py-1.5 rounded-full">
-              Do More With Your Booking
+      <section>
+        <div className="w-full border-b border-slate-200 bg-white">
+          <div className="max-w-6xl mx-auto px-4 md:px-12 flex gap-12 justify-start pt-8 pb-0">
+            <button
+              onClick={() => setActiveTab('how-it-started')}
+              className={`transition-all duration-300 pb-4 relative font-medium text-sm md:text-base ${
+                activeTab === 'how-it-started'
+                  ? 'text-slate-900 border-b-2 border-slate-900'
+                  : 'text-slate-400 border-b-2 border-transparent hover:text-slate-600'
+              }`}
+            >
+              How It Started
+            </button>
+            <button
+              onClick={() => setActiveTab('giving-back')}
+              className={`transition-all duration-300 pb-4 relative font-medium text-sm md:text-base ${
+                activeTab === 'giving-back'
+                  ? 'text-slate-900 border-b-2 border-slate-900'
+                  : 'text-slate-400 border-b-2 border-transparent hover:text-slate-600'
+              }`}
+            >
+              Giving Back
+            </button>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto px-4 md:px-12 py-16">
+          <div>
+            <div className="flex items-center gap-6 md:gap-8 w-full">
+              <div className="w-[40%] flex flex-col gap-6">
+                <img
+                  src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=400&q=80"
+                  alt="Travelers exploring a tropical destination"
+                  className="w-full aspect-[4/5] object-cover rounded-[32px] shadow-sm"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"
+                  alt="Group of friends laughing on a boat excursion"
+                  className="w-full aspect-[4/5] object-cover rounded-[32px] shadow-sm"
+                />
+              </div>
+              <div className="w-[60%] -mt-12 md:-mt-16 mb-12 md:mb-16">
+                <img
+                  src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=800&q=80"
+                  alt="Travelers on a shore excursion boat adventure"
+                  className="w-full aspect-[4/5] object-cover rounded-[40px] shadow-md"
+                />
+              </div>
             </div>
-            <div className="mt-4 space-y-6 text-gray-600 text-base sm:text-lg leading-[1.8]">
-              <p>
-                A portion of every booking profit directly helps local causes, empowers small business owners, and betters communities across the ports we visit. From funding education programs in Vanuatu to supporting women-led enterprises in Fiji, your journey with us creates ripples of positive change.
-              </p>
-              <blockquote className="border-l-4 border-amber-400 pl-6 py-2 my-8">
-                <p className="text-xl sm:text-2xl font-light italic text-gray-700 leading-relaxed uppercase tracking-wide">
-                  &ldquo;IT IS EVERY MAN&rsquo;S OBLIGATION TO PUT BACK INTO THE WORLD AT LEAST THE EQUIVALENT OF WHAT HE TAKES OUT OF IT&rdquo;
+          </div>
+          <div>
+            {activeTab === 'how-it-started' && (
+              <>
+                <span className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-4 block">HOW IT STARTED</span>
+                <p className="text-2xl md:text-3xl font-serif font-normal text-slate-900 leading-snug mb-8 block">
+                  &ldquo;Being Well Travelled Isn&rsquo;t About The Number Of Cruises You&rsquo;ve Taken Or The Ports You&rsquo;ve Visited. It&rsquo;s About How You Deeply Connect With Each Destination&rdquo;
                 </p>
-                <footer className="mt-2 text-sm text-gray-500">&mdash; Albert Einstein</footer>
-              </blockquote>
-              <p>
-                Whether it&rsquo;s reef restoration in Lifou or school supplies in Port Vila, your booking helps sustain the very places you&rsquo;ve come to experience. Because the best adventures are the ones that give back.
-              </p>
-            </div>
+                <div className="flex flex-col gap-6 text-slate-600 text-sm md:text-base leading-relaxed">
+                  <p>Travel is one of life&rsquo;s greatest teachers. It gives us the opportunity to step beyond our familiar surroundings, embrace the unknown, and discover the beauty, cultures, and stories that make every destination unique.</p>
+                  <p>I started QuestAshore as a way to explore destinations with fellow travellers. What began as a personal passion has grown into something far greater than I ever imagined, with travellers now trusting me to curate unforgettable shore experiences around the world for families, solo travelers, and singles.</p>
+                  <p>Today, we help cruise travellers plan stress-free experiences in every port of call from small-group shore excursions to private, tailor-made adventures. Every experience is carefully selected to help you make the most of your time ashore.</p>
+                  <p>For many cruisers, the cost of shore excursions can be almost as much as, or even more than, the cruise itself. For a long time, that stopped me from fully exploring the destinations I visited. That experience inspired me to find better, more affordable, and more meaningful ways to discover each port without compromising on quality.</p>
+                  <p>Whether you&rsquo;re a seasoned cruiser or embarking on your very first voyage, our carefully curated experiences are designed to immerse you in local culture, uncover hidden gems, and create memories that last long after your cruise ends. By choosing local operators wherever possible, we also help support the communities that make each destination so special.</p>
+                </div>
+              </>
+            )}
+            {activeTab === 'giving-back' && (
+              <>
+                <span className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-4 block">GIVING BACK</span>
+                <p className="text-2xl md:text-3xl font-serif font-normal text-slate-900 leading-snug mb-8 block">&ldquo;Do More With Your Booking&rdquo;</p>
+                <div className="flex flex-col gap-6 text-slate-600 text-sm md:text-base leading-relaxed">
+                  <p>We believe that travel should be sustainable and responsible</p>
+                  <p>As a brand we strive to create unforgettable experiences and interactions with the local communities across the various countries we curate excursions in.</p>
+                  <p>We educate ourselves about global and local issues and we give back by donating a portion of the profits made from each bookings towards important local causes</p>
+                  <p>As we travel and support local partners globally,we don&rsquo;t only empower local businesses by supporting small business owners but we seek out partnership with organisations that are about the betterment of their communities</p>
+                </div>
+                <div className="border-l-2 border-slate-900 pl-4 mt-8 space-y-1">
+                  <p className="text-sm font-semibold tracking-wide text-slate-700 italic block">&ldquo;IT IS EVERY MAN&rsquo;S OBLIGATION TO PUT BACK INTO THE WORLD AT LEAST THE EQUIVALENT OF WHAT HE TAKES OUT OF IT&rdquo;</p>
+                  <p className="text-xs uppercase tracking-wider text-slate-400 font-medium block mt-1">Albert Einstein</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Why Choose Us</span>
