@@ -13,7 +13,7 @@ export default function Hero() {
   function handleSearch(e) {
     e.preventDefault();
     if (port) {
-      router.push(`/destinations/${port}`);
+      router.push("/destinations");
     }
   }
 
@@ -43,19 +43,16 @@ export default function Hero() {
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1 text-left">
-                Destination Port
+                Destination
               </label>
               <select
                 value={port}
                 onChange={(e) => setPort(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all cursor-pointer"
               >
-                <option value="">Select a port...</option>
-                {destinations.map((dest) => (
-                  <option key={dest.id} value={dest.id}>
-                    {dest.port}
-                  </option>
-                ))}
+                <option value="">Select a region...</option>
+                <option value="south-pacific">South Pacific</option>
+                <option value="caribbean">Caribbean Excursions</option>
               </select>
             </div>
 

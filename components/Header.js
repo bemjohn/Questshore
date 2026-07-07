@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { destinations, countries } from "@/data/excursions";
 import { navLinks } from "@/data/navigation";
 
 export default function Header() {
@@ -37,27 +36,20 @@ export default function Header() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </Link>
-                    <div className="absolute right-0 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="absolute right-0 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
-                        {countries.map((country) => {
-                          const countryDests = destinations.filter((d) => d.country === country);
-                          return (
-                            <div key={country}>
-                              <div className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-gray-400">
-                                {country}
-                              </div>
-                              {countryDests.map((dest) => (
-                                <Link
-                                  key={dest.id}
-                                  href={`/destinations/${dest.id}`}
-                                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
-                                >
-                                  {dest.port}
-                                </Link>
-                              ))}
-                            </div>
-                          );
-                        })}
+                        <Link
+                          href="/destinations/south-pacific"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
+                        >
+                          South Pacific
+                        </Link>
+                        <Link
+                          href="/destinations/caribbean"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
+                        >
+                          Caribbean Excursions
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -102,16 +94,20 @@ export default function Header() {
                     <div className="text-xs font-bold uppercase tracking-wider text-gray-400 py-1">
                       {link.label}
                     </div>
-                    {destinations.map((dest) => (
-                      <Link
-                        key={dest.id}
-                        href={`/destinations/${dest.id}`}
-                        className="block pl-4 py-1.5 text-sm text-gray-600 hover:text-sky-700"
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        {dest.port}
-                      </Link>
-                    ))}
+                    <Link
+                      href="/destinations/south-pacific"
+                      className="block pl-4 py-1.5 text-sm text-gray-600 hover:text-sky-700"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      South Pacific
+                    </Link>
+                    <Link
+                      href="/destinations/caribbean"
+                      className="block pl-4 py-1.5 text-sm text-gray-600 hover:text-sky-700"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      Caribbean Excursions
+                    </Link>
                   </div>
                 );
               }
