@@ -111,7 +111,89 @@ export const destinations = [
     overview:
       "Discover the beauty of Roatan — a premier cruise port in the Bay Islands of Honduras, renowned for its stunning coral reefs, white-sand beaches, and rich Garifuna culture.",
     points_of_interest: ["West Bay Beach", "Carambola Gardens", "Roatan Marine Park"],
-    excursions: [],
+    excursions: [
+      {
+        name: "Roatan By Land And Sea",
+        pricing: { adult: 68 },
+        highlights: [
+          "Explore local villages, historic landmarks, and scenic lookout points on a guided island tour",
+          "Set sail on a relaxing small-group cruise departing from West End Beach",
+          "Snorkel the world's second-largest barrier reef alongside an experienced guide",
+          "Watch playful dolphins during a visit to the Institute of Marine Science",
+          "Unwind with free time on the beach before returning to your ship",
+        ],
+      },
+      {
+        name: "Day Pass at a Private Island Beach Resort & Orphanage Visit",
+        pricing: { adult: 48 },
+        highlights: [
+          "Experience the beauty of Roatan's community and culture on the unique Roatan Orphanage tour — an opportunity to give back to the community, not to be missed",
+          "Unwind at Bradey Cay's Island after your visit to the orphanage",
+          "Benefit from roundtrip transportation and a certified friendly bilingual guide",
+        ],
+      },
+      {
+        name: "Roatan Animal Sanctuary & Beach Break",
+        pricing: { adult: 74 },
+        description: "This tour combines exploration and relaxation in a tropical paradise. Travel in comfort with our experienced local guide, who'll offer rich insights into Roatan's history and culture.",
+        highlights: [
+          "Visit unique attractions such as an iguana farm",
+          "Explore the Sloth and Monkey Sanctuary",
+          "Stroll through botanical gardens",
+          "End the day lounging on a private all-inclusive island with peaceful scenery",
+        ],
+      },
+    ],
+  },
+  {
+    id: "cozumel",
+    port: "Cozumel, Mexico",
+    country: "Mexico",
+    overview:
+      "Discover the magic of Cozumel — a Caribbean island paradise off the Yucatán Peninsula, world-famous for its crystal-clear waters, magnificent coral reefs, and rich Mayan heritage.",
+    points_of_interest: ["Chankanaab National Marine Park", "San Miguel de Cozumel", "Mayan Ruins"],
+    excursions: [
+      {
+        name: "Dolphin Swim Encounter at Chankanaab Marine Park",
+        pricing: { adult: 110, child: 0 },
+        description:
+          "Chankanaab National Marine Park in Cozumel is the perfect setting for a memorable, bucket list dolphin experience. The Dolphin Connection program is designed to create a fun and personal connection with one of the ocean's most fascinating animals in a safe and respectful environment.",
+        highlights: [
+          "Experience an interactive dolphin swim in Cozumel at Chankanaab National Marine Park, one of the island's top shore excursion destinations",
+          "Enjoy up to 40 minutes in the water with one dolphin in a small group of up to 8 guests, creating a more personal and immersive experience",
+          "Take part in up to 18 dolphin behaviors, including a kiss, fin shake, Dolphin Embrace, Heart to Heart, and Ocean Echo",
+          "Bonus experiences: 10-minute manatee meet and greet and a sea lion presentation",
+          "Enjoy access to Chankanaab Park facilities including buffet, open bar, pool, and sea lion presentation",
+        ],
+      },
+      {
+        name: "Manatee Encounter",
+        pricing: { adult: 79 },
+        description:
+          "There's swimming, and then there's swimming with manatees! The Manatee Swim and Chankanaab Park excursion will be the absolute highlight of your Cozumel visit. Submerge yourself in the underwater world of the manatee.",
+        highlights: [
+          "Swim with and feed delightful manatees during a hands-on encounter",
+          "Enjoy unlimited access to Chankanaab National Marine Park",
+          "Attend a sea lion show and dolphin presentation",
+          "Take a self-guided archaeological tour",
+          "Leave with lifetime memories and professional underwater photos",
+        ],
+      },
+      {
+        name: "Explore Cozumel Historical & Beach Break",
+        pricing: { adult: 65 },
+        description:
+          "Want to combine a historical experience with beach fun? This is for you. Explore the Cozumel City tour with its historical center and flea market, iconic monuments, and a visit to a Mayan village for a tasting of tequila, organic chocolate, and a pre-Hispanic taco.",
+        highlights: [
+          "Cozumel City tour visiting historical center and flea market",
+          "Iconic monuments and photo of the Cozumel sign",
+          "Visit to a Mayan village for a tasting of tequila, organic chocolate, a pre-Hispanic taco made with seeds, and a complimentary beverage",
+          "Visit to the Mayan temple where the first official Catholic mass was celebrated in 1518",
+          "Visit to a black coral factory, Cozumel's only local craft",
+          "Beach club access includes all amenities: lounge chairs, shade, pool, showers, restrooms, and Wi-Fi",
+        ],
+      },
+    ],
   },
 ];
 

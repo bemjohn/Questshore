@@ -23,16 +23,40 @@ export default function FijiPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16">
+        {/* Lautoka Essentielle */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-16 mb-16 border-b border-slate-100 last:border-b-0">
           <div className="lg:col-span-7">
+            <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden mb-6 bg-slate-100 shadow-sm relative">
+              <img
+                src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80"
+                alt=""
+                className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-[1.02]"
+              />
+            </div>
             <h2 className="text-2xl font-serif text-slate-900 mb-4">Lautoka Essentielle</h2>
-            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-              {`Begin with a scenic drive through Lautoka,Fiji's sugar city"where you'll discover local landmarks Anand everyday island life.visit the vibrant local market and experience the Colors, aromas and fresh produce that make fijis markets so unique. Continue to the famous mud pools and hotspring,where you can enjoy a natural spa experience and learn why locals have treasured these therapeutic waters for generations. Next stroll through the stunning Garden of the sleeping giant,home to lush tropical landscapes, tranquil walking paths and impressive collection of orchids nestled beneath the surrounding mountains. End the day at the beautiful Crowne Plaza Resort, where you'll have time to relax and enjoy Fiji at your own pace. Take a refreshing swim in the pool, unwind by the beach or simply soak up the tropical atmosphere before return to your ship. This excursion offers the perfect blend of sightseeing,culture,nature and relaxation-an ideal way to experience the best of lautoka in a single day.`}
-            </p>
+            <span className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-4 block">
+              Excursion Highlights&hellip;
+            </span>
+            <ul className="list-disc pl-5 space-y-3 marker:text-slate-400">
+              {[
+                "Scenic drive through Lautoka, Fiji's sugar city, with local landmarks and everyday island life",
+                "Visit the vibrant local market with colors, aromas and fresh produce",
+                "Natural spa experience at the famous mud pools and hot spring",
+                "Stroll through the stunning Garden of the Sleeping Giant with orchid collections",
+                "Relax and unwind at the beautiful Crowne Plaza Resort with pool and beach access",
+              ].map((h, i) => (
+                <li key={i} className="text-slate-600 text-sm md:text-base leading-relaxed">
+                  {h}
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Lautoka Essentielle"
+              showForm
+              showCheckout
+              showInfo
               pricing={[
                 { adultLabel: "Adult :$80", childLabel: "Child: $40", adultPrice: 80, childPrice: 40 },
               ]}
