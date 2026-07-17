@@ -17,7 +17,7 @@ export default function GroupExcursionsPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const destOptions = ["Port Vila", "Noumea", "Lifou", "Fiji", "Roatan"];
+  const destOptions = ["Port Vila", "Noumea", "Lifou", "Fiji", "Roatan", "Cozumel"];
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
@@ -69,11 +69,15 @@ export default function GroupExcursionsPage() {
         </div>
       </section>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Tailored For You</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Group Experiences Designed Around You</h2>
-          <p className="mt-3 text-gray-500 max-w-xl mx-auto">
-            Whatever your crew looks like, we craft the perfect shore day.
+        <div className="text-center max-w-4xl mx-auto mb-10">
+          <p className="text-amber-600 dark:text-orange-500 text-xs font-bold tracking-widest uppercase mb-3">
+            SINGLES &amp; SOLOS SOCIALS
+          </p>
+          <h2 className="text-slate-900 dark:text-white text-3xl md:text-4xl font-extrabold tracking-tight mb-6 uppercase">
+            GROUP EXPERIENCES DESIGNED WITH YOU IN MIND
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed">
+            We enjoy designing exclusive excursions for single cruisers, our hosted shore excursions are all about bringing people together. Meet fellow singles, discover incredible destinations, and enjoy experiences that are more fun when shared. Whether you&rsquo;re looking to make new friends, expand your social circle, or simply enjoy exploring with great company, every excursion offers a relaxed, welcoming atmosphere where meaningful connections happen naturally. Your next favorite travel memory could begin with the people you meet along the way.
           </p>
         </div>
         <div className="flex flex-col gap-16 max-w-5xl mx-auto px-4 mt-16">

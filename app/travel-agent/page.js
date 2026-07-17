@@ -57,66 +57,62 @@ export default function TravelAgentPage() {
       </section>
 
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <p className="text-xl sm:text-2xl text-gray-700 font-light leading-relaxed mb-8">
-          We are delighted to partner with travel agents and advisors to offer your clients exceptional destination excursions and experiences across our focused regions.
-        </p>
         <div className="space-y-6 text-gray-600 text-base sm:text-lg leading-[1.8]">
           <p>
-            We love to work with travel agencies and advisors to provide reliable, high quality tours that cruise passengers and hotel guests can book with confidence. From Cultural experiences and scenic sightseeing to adventure activities and relaxing beach escapes, our carefully curated excursions are designed to create unforgettable memories.
+            We are excited to connect with travel agents and travel advisors who are looking to offer their clients memorable destinations experiences .As a growing brand, we believe that meaningful partnerships are built on trust,collaboration and a shared commitment to exceptional service.
           </p>
           <p>
-            We&apos;ll love to hear from you to discuss how this can be a positive advantage to both.
+            We invite you to grow with us, as we build a network of trusted travel professionals. By partnering together, you&rsquo;ll have the opportunity to introduce your clients to carefully curated excursions and authentic local experiences in each of our listed destinations while working with a team that values communication,reliability and personalised support.
+          </p>
+          <p>
+            We&rsquo;re committed to creating long term relationships with our partners and welcome the opportunity to learn, grow and succeed together
+          </p>
+          <p>
+            If you&rsquo;re interested in collaborating, we&rsquo;d love to hear from you.Lets work together to create unforgettable travel experiences for your clients while building a partnership that benefits us both.
           </p>
         </div>
       </section>
 
       <section className="bg-gradient-to-b from-white to-slate-50 py-20">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Why Partner With Us</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Benefits for Your Agency</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mt-12">
-            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
-              <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-emerald-100 transition-colors">
-                <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Travel With Confidence</h3>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">THE PERKS</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group">
+              <div className="text-3xl font-bold text-sky-600 mb-4">01)</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Earn Commision:</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Your clients enjoy small group to private excursions operated by fully licensed and insured local partners you can trust.
+                Make an extra earning through our excursions —monthly
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
-              <div className="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-sky-100 transition-colors">
-                <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Back To Ship Guaranteed</h3>
+            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group">
+              <div className="text-3xl font-bold text-sky-600 mb-4">02)</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Our Excursions Are Lower Priced And Higher Quality</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                We coordinate every excursion with ship schedules so your clients return well before departure with complete peace of mind.
+                compared with the cruise lines, we only operates smaller size group,no crowded buses,average excursions size is 12 persons
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
-              <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-amber-100 transition-colors">
-                <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Payment Plan ($)</h3>
+            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group">
+              <div className="text-3xl font-bold text-sky-600 mb-4">03)</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Guarantee Return To Ship</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Flexible payment options help your clients secure bookings affordably with convenient weekly or monthly plans.
+                We have never had any customer miss their ship or left uncared for 
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
-              <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-rose-100 transition-colors">
-                <svg className="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Giving Back</h3>
+            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group">
+              <div className="text-3xl font-bold text-sky-600 mb-4">04)</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">24\7 Supports and Guidiance</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Partnering with QuestAshore supports local communities and marine conservation across the destinations your clients visit.
+                We offer full supports via our emails, as a small and new cruise focused brand, we are prompt with responses and make sure everything goes well as expected
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group">
+              <div className="text-3xl font-bold text-sky-600 mb-4">05)</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">We&rsquo;re Better Together</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                By Partnering with us, you encourage us to give back to the communities across each destinations your clients visit .
+                Our Collaboration is simply to help shape the best experiences for each cruise passengers.
               </p>
             </div>
           </div>
@@ -126,7 +122,6 @@ export default function TravelAgentPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">Our Destinations</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Explore Partner Ports</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {destinations.map((dest) => (
@@ -146,51 +141,7 @@ export default function TravelAgentPage() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">How It Works</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900 mb-12">Three Simple Steps</h2>
-          <div className="grid sm:grid-cols-3 gap-8">
-            <div className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-8 rounded-2xl bg-white group">
-              <div className="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-sky-100 transition-colors">
-                <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-              </div>
-              <div className="text-3xl font-bold text-sky-600 mb-4">01</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Reach Out</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                Reach out and tell us about your clients
-              </p>
-            </div>
-            <div className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-8 rounded-2xl bg-white group">
-              <div className="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-sky-100 transition-colors">
-                <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div className="text-3xl font-bold text-sky-600 mb-4">02</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">We Tailor</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                We tailor excursion packages to fit
-              </p>
-            </div>
-            <div className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-8 rounded-2xl bg-white group">
-              <div className="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-sky-100 transition-colors">
-                <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <div className="text-3xl font-bold text-sky-600 mb-4">03</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Book With Confidence</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                Your clients book with confidence
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       <section className="bg-white py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -287,7 +238,7 @@ export default function TravelAgentPage() {
                   rows={4}
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Tell us about your agency and how we can help..."
+                  placeholder="We'd love to hear from you!"
                   className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none"
                 />
               </div>

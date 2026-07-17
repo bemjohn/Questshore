@@ -92,16 +92,15 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">
-                &ldquo;Booking Port Vila through QuestAshore was a breeze. Our guide was waiting right outside the pier
-                gates, and we beat all the massive cruise tour buses to the Blue Lagoon!&rdquo;
+                &ldquo;we loved our cruise excursions putten together by Omotola,our tour guide was super friendly, chilled &amp;clean air conditioned van, it was so relaxing and we got to see so many beautiful places all in one day. Highly recommended&rdquo;.
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-bold text-sm">
-                  SM
+                  L
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900 text-sm">Sarah M.</p>
-                  <p className="text-gray-400 text-xs">Sailed on Celebrity Solstice</p>
+                  <p className="font-semibold text-gray-900 text-sm">Lisa</p>
+                  <p className="text-gray-400 text-xs">Verified Guest</p>
                 </div>
               </div>
             </div>
@@ -114,16 +113,15 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">
-                &ldquo;The turtle snorkeling tour in Noumea was unforgettable. Clear communication, safe driving, and we
-                were back at the ship 2 hours before departure.&rdquo;
+                &ldquo;Highly recommend Omotola and her team,we had the best day, we were able to see so many sights with our small group size and it was amazing value. Great tour.&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-bold text-sm">
-                  DK
+                  J
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900 text-sm">David K.</p>
-                  <p className="text-gray-400 text-xs">Sailed on Royal Caribbean</p>
+                  <p className="font-semibold text-gray-900 text-sm">Jodi</p>
+                  <p className="text-gray-400 text-xs">Verified Guest</p>
                 </div>
               </div>
             </div>
