@@ -70,9 +70,6 @@ export default function GroupExcursionsPage() {
       </section>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center max-w-4xl mx-auto mb-10">
-          <p className="text-amber-600 dark:text-orange-500 text-xs font-bold tracking-widest uppercase mb-3">
-            SINGLES &amp; SOLOS SOCIALS
-          </p>
           <h2 className="text-slate-900 dark:text-white text-3xl md:text-4xl font-extrabold tracking-tight mb-6 uppercase">
             GROUP EXPERIENCES DESIGNED WITH YOU IN MIND
           </h2>
