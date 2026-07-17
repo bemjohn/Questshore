@@ -111,7 +111,7 @@ export default function GroupExcursionsPage() {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2">
               <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">03</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Private Parties</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Single &amp; Solo Social</h3>
               <p className="text-gray-500 leading-relaxed">
                 Create an unforgettable pre- or post-wedding island day trip curated with private local guides, custom dining setups, and premium transport.
               </p>
