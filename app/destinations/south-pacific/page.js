@@ -42,12 +42,14 @@ export default function SouthPacificPage() {
         />
         <div className="bg-gradient-to-r from-black/80 via-black/40 to-transparent absolute inset-0 z-10" />
         <div className="relative z-20 max-w-3xl text-left text-white space-y-4">
-          <h1 className="text-white text-4xl md:text-6xl font-serif tracking-tight font-normal leading-[1.1]">
-            Customized travel packages for your dates &amp; budget!
+          <h1 className="text-3xl md:text-5xl lg:text-6xl text-white max-w-5xl leading-tight">
+            <span className="block mb-2 text-2xl md:text-4xl font-extrabold tracking-tight opacity-95">
+              Did your itinerary say South Pacific?
+            </span>
+            <span className="block text-xl md:text-2xl font-normal opacity-90">
+              Make your time ashore worthwhile with our bucket list experiences
+            </span>
           </h1>
-          <p className="text-slate-200 text-base md:text-lg font-light tracking-wide max-w-xl">
-            Stress-free bucket list experiences curated by our team of travel experts!
-          </p>
         </div>
       </section>
 

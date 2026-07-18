@@ -31,7 +31,7 @@ export default function Hero() {
 
       <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
-          Discover Extraordinary
+          Make every destination memorable
           <br />
           <span className="text-cyan-300">Shore Excursions</span>
         </h1>
