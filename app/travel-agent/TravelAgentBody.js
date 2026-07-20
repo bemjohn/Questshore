@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function TravelAgentBody({ data, destinations, urlFor }) {
+export default function TravelAgentBody({ data, destinations }) {
   const [form, setForm] = useState({
     agencyName: "",
     contactName: "",
@@ -100,7 +100,7 @@ export default function TravelAgentBody({ data, destinations, urlFor }) {
               className="relative overflow-hidden rounded-2xl group h-48 shadow-sm hover:shadow-xl transition-all duration-300 block"
             >
               <img
-                src={urlFor ? urlFor(dest.image).width(400).height(300).url() : ''}
+                src={dest.image || ''}
                 alt={dest.title}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
