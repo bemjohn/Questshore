@@ -1,22 +1,23 @@
 import { revalidatePath } from 'next/cache';
+import { parseBody } from 'next-sanity/webhook';
 
 export async function POST(req) {
   try {
-    const secret =
-      req.nextUrl.searchParams.get('secret') ||
-      req.headers.get('x-sanity-secret');
+    const secret = process.env.SANITY_REVALIDATE_SECRET;
+    const { isValidSignature, body } = await parseBody(req, secret);
 
-    if (secret !== process.env.SANITY_REVALIDATE_SECRET) {
+    if (!isValidSignature) {
       return new Response(
-        JSON.stringify({ message: 'Invalid secret' }),
+        JSON.stringify({ message: 'Invalid webhook signature' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
+    // Purge cached pages globally across all routes
     revalidatePath('/', 'layout');
 
     return new Response(
-      JSON.stringify({ revalidated: true, now: Date.now() }),
+      JSON.stringify({ revalidated: true, now: Date.now(), body }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (err) {

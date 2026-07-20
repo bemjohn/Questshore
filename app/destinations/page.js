@@ -1,66 +1,29 @@
-import { client, urlFor } from "@/lib/sanity";
-import { destinationsPageQuery, destinationsByRegion } from "@/lib/queries";
-import Link from "next/link";
+import DestinationCard from "@/components/DestinationCard";
+import { destinations } from "@/data/excursions";
 
 export const metadata = {
   title: "All Destinations — QuestAshore Excursions",
-  description: "Explore all shore destinations. Book your adventure today.",
+  description: "Explore all South Pacific shore destinations. Book your adventure today.",
 };
 
-const fallbackDestinations = [
-  { title: "Fiji", slug: "fiji", cardImage: "https://images.unsplash.com/photo-1507876466758-bc54f384809c?auto=format&fit=crop&w=800&h=600&q=80" },
-  { title: "Lifou", slug: "lifou", cardImage: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=800&h=600&q=80" },
-  { title: "Noumea", slug: "noumea", cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=600&q=80" },
-  { title: "Port Vila", slug: "port-vila", cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=600&q=80" },
-];
-
-export default async function DestinationsIndexPage() {
-  let page;
-  let allDestinations;
-
-  try {
-    [page, allDestinations] = await Promise.all([
-      client.fetch(destinationsPageQuery),
-      client.fetch(destinationsByRegion, { region: "South Pacific" }),
-    ]);
-  } catch {
-    page = null;
-    allDestinations = [];
-  }
-
-  const destinations = allDestinations.length ? allDestinations : fallbackDestinations;
-
+export default function DestinationsIndexPage() {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center mb-16">
         <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">
-          {page?.eyebrow || "Destinations"}
+          Destinations
         </span>
         <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">
-          {page?.heading || "Explore Our Destinations"}
+          Explore Our Destinations
         </h1>
         <p className="mt-3 text-gray-500 max-w-xl mx-auto">
-          {page?.subtitle || "Handpicked shore excursions across the most breathtaking ports."}
+          Handpicked shore excursions across the most breathtaking South Pacific ports.
         </p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {destinations.map((dest) => (
-          <Link
-            key={dest.slug}
-            href={`/destinations/${dest.slug}`}
-            className="relative overflow-hidden rounded-2xl group h-72 shadow-sm hover:shadow-xl transition-all duration-300 block"
-          >
-            <img
-              src={typeof dest.cardImage === 'string' ? dest.cardImage : urlFor(dest.cardImage).width(800).height(600).url()}
-              alt={dest.title}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-4 left-4">
-              <h3 className="text-white font-bold text-lg leading-tight">{dest.title}</h3>
-            </div>
-          </Link>
+          <DestinationCard key={dest.id} dest={dest} />
         ))}
       </div>
     </section>

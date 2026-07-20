@@ -1,63 +1,53 @@
 import Link from "next/link";
-import SiteHero from "@/components/SiteHero";
-import SearchForm from "@/components/SearchForm";
-import { client, urlFor } from "@/lib/sanity";
-import { regionPageBySlug } from "@/lib/queries";
 
-const fallbackHero = {
-  backgroundImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80",
-  title: "Customised Destination Experiences You don't want to miss out on!",
-  subtitle: "Handpicked Caribbean shore excursions for an unforgettable cruise experience.",
-  overlayOpacity: 30,
-};
-
-const fallbackDestinations = [
-  { title: "Cozumel", slug: "cozumel", cardImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=800&h=500&q=80", badges: ["Popular"] },
-  { title: "Roatán", slug: "roatan", cardImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=800&h=500&q=80", badges: [] },
+const locations = [
+  {
+    id: "roatan",
+    title: "Roatan, Honduras",
+    badges: ["Adventure", "Wildlife", "Beach"],
+    image:
+      "https://images.unsplash.com/photo-1590523741831-ab7e8b3f8d1c?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: "cozumel",
+    title: "Cozumel, Mexico",
+    badges: ["Marine", "History", "Culture"],
+    image:
+      "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+  },
 ];
 
-export default async function CaribbeanPage() {
-  let page;
-
-  try {
-    page = await client.fetch(regionPageBySlug, { region: "caribbean" });
-  } catch {
-    page = null;
-  }
-
-  const hero = page?.hero ?? fallbackHero;
-  const destinations = page?.featuredDestinations ?? fallbackDestinations;
-
+export default function CaribbeanPage() {
   return (
     <>
-      <SiteHero
-        backgroundImage={hero.backgroundImage || fallbackHero.backgroundImage}
-        mobileBackgroundImage={hero.mobileBackgroundImage}
-        title={hero.title || fallbackHero.title}
-        subtitle={hero.subtitle || fallbackHero.subtitle}
-        accentText={hero.accentText}
-        overlayOpacity={hero.overlayOpacity ?? fallbackHero.overlayOpacity}
-      />
-      {hero.showSearch && (
-        <div className="-mt-16 relative z-30 max-w-3xl mx-auto px-4">
-          <SearchForm />
+      <section className="w-full min-h-[550px] relative flex items-center bg-slate-900 overflow-hidden py-20 px-6 md:px-12">
+        <img
+          src="https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-70 z-0"
+        />
+        <div className="bg-gradient-to-r from-black/80 via-black/40 to-transparent absolute inset-0 z-10" />
+        <div className="relative z-20 max-w-3xl text-left text-white space-y-4">
+          <h1 className="text-white text-4xl md:text-6xl font-serif tracking-tight font-normal leading-[1.1]">
+            Customised Destination Experiences You don't want to miss out on!
+          </h1>
         </div>
-      )}
+      </section>
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        {destinations.map((loc) => (
+        {locations.map((loc) => (
           <Link
-            key={loc.slug}
-            href={`/destinations/caribbean/${loc.slug}`}
+            key={loc.id}
+            href={`/destinations/caribbean/${loc.id}`}
             className="relative aspect-[16/10] rounded-3xl overflow-hidden cursor-pointer group shadow-md bg-slate-800 transition-all duration-300 hover:scale-[1.01] block"
           >
             <img
-              src={typeof loc.cardImage === 'string' ? loc.cardImage : urlFor(loc.cardImage).width(800).height(500).url()}
+              src={loc.image}
               alt={loc.title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-60 mix-blend-multiply"
             />
             <div className="absolute top-4 left-4 flex gap-2 z-20">
-              {(loc.badges || []).map((badge) => (
+              {loc.badges.map((badge) => (
                 <span
                   key={badge}
                   className="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-medium tracking-wide border border-white/10"
