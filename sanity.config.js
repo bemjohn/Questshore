@@ -23,6 +23,16 @@ export default defineConfig({
                   .id('heroPage')
                   .filter('_type == "heroPage"'),
               ),
+            S.divider(),
+            S.listItem()
+              .title('Destinations')
+              .id('destinations')
+              .child(
+                S.documentList()
+                  .title('All Destinations')
+                  .id('destination')
+                  .filter('_type == "destination"'),
+              ),
           ]),
     }),
     visionTool(),
