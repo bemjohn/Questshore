@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHero from "@/components/SiteHero";
+import SearchForm from "@/components/SearchForm";
 import { client } from "@/lib/sanity";
 import { heroByPage } from "@/lib/queries";
 
@@ -56,10 +57,17 @@ export default async function SouthPacificPage() {
     <>
       <SiteHero
         backgroundImage={data.backgroundImage || fallback.backgroundImage}
+        mobileBackgroundImage={data.mobileBackgroundImage}
         title={data.title || fallback.title}
         subtitle={data.subtitle || fallback.subtitle}
+        accentText={data.accentText}
         overlayOpacity={data.overlayOpacity ?? fallback.overlayOpacity}
       />
+      {data.showSearch && (
+        <div className="-mt-16 relative z-30 max-w-3xl mx-auto px-4">
+          <SearchForm />
+        </div>
+      )}
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {locations.map((loc) => (

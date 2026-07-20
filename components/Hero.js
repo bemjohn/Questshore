@@ -28,6 +28,7 @@ export default async function Hero() {
   return (
     <SiteHero
       backgroundImage={data.backgroundImage || fallback.backgroundImage}
+      mobileBackgroundImage={data.mobileBackgroundImage}
       title={data.title || fallback.title}
       accentText={data.accentText || fallback.accentText}
       subtitle={data.subtitle || fallback.subtitle}
