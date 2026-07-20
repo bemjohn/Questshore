@@ -3,6 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 
+const fallbackPerks = [
+  { number: "01", title: "VIP Access & Rates", text: "Offer your clients exclusive pricing and priority booking on our most sought-after excursions." },
+  { number: "02", title: "Dedicated Support", text: "A personal account manager assigned to your agency for priority support and booking assistance." },
+  { number: "03", title: "Marketing Resources", text: "Access to professional photos, brochures, and customizable marketing materials." },
+];
+
 export default function TravelAgentBody({ data, destinations }) {
   const [form, setForm] = useState({
     agencyName: "",
@@ -15,8 +21,11 @@ export default function TravelAgentBody({ data, destinations }) {
   const [error, setError] = useState(false);
 
   const hero = data?.hero || {};
+  const introText = data?.intro || null;
   const perks = data?.perks || {};
   const formSection = data?.formSection || {};
+
+  const perkList = perks.perks?.length ? perks.perks : fallbackPerks;
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -58,15 +67,24 @@ export default function TravelAgentBody({ data, destinations }) {
         </div>
       </section>
 
-      {data?.intro && (
+      {introText && (
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="space-y-6 text-gray-600 text-base sm:text-lg leading-[1.8]">
-            {data.intro.map((block, i) => {
+            {introText.map((block, i) => {
               if (block._type === 'block') {
                 return <p key={i}>{block.children.map(c => c.text).join('')}</p>;
               }
               return null;
             })}
+          </div>
+        </section>
+      )}
+
+      {!introText && (
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="space-y-6 text-gray-600 text-base sm:text-lg leading-[1.8]">
+            <p>Partner with QuestAshore and offer your clients exclusive shore excursions that transform port days into unforgettable adventures. Our travel agent network provides you with competitive rates, priority booking, and dedicated support to help you deliver exceptional experiences.</p>
+            <p>Join a growing community of travel professionals who trust QuestAshore to elevate their clients' cruise vacations. From the South Pacific to the Caribbean, our curated excursions give you a competitive edge and keep your clients coming back.</p>
           </div>
         </section>
       )}
@@ -77,7 +95,7 @@ export default function TravelAgentBody({ data, destinations }) {
             <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">{perks.eyebrow || "THE PERKS"}</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {(perks.perks || []).map((perk, i) => (
+            {perkList.map((perk, i) => (
               <div key={i} className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group">
                 <div className="text-3xl font-bold text-sky-600 mb-4">{perk.number})</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">{perk.title}</h3>

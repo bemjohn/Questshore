@@ -3,6 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 
+const fallbackSteps = [
+  { number: "01", title: "Sign Up", text: "Complete our simple application form and tell us about your platform and audience." },
+  { number: "02", title: "Get Approved", text: "Our team reviews your application and typically responds within 2-3 business days." },
+  { number: "03", title: "Start Promoting", text: "Access your unique affiliate links and marketing materials to start earning." },
+  { number: "04", title: "Earn Commissions", text: "Receive competitive commissions for every booking made through your referral links." },
+];
+
+const fallbackBenefits = [
+  { title: "Competitive Rates", text: "Earn industry-leading commissions on every excursion booked through your unique affiliate links." },
+  { title: "Real-Time Tracking", text: "Monitor your referrals, commissions, and payouts through an easy-to-use dashboard." },
+  { title: "Marketing Assets", text: "Access a library of high-quality images, descriptions, and promotional materials." },
+  { title: "Dedicated Support", text: "Work directly with your affiliate manager to optimize your strategy and maximize earnings." },
+];
+
 export default function AffiliateNetworkBody({ data, destinations }) {
   const [form, setForm] = useState({
     name: "",
@@ -19,6 +33,10 @@ export default function AffiliateNetworkBody({ data, destinations }) {
   const howItWorks = data?.howItWorks || {};
   const benefits = data?.benefits || {};
   const formSection = data?.formSection || {};
+  const introBlocks = data?.intro || null;
+
+  const steps = howItWorks.steps?.length ? howItWorks.steps : fallbackSteps;
+  const benefitCards = benefits.benefits?.length ? benefits.benefits : fallbackBenefits;
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -60,10 +78,10 @@ export default function AffiliateNetworkBody({ data, destinations }) {
         </div>
       </section>
 
-      {data?.intro && (
+      {introBlocks && (
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-gray-600 text-base sm:text-lg leading-[1.8] space-y-6">
-            {data.intro.map((block, i) => {
+            {introBlocks.map((block, i) => {
               if (block._type === 'block') {
                 return <p key={i}>{block.children.map(c => c.text).join('')}</p>;
               }
@@ -73,12 +91,21 @@ export default function AffiliateNetworkBody({ data, destinations }) {
         </section>
       )}
 
+      {!introBlocks && (
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-gray-600 text-base sm:text-lg leading-[1.8] space-y-6">
+            <p>Join our affiliate network and earn commissions by promoting world-class shore excursions to your audience. Whether you run a travel blog, YouTube channel, or social media account focused on cruising, we have a partnership opportunity for you.</p>
+            <p>Our program is designed to be simple and rewarding. Share your unique affiliate link, track your performance, and earn competitive commissions on every booking. No minimums, no complex tiers — just a straightforward partnership that grows with you.</p>
+          </div>
+        </section>
+      )}
+
       <section className="bg-gray-50 py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">{howItWorks.eyebrow || "How It Works"}</span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900 mb-12">{howItWorks.heading || "Four Simple Steps"}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {(howItWorks.steps || []).map((step, i) => (
+            {steps.map((step, i) => (
               <div key={i} className="hover:-translate-y-2 transition-all duration-300 shadow-sm border border-slate-100 p-8 rounded-2xl bg-white group">
                 <div className="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-sky-100 transition-colors">
                   <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +126,7 @@ export default function AffiliateNetworkBody({ data, destinations }) {
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">{benefits.eyebrow || "Why Join"}</span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{benefits.heading || "Affiliate Benefits"}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mt-12">
-            {(benefits.benefits || []).map((benefit, i) => (
+            {benefitCards.map((benefit, i) => (
               <div key={i} className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors bg-slate-50 text-slate-600 group-hover:bg-slate-100">
                   <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">

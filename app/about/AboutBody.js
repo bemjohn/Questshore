@@ -16,12 +16,40 @@ const iconColors = {
   'heart': 'bg-rose-50 text-rose-600 group-hover:bg-rose-100',
 };
 
+const fallbackTabs = [
+  {
+    name: 'How It Started',
+    quote: 'QuestAshore was born from a simple belief: every port of call holds an adventure waiting to be discovered.',
+    body: [{ _type: 'block', children: [{ _type: 'span', text: 'Founded by a team of seasoned cruisers and travel professionals, QuestAshore set out to transform the way cruise guests experience their time ashore. We saw that too many passengers settled for generic ship tours when incredible, authentic experiences were just around the corner.' }] }, { _type: 'block', children: [{ _type: 'span', text: 'Our mission is to connect every cruiser with handpicked local excursions that reveal the true character of each destination. From snorkeling in Lifou to exploring the markets of Fiji, we curate every detail so you can focus on making memories.' }] }],
+  },
+  {
+    name: 'Our Values',
+    quote: 'Authenticity, safety, and unforgettable moments drive everything we do.',
+    body: [{ _type: 'block', children: [{ _type: 'span', text: 'We partner only with vetted local operators who share our commitment to quality and sustainable tourism. Every excursion is designed to enrich your travel experience while supporting the communities that welcome us ashore.' }] }, { _type: 'block', children: [{ _type: 'span', text: 'Your safety is paramount. We rigorously review each tour operator, maintain clear communication channels, and ensure every experience meets our high standards before we offer it to you.' }] }],
+  },
+  {
+    name: 'The Team',
+    quote: 'A passionate group of travelers, creators, and problem-solvers united by a love for exploration.',
+    body: [{ _type: 'block', children: [{ _type: 'span', text: 'Our team brings decades of combined experience in cruise travel, tour operations, and customer experience. We personally visit each destination, sample every excursion, and build relationships with local guides who share our passion for hospitality.' }] }],
+  },
+];
+
+const fallbackWhyCards = [
+  { icon: 'shield-check', title: 'Vetted Local Guides', text: 'Every excursion is led by knowledgeable local partners we personally trust and review.' },
+  { icon: 'info-circle', title: 'Hassle-Free Booking', text: 'Secure online booking with instant confirmation and flexible cancellation policies.' },
+  { icon: 'dollar-sign', title: 'Best Price Guarantee', text: 'We match or beat any comparable shore excursion—no exceptions.' },
+  { icon: 'heart', title: 'Small Group Experiences', text: 'Intimate groups ensure personalized attention and a deeper connection to each destination.' },
+];
+
 export default function AboutBody({ data }) {
-  const [activeTab, setActiveTab] = useState(data?.tabs?.[0]?.name?.toLowerCase().replace(/\s+/g, '-') || 'how-it-started');
+  const fallbackTabId = 'how-it-started';
+  const tabs = data?.tabs?.length ? data.tabs : fallbackTabs;
+  const [activeTab, setActiveTab] = useState(tabs[0]?.name?.toLowerCase().replace(/\s+/g, '-') || fallbackTabId);
 
   const hero = data?.hero || {};
-  const tabs = data?.tabs || [];
-  const whyChooseUs = data?.whyChooseUs || {};
+  const whyCards = data?.whyChooseUs?.cards?.length ? data.whyChooseUs.cards : fallbackWhyCards;
+  const whyEyebrow = data?.whyChooseUs?.eyebrow || 'Why Choose Us';
+  const whyHeading = data?.whyChooseUs?.heading || 'Our Advantages';
 
   return (
     <>
@@ -115,11 +143,11 @@ export default function AboutBody({ data }) {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">{whyChooseUs.eyebrow || "Why Choose Us"}</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">{whyChooseUs.heading || "Our Advantages"}</h2>
+          <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">{whyEyebrow}</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">{whyHeading}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {(whyChooseUs.cards || []).map((card, i) => (
+          {whyCards.map((card, i) => (
             <div key={i} className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors ${iconColors[card.icon] || 'bg-slate-50 text-slate-600 group-hover:bg-slate-100'}`}>
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -17,6 +17,12 @@ const gradientMap = {
 
 const destOptions = ["Port Vila", "Noumea", "Lifou", "Fiji", "Roatan", "Cozumel"];
 
+const fallbackGroupTypes = [
+  { number: "01", icon: "users", title: "Family & Multi-Generational Groups", text: "We design excursions that span generations — from gentle cultural walks for grandparents to snorkeling adventures for kids. Every member of your family finds their perfect experience." },
+  { number: "02", icon: "briefcase", title: "Corporate & Incentive Groups", text: "Impress your team with private port experiences that blend team-building with tropical adventure. We handle all logistics so you can focus on connection and celebration." },
+  { number: "03", icon: "sparkles", title: "Wedding & Milestone Celebrations", text: "Celebrate life's big moments in unforgettable settings. Whether it's a beach vow renewal or a milestone birthday, we create bespoke experiences your group will treasure forever." },
+];
+
 export default function GroupExcursionsBody({ data }) {
   const [form, setForm] = useState({
     firstName: "",
@@ -34,8 +40,9 @@ export default function GroupExcursionsBody({ data }) {
 
   const hero = data?.hero || {};
   const intro = data?.intro || {};
-  const groupTypes = data?.groupTypes || [];
+  const groupTypes = data?.groupTypes?.length ? data.groupTypes : fallbackGroupTypes;
   const formSection = data?.formSection || {};
+  const footerNote = data?.footerNote || null;
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
@@ -95,7 +102,7 @@ export default function GroupExcursionsBody({ data }) {
             {intro.heading || "GROUP EXPERIENCES DESIGNED WITH YOU IN MIND"}
           </h2>
           <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-            {intro.text || ""}
+            {intro.text || "Whether you are travelling with family, colleagues, or celebrating a special milestone, our team collaborates with you to craft a bespoke shore excursion that matches your group's unique interests, pace, and budget."}
           </p>
         </div>
 
@@ -210,11 +217,11 @@ export default function GroupExcursionsBody({ data }) {
         </div>
       </section>
 
-      {data?.footerNote && (
+      {footerNote && (
         <section className="bg-sky-50 border-t border-b border-sky-100 py-10">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-base sm:text-lg text-sky-900 font-medium leading-relaxed">
-              {data.footerNote}
+              {footerNote}
             </p>
           </div>
         </section>
