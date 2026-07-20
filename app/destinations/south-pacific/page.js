@@ -4,12 +4,19 @@ import SearchForm from "@/components/SearchForm";
 import { client, urlFor } from "@/lib/sanity";
 import { regionPageBySlug } from "@/lib/queries";
 
-const fallback = {
+const fallbackHero = {
   backgroundImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80",
   title: "Did your itinerary say South Pacific?",
   subtitle: "Make your time ashore worthwhile with our bucket list experiences",
   overlayOpacity: 30,
 };
+
+const fallbackDestinations = [
+  { title: "Fiji", slug: "fiji", cardImage: "https://images.unsplash.com/photo-1507876466758-bc54f384809c?auto=format&fit=crop&w=800&h=500&q=80", badges: ["Popular"] },
+  { title: "Lifou", slug: "lifou", cardImage: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=800&h=500&q=80", badges: [] },
+  { title: "Noumea", slug: "noumea", cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=500&q=80", badges: [] },
+  { title: "Port Vila", slug: "port-vila", cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=500&q=80", badges: [] },
+];
 
 export default async function SouthPacificPage() {
   let page;
@@ -20,18 +27,18 @@ export default async function SouthPacificPage() {
     page = null;
   }
 
-  const hero = page?.hero ?? fallback;
-  const destinations = page?.featuredDestinations ?? [];
+  const hero = page?.hero ?? fallbackHero;
+  const destinations = page?.featuredDestinations ?? fallbackDestinations;
 
   return (
     <>
       <SiteHero
-        backgroundImage={hero.backgroundImage || fallback.backgroundImage}
+        backgroundImage={hero.backgroundImage || fallbackHero.backgroundImage}
         mobileBackgroundImage={hero.mobileBackgroundImage}
-        title={hero.title || fallback.title}
-        subtitle={hero.subtitle || fallback.subtitle}
+        title={hero.title || fallbackHero.title}
+        subtitle={hero.subtitle || fallbackHero.subtitle}
         accentText={hero.accentText}
-        overlayOpacity={hero.overlayOpacity ?? fallback.overlayOpacity}
+        overlayOpacity={hero.overlayOpacity ?? fallbackHero.overlayOpacity}
       />
       {hero.showSearch && (
         <div className="-mt-16 relative z-30 max-w-3xl mx-auto px-4">
@@ -47,7 +54,7 @@ export default async function SouthPacificPage() {
             className="relative aspect-[16/10] rounded-3xl overflow-hidden cursor-pointer group shadow-md bg-slate-800 transition-all duration-300 hover:scale-[1.01] block"
           >
             <img
-              src={urlFor(loc.cardImage).width(800).height(500).url()}
+              src={typeof loc.cardImage === 'string' ? loc.cardImage : urlFor(loc.cardImage).width(800).height(500).url()}
               alt={loc.title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-60 mix-blend-multiply"
             />

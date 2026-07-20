@@ -7,6 +7,13 @@ export const metadata = {
   description: "Explore all shore destinations. Book your adventure today.",
 };
 
+const fallbackDestinations = [
+  { title: "Fiji", slug: "fiji", cardImage: "https://images.unsplash.com/photo-1507876466758-bc54f384809c?auto=format&fit=crop&w=800&h=600&q=80" },
+  { title: "Lifou", slug: "lifou", cardImage: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=800&h=600&q=80" },
+  { title: "Noumea", slug: "noumea", cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=600&q=80" },
+  { title: "Port Vila", slug: "port-vila", cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=600&q=80" },
+];
+
 export default async function DestinationsIndexPage() {
   let page;
   let allDestinations;
@@ -20,6 +27,8 @@ export default async function DestinationsIndexPage() {
     page = null;
     allDestinations = [];
   }
+
+  const destinations = allDestinations.length ? allDestinations : fallbackDestinations;
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -36,14 +45,14 @@ export default async function DestinationsIndexPage() {
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {allDestinations.map((dest) => (
+        {destinations.map((dest) => (
           <Link
             key={dest.slug}
             href={`/destinations/${dest.slug}`}
             className="relative overflow-hidden rounded-2xl group h-72 shadow-sm hover:shadow-xl transition-all duration-300 block"
           >
             <img
-              src={urlFor(dest.cardImage).width(800).height(600).url()}
+              src={typeof dest.cardImage === 'string' ? dest.cardImage : urlFor(dest.cardImage).width(800).height(600).url()}
               alt={dest.title}
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />

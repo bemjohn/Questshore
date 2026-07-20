@@ -4,11 +4,17 @@ import SearchForm from "@/components/SearchForm";
 import { client, urlFor } from "@/lib/sanity";
 import { regionPageBySlug } from "@/lib/queries";
 
-const fallback = {
+const fallbackHero = {
   backgroundImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80",
   title: "Customised Destination Experiences You don't want to miss out on!",
+  subtitle: "Handpicked Caribbean shore excursions for an unforgettable cruise experience.",
   overlayOpacity: 30,
 };
+
+const fallbackDestinations = [
+  { title: "Cozumel", slug: "cozumel", cardImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=800&h=500&q=80", badges: ["Popular"] },
+  { title: "Roatán", slug: "roatan", cardImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=800&h=500&q=80", badges: [] },
+];
 
 export default async function CaribbeanPage() {
   let page;
@@ -19,18 +25,18 @@ export default async function CaribbeanPage() {
     page = null;
   }
 
-  const hero = page?.hero ?? fallback;
-  const destinations = page?.featuredDestinations ?? [];
+  const hero = page?.hero ?? fallbackHero;
+  const destinations = page?.featuredDestinations ?? fallbackDestinations;
 
   return (
     <>
       <SiteHero
-        backgroundImage={hero.backgroundImage || fallback.backgroundImage}
+        backgroundImage={hero.backgroundImage || fallbackHero.backgroundImage}
         mobileBackgroundImage={hero.mobileBackgroundImage}
-        title={hero.title || fallback.title}
-        subtitle={hero.subtitle || fallback.subtitle}
+        title={hero.title || fallbackHero.title}
+        subtitle={hero.subtitle || fallbackHero.subtitle}
         accentText={hero.accentText}
-        overlayOpacity={hero.overlayOpacity ?? fallback.overlayOpacity}
+        overlayOpacity={hero.overlayOpacity ?? fallbackHero.overlayOpacity}
       />
       {hero.showSearch && (
         <div className="-mt-16 relative z-30 max-w-3xl mx-auto px-4">
@@ -46,7 +52,7 @@ export default async function CaribbeanPage() {
             className="relative aspect-[16/10] rounded-3xl overflow-hidden cursor-pointer group shadow-md bg-slate-800 transition-all duration-300 hover:scale-[1.01] block"
           >
             <img
-              src={urlFor(loc.cardImage).width(800).height(500).url()}
+              src={typeof loc.cardImage === 'string' ? loc.cardImage : urlFor(loc.cardImage).width(800).height(500).url()}
               alt={loc.title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-60 mix-blend-multiply"
             />
