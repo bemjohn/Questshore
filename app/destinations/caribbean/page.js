@@ -1,8 +1,8 @@
 import Link from "next/link";
 import SiteHero from "@/components/SiteHero";
 import SearchForm from "@/components/SearchForm";
-import { client } from "@/lib/sanity";
-import { regionPageBySlug, destinationsByRegion } from "@/lib/queries";
+import { client, urlFor } from "@/lib/sanity";
+import { regionPageBySlug } from "@/lib/queries";
 
 const fallback = {
   backgroundImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80",
@@ -12,19 +12,15 @@ const fallback = {
 
 export default async function CaribbeanPage() {
   let page;
-  let destinations;
 
   try {
-    [page, destinations] = await Promise.all([
-      client.fetch(regionPageBySlug, { region: "caribbean" }),
-      client.fetch(destinationsByRegion, { region: "Caribbean" }),
-    ]);
+    page = await client.fetch(regionPageBySlug, { region: "caribbean" });
   } catch {
     page = null;
-    destinations = [];
   }
 
   const hero = page?.hero ?? fallback;
+  const destinations = page?.featuredDestinations ?? [];
 
   return (
     <>
@@ -50,7 +46,7 @@ export default async function CaribbeanPage() {
             className="relative aspect-[16/10] rounded-3xl overflow-hidden cursor-pointer group shadow-md bg-slate-800 transition-all duration-300 hover:scale-[1.01] block"
           >
             <img
-              src={loc.image}
+              src={urlFor(loc.cardImage).width(800).height(500).url()}
               alt={loc.title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-60 mix-blend-multiply"
             />

@@ -59,7 +59,7 @@ export default async function HomePage() {
               className="relative overflow-hidden rounded-2xl group h-72 shadow-sm hover:shadow-xl transition-all duration-300 block"
             >
               <img
-                src={urlFor(dest.image).width(800).height(600).url()}
+                src={urlFor(dest.cardImage).width(800).height(600).url()}
                 alt={dest.title}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />

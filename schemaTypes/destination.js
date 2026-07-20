@@ -32,7 +32,7 @@ export const destination = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'image',
+      name: 'cardImage',
       title: 'Card Image',
       type: 'image',
       options: { hotspot: true },
@@ -99,7 +99,7 @@ export const destination = defineType({
             select: {
               title: 'name',
               subtitle: 'adultPrice',
-              media: 'image',
+      media: 'cardImage',
             },
           },
         }),

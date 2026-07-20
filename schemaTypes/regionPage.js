@@ -32,6 +32,13 @@ export const regionPage = defineType({
         defineField({ name: 'showSearch', title: 'Show Search Form', type: 'boolean', initialValue: false }),
       ],
     }),
+    defineField({
+      name: 'featuredDestinations',
+      title: 'Featured Destinations',
+      description: 'Select and order destinations to display as cards on this region page',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'destination' }] }],
+    }),
   ],
   preview: {
     select: {

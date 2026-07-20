@@ -18,7 +18,7 @@ export default async function TravelAgentPage() {
 
   const resolvedDestinations = (destinations || []).map((d) => ({
     ...d,
-    image: d.image ? urlFor(d.image).width(400).height(300).url() : '',
+    image: d.cardImage ? urlFor(d.cardImage).width(400).height(300).url() : '',
   }));
 
   return <TravelAgentBody data={data} destinations={resolvedDestinations} />;
