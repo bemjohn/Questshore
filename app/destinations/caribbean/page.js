@@ -2,24 +2,7 @@ import Link from "next/link";
 import SiteHero from "@/components/SiteHero";
 import SearchForm from "@/components/SearchForm";
 import { client } from "@/lib/sanity";
-import { heroByPage } from "@/lib/queries";
-
-const locations = [
-  {
-    id: "roatan",
-    title: "Roatan, Honduras",
-    badges: ["Adventure", "Wildlife", "Beach"],
-    image:
-      "https://images.unsplash.com/photo-1590523741831-ab7e8b3f8d1c?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "cozumel",
-    title: "Cozumel, Mexico",
-    badges: ["Marine", "History", "Culture"],
-    image:
-      "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
-  },
-];
+import { regionPageBySlug, destinationsByRegion } from "@/lib/queries";
 
 const fallback = {
   backgroundImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80",
@@ -28,37 +11,42 @@ const fallback = {
 };
 
 export default async function CaribbeanPage() {
-  let hero;
+  let page;
+  let destinations;
 
   try {
-    hero = await client.fetch(heroByPage, { page: "caribbean" });
+    [page, destinations] = await Promise.all([
+      client.fetch(regionPageBySlug, { region: "caribbean" }),
+      client.fetch(destinationsByRegion, { region: "Caribbean" }),
+    ]);
   } catch {
-    hero = null;
+    page = null;
+    destinations = [];
   }
 
-  const data = hero ?? fallback;
+  const hero = page?.hero ?? fallback;
 
   return (
     <>
       <SiteHero
-        backgroundImage={data.backgroundImage || fallback.backgroundImage}
-        mobileBackgroundImage={data.mobileBackgroundImage}
-        title={data.title || fallback.title}
-        subtitle={data.subtitle || fallback.subtitle}
-        accentText={data.accentText}
-        overlayOpacity={data.overlayOpacity ?? fallback.overlayOpacity}
+        backgroundImage={hero.backgroundImage || fallback.backgroundImage}
+        mobileBackgroundImage={hero.mobileBackgroundImage}
+        title={hero.title || fallback.title}
+        subtitle={hero.subtitle || fallback.subtitle}
+        accentText={hero.accentText}
+        overlayOpacity={hero.overlayOpacity ?? fallback.overlayOpacity}
       />
-      {data.showSearch && (
+      {hero.showSearch && (
         <div className="-mt-16 relative z-30 max-w-3xl mx-auto px-4">
           <SearchForm />
         </div>
       )}
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        {locations.map((loc) => (
+        {destinations.map((loc) => (
           <Link
-            key={loc.id}
-            href={`/destinations/caribbean/${loc.id}`}
+            key={loc.slug}
+            href={`/destinations/caribbean/${loc.slug}`}
             className="relative aspect-[16/10] rounded-3xl overflow-hidden cursor-pointer group shadow-md bg-slate-800 transition-all duration-300 hover:scale-[1.01] block"
           >
             <img
@@ -67,7 +55,7 @@ export default async function CaribbeanPage() {
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-60 mix-blend-multiply"
             />
             <div className="absolute top-4 left-4 flex gap-2 z-20">
-              {loc.badges.map((badge) => (
+              {(loc.badges || []).map((badge) => (
                 <span
                   key={badge}
                   className="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-medium tracking-wide border border-white/10"

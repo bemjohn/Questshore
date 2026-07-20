@@ -33,10 +33,9 @@ export const destination = defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Card Image',
       type: 'image',
       options: { hotspot: true },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'badges',
@@ -44,6 +43,67 @@ export const destination = defineType({
       type: 'array',
       of: [{ type: 'string' }],
       options: { layout: 'tags' },
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image (detail page)',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroLabel',
+      title: 'Hero Label',
+      type: 'string',
+      description: 'e.g. "SOUTH PACIFIC EXCURSIONS" or "CARIBBEAN EXCURSIONS"',
+    }),
+    defineField({
+      name: 'country',
+      title: 'Country',
+      type: 'string',
+    }),
+    defineField({
+      name: 'overview',
+      title: 'Overview',
+      type: 'text',
+    }),
+    defineField({
+      name: 'pointsOfInterest',
+      title: 'Points of Interest',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    }),
+    defineField({
+      name: 'excursions',
+      title: 'Excursions',
+      type: 'array',
+      of: [
+        defineField({
+          type: 'object',
+          name: 'excursion',
+          fields: [
+            defineField({ name: 'name', title: 'Name', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
+            defineField({ name: 'description', title: 'Description', type: 'text' }),
+            defineField({
+              name: 'highlights',
+              title: 'Highlights',
+              type: 'array',
+              of: [{ type: 'string' }],
+              options: { layout: 'tags' },
+            }),
+            defineField({ name: 'adultPrice', title: 'Adult Price ($)', type: 'number', validation: (Rule) => Rule.required().min(0) }),
+            defineField({ name: 'childPrice', title: 'Child Price ($)', type: 'number', description: 'Leave empty if not applicable' }),
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              subtitle: 'adultPrice',
+              media: 'image',
+            },
+          },
+        }),
+      ],
     }),
   ],
   preview: {

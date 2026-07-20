@@ -2,7 +2,7 @@ import Link from "next/link";
 import SiteHero from "@/components/SiteHero";
 import SearchForm from "@/components/SearchForm";
 import { client, urlFor } from "@/lib/sanity";
-import { heroByPage, destinationsByRegion } from "@/lib/queries";
+import { regionPageBySlug, destinationsByRegion } from "@/lib/queries";
 
 const fallback = {
   backgroundImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80",
@@ -12,32 +12,32 @@ const fallback = {
 };
 
 export default async function SouthPacificPage() {
-  let hero;
+  let page;
   let destinations;
 
   try {
-    [hero, destinations] = await Promise.all([
-      client.fetch(heroByPage, { page: "south-pacific" }),
+    [page, destinations] = await Promise.all([
+      client.fetch(regionPageBySlug, { region: "south-pacific" }),
       client.fetch(destinationsByRegion, { region: "South Pacific" }),
     ]);
   } catch {
-    hero = null;
+    page = null;
     destinations = [];
   }
 
-  const data = hero ?? fallback;
+  const hero = page?.hero ?? fallback;
 
   return (
     <>
       <SiteHero
-        backgroundImage={data.backgroundImage || fallback.backgroundImage}
-        mobileBackgroundImage={data.mobileBackgroundImage}
-        title={data.title || fallback.title}
-        subtitle={data.subtitle || fallback.subtitle}
-        accentText={data.accentText}
-        overlayOpacity={data.overlayOpacity ?? fallback.overlayOpacity}
+        backgroundImage={hero.backgroundImage || fallback.backgroundImage}
+        mobileBackgroundImage={hero.mobileBackgroundImage}
+        title={hero.title || fallback.title}
+        subtitle={hero.subtitle || fallback.subtitle}
+        accentText={hero.accentText}
+        overlayOpacity={hero.overlayOpacity ?? fallback.overlayOpacity}
       />
-      {data.showSearch && (
+      {hero.showSearch && (
         <div className="-mt-16 relative z-30 max-w-3xl mx-auto px-4">
           <SearchForm />
         </div>

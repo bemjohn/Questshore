@@ -15,23 +15,105 @@ export default defineConfig({
           .title('Content')
           .items([
             S.listItem()
-              .title('Heroes')
-              .id('heroes')
+              .title('Home Page')
+              .id('homePage')
               .child(
                 S.documentList()
-                  .title('Heroes by Page')
-                  .id('heroPage')
-                  .filter('_type == "heroPage"'),
+                  .title('Home Page')
+                  .id('homePageDocuments')
+                  .filter('_type == "homePage"'),
+              ),
+            S.listItem()
+              .title('About Us')
+              .id('aboutPage')
+              .child(
+                S.documentList()
+                  .title('About Us')
+                  .id('aboutPageDocuments')
+                  .filter('_type == "aboutPage"'),
+              ),
+            S.listItem()
+              .title('Destinations')
+              .id('destinationsGroup')
+              .child(
+                S.list()
+                  .title('Destinations')
+                  .items([
+                    S.listItem()
+                      .title('Destinations Index')
+                      .id('destinationsPage')
+                      .child(
+                        S.documentList()
+                          .title('Destinations Index')
+                          .id('destinationsPageDocuments')
+                          .filter('_type == "destinationsPage"'),
+                      ),
+                    S.listItem()
+                      .title('South Pacific')
+                      .id('southPacific')
+                      .child(
+                        S.documentList()
+                          .title('South Pacific')
+                          .id('southPacificRegion')
+                          .filter('_type == "regionPage" && region == "south-pacific"'),
+                      ),
+                    S.listItem()
+                      .title('Caribbean')
+                      .id('caribbean')
+                      .child(
+                        S.documentList()
+                          .title('Caribbean')
+                          .id('caribbeanRegion')
+                          .filter('_type == "regionPage" && region == "caribbean"'),
+                      ),
+                    S.divider(),
+                    S.listItem()
+                      .title('All Destinations')
+                      .id('allDestinations')
+                      .child(
+                        S.documentList()
+                          .title('All Destinations')
+                          .id('destinationDocuments')
+                          .filter('_type == "destination"'),
+                      ),
+                  ]),
+              ),
+            S.listItem()
+              .title('Group Excursions (Custom)')
+              .id('groupExcursionsPage')
+              .child(
+                S.documentList()
+                  .title('Group Excursions (Custom)')
+                  .id('groupExcursionsPageDocuments')
+                  .filter('_type == "groupExcursionsPage"'),
+              ),
+            S.listItem()
+              .title('Travel Agent')
+              .id('travelAgentPage')
+              .child(
+                S.documentList()
+                  .title('Travel Agent')
+                  .id('travelAgentPageDocuments')
+                  .filter('_type == "travelAgentPage"'),
+              ),
+            S.listItem()
+              .title('Contact Us')
+              .id('contactPage')
+              .child(
+                S.documentList()
+                  .title('Contact Us')
+                  .id('contactPageDocuments')
+                  .filter('_type == "contactPage"'),
               ),
             S.divider(),
             S.listItem()
-              .title('Destinations')
-              .id('destinations')
+              .title('Affiliate Network')
+              .id('affiliateNetworkPage')
               .child(
                 S.documentList()
-                  .title('All Destinations')
-                  .id('destination')
-                  .filter('_type == "destination"'),
+                  .title('Affiliate Network')
+                  .id('affiliateNetworkPageDocuments')
+                  .filter('_type == "affiliateNetworkPage"'),
               ),
           ]),
     }),

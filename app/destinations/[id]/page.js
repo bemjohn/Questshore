@@ -1,33 +1,43 @@
 import { notFound } from "next/navigation";
-import { destinations, getDestinationById } from "@/data/excursions";
+import { client, urlFor } from "@/lib/sanity";
+import { destinationBySlug, allDestinationSlugs } from "@/lib/queries";
 import ExcursionCard from "@/components/ExcursionCard";
 import DestinationHero from "@/components/DestinationHero";
 
-const heroImages = {
-  "port-vila": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&h=800&fit=crop",
-  noumea: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=1920&h=800&fit=crop",
-  lifou: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&h=800&fit=crop",
-  fiji: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1920&h=800&fit=crop",
-  roatan: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=1920&h=800&fit=crop",
-};
-
-export function generateStaticParams() {
-  return destinations.map((dest) => ({ id: dest.id }));
+export async function generateStaticParams() {
+  let slugs;
+  try {
+    slugs = await client.fetch(allDestinationSlugs);
+  } catch {
+    slugs = [];
+  }
+  return slugs.map((s) => ({ id: s.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const dest = getDestinationById(id);
+  let dest;
+  try {
+    dest = await client.fetch(destinationBySlug, { slug: id });
+  } catch {
+    dest = null;
+  }
   if (!dest) return { title: "Not Found" };
   return {
-    title: `${dest.port} — QuestAshore Excursions`,
-    description: `Explore ${dest.port} shore excursions. Book your adventure today.`,
+    title: `${dest.title} — QuestAshore Excursions`,
+    description: `Explore ${dest.title} shore excursions. Book your adventure today.`,
   };
 }
 
 export default async function DestinationPage({ params }) {
   const { id } = await params;
-  const dest = getDestinationById(id);
+  let dest;
+
+  try {
+    dest = await client.fetch(destinationBySlug, { slug: id });
+  } catch {
+    dest = null;
+  }
 
   if (!dest) {
     notFound();
@@ -36,18 +46,18 @@ export default async function DestinationPage({ params }) {
   return (
     <>
       <DestinationHero
-        src={heroImages[dest.id]}
-        alt={dest.port}
-        port={dest.port}
+        src={dest.heroImage ? urlFor(dest.heroImage).width(1920).height(800).url() : ""}
+        alt={dest.title}
+        port={dest.title}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {dest.overview && (
           <div className="mb-12 max-w-3xl">
             <p className="text-gray-600 leading-relaxed">{dest.overview}</p>
-            {dest.points_of_interest && dest.points_of_interest.length > 0 && (
+            {dest.pointsOfInterest && dest.pointsOfInterest.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
-                {dest.points_of_interest.map((poi) => (
+                {dest.pointsOfInterest.map((poi) => (
                   <span
                     key={poi}
                     className="px-3 py-1 bg-amber-50 border border-amber-200 rounded-full text-xs font-medium text-amber-700"
@@ -60,7 +70,7 @@ export default async function DestinationPage({ params }) {
           </div>
         )}
 
-        {dest.excursions.length > 0 ? (
+        {dest.excursions && dest.excursions.length > 0 ? (
           <>
             <h2 className="text-2xl font-bold text-gray-900 mb-8">
               Available Excursions
@@ -74,8 +84,8 @@ export default async function DestinationPage({ params }) {
                 <ExcursionCard
                   key={idx}
                   excursion={excursion}
-                  destinationPort={dest.port}
-                  destinationId={dest.id}
+                  destinationPort={dest.title}
+                  destinationId={dest.slug}
                 />
               ))}
             </div>
@@ -89,7 +99,7 @@ export default async function DestinationPage({ params }) {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Excursions Coming Soon</h3>
             <p className="text-gray-500 max-w-md mx-auto">
-              We&apos;re curating incredible experiences for {dest.port.split(",")[0]}. Check back soon or contact us for early access.
+              We&apos;re curating incredible experiences for {dest.title.split(",")[0]}. Check back soon or contact us for early access.
             </p>
           </div>
         )}

@@ -1,5 +1,5 @@
 import { client } from "@/lib/sanity";
-import { heroByPage } from "@/lib/queries";
+import { homePageQuery } from "@/lib/queries";
 import SiteHero from "@/components/SiteHero";
 import SearchForm from "@/components/SearchForm";
 
@@ -15,26 +15,26 @@ const fallback = {
 };
 
 export default async function Hero() {
-  let hero;
+  let page;
 
   try {
-    hero = await client.fetch(heroByPage, { page: "home" });
+    page = await client.fetch(homePageQuery);
   } catch {
-    hero = null;
+    page = null;
   }
 
-  const data = hero ?? fallback;
+  const hero = page?.hero ?? fallback;
 
   return (
     <SiteHero
-      backgroundImage={data.backgroundImage || fallback.backgroundImage}
-      mobileBackgroundImage={data.mobileBackgroundImage}
-      title={data.title || fallback.title}
-      accentText={data.accentText || fallback.accentText}
-      subtitle={data.subtitle || fallback.subtitle}
-      overlayOpacity={data.overlayOpacity ?? fallback.overlayOpacity}
+      backgroundImage={hero.backgroundImage || fallback.backgroundImage}
+      mobileBackgroundImage={hero.mobileBackgroundImage}
+      title={hero.title || fallback.title}
+      accentText={hero.accentText || fallback.accentText}
+      subtitle={hero.subtitle || fallback.subtitle}
+      overlayOpacity={hero.overlayOpacity ?? fallback.overlayOpacity}
     >
-      {data.showSearch && <SearchForm />}
+      {hero.showSearch && <SearchForm />}
     </SiteHero>
   );
 }
