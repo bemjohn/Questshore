@@ -1,4 +1,7 @@
 import Link from "next/link";
+import SiteHero from "@/components/SiteHero";
+import { client } from "@/lib/sanity";
+import { heroByPage } from "@/lib/queries";
 
 const locations = [
   {
@@ -17,22 +20,30 @@ const locations = [
   },
 ];
 
-export default function CaribbeanPage() {
+const fallback = {
+  backgroundImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80",
+  title: "Customised Destination Experiences You don't want to miss out on!",
+  overlayOpacity: 30,
+};
+
+export default async function CaribbeanPage() {
+  let hero;
+
+  try {
+    hero = await client.fetch(heroByPage, { page: "caribbean" });
+  } catch {
+    hero = null;
+  }
+
+  const data = hero ?? fallback;
+
   return (
     <>
-      <section className="w-full min-h-[550px] relative flex items-center bg-slate-900 overflow-hidden py-20 px-6 md:px-12">
-        <img
-          src="https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-70 z-0"
-        />
-        <div className="bg-gradient-to-r from-black/80 via-black/40 to-transparent absolute inset-0 z-10" />
-        <div className="relative z-20 max-w-3xl text-left text-white space-y-4">
-          <h1 className="text-white text-4xl md:text-6xl font-serif tracking-tight font-normal leading-[1.1]">
-            Customised Destination Experiences You don't want to miss out on!
-          </h1>
-        </div>
-      </section>
+      <SiteHero
+        backgroundImage={data.backgroundImage || fallback.backgroundImage}
+        title={data.title || fallback.title}
+        overlayOpacity={data.overlayOpacity ?? fallback.overlayOpacity}
+      />
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {locations.map((loc) => (
