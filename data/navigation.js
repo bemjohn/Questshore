@@ -1,4 +1,5 @@
 export const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Destinations", href: "/destinations", hasDropdown: true },
   { label: "Group Excursions (Custom)", href: "/group-excursions" },
