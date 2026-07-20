@@ -33,7 +33,7 @@ export default async function Hero() {
       subtitle={data.subtitle || fallback.subtitle}
       overlayOpacity={data.overlayOpacity ?? fallback.overlayOpacity}
     >
-      <SearchForm />
+      {data.showSearch && <SearchForm />}
     </SiteHero>
   );
 }
