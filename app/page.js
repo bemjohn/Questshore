@@ -1,12 +1,21 @@
 import Hero from "@/components/Hero";
 import DestinationCard from "@/components/DestinationCard";
 import FaqAccordion from "@/components/FaqAccordion";
-import { destinations } from "@/data/excursions";
+import { client } from "@/lib/sanity/client";
+import { HOME_QUERY } from "@/lib/sanity/queries";
+import { mergeHomeContent } from "@/lib/content/home.merge";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const sanityDoc = await client.fetch(HOME_QUERY).catch(() => null);
+  const content = mergeHomeContent(sanityDoc);
+
   return (
     <>
-      <Hero />
+      <Hero
+        heroImage={content.hero.imageUrl}
+        heroTitle={content.hero.title}
+        heroSubtitle={content.hero.subtitle}
+      />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
@@ -17,8 +26,8 @@ export default function HomePage() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {destinations.map((dest) => (
-            <DestinationCard key={dest.id} dest={dest} />
+          {content.cards.map((card) => (
+            <DestinationCard key={card.id} dest={card} />
           ))}
         </div>
       </section>
@@ -83,48 +92,29 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">
-                &ldquo;we loved our cruise excursions putten together by Omotola,our tour guide was super friendly, chilled &amp;clean air conditioned van, it was so relaxing and we got to see so many beautiful places all in one day. Highly recommended&rdquo;.
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-bold text-sm">
-                  L
+            {content.testimonials.map((t) => (
+              <div key={t.id} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
                 </div>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm">Lisa</p>
-                  <p className="text-gray-400 text-xs">Verified Guest</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">
-                &ldquo;Highly recommend Omotola and her team,we had the best day, we were able to see so many sights with our small group size and it was amazing value. Great tour.&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-bold text-sm">
-                  J
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm">Jodi</p>
-                  <p className="text-gray-400 text-xs">Verified Guest</p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-bold text-sm">
+                    {t.author[0]}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{t.author}</p>
+                    <p className="text-gray-400 text-xs">Verified Guest</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

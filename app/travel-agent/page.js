@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import DestinationCard from "@/components/DestinationCard";
-import { destinations } from "@/data/excursions";
+import { destinationsFallback as destinations } from "@/lib/content/destinations.fallback";
 
 export default function TravelAgentPage() {
   const [form, setForm] = useState({

@@ -1,12 +1,17 @@
 import DestinationCard from "@/components/DestinationCard";
-import { destinations } from "@/data/excursions";
+import { client } from "@/lib/sanity/client";
+import { DESTINATIONS_QUERY } from "@/lib/sanity/queries";
+import { mergeDestinations } from "@/lib/content/destinations.merge";
 
 export const metadata = {
   title: "All Destinations — QuestAshore Excursions",
   description: "Explore all South Pacific shore destinations. Book your adventure today.",
 };
 
-export default function DestinationsIndexPage() {
+export default async function DestinationsIndexPage() {
+  const sanityDocs = await client.fetch(DESTINATIONS_QUERY).catch(() => null);
+  const destinations = mergeDestinations(sanityDocs);
+
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center mb-16">

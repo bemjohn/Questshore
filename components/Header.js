@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { navLinks } from "@/data/navigation";
+import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

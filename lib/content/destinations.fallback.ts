@@ -1,8 +1,13 @@
-export const destinations = [
+export const destinationsFallback = [
   {
     id: "port-vila",
-    port: "Port Vila, Vanuatu",
+    title: "Port Vila, Vanuatu",
+    slug: "port-vila",
     country: "Vanuatu",
+    imageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&h=800&fit=crop",
+    overview: undefined as string | undefined,
+    points_of_interest: undefined as string[] | undefined,
     excursions: [
       {
         name: "Vila Signature",
@@ -42,8 +47,13 @@ export const destinations = [
   },
   {
     id: "noumea",
-    port: "Noumea, New Caledonia",
+    title: "Noumea, New Caledonia",
+    slug: "noumea",
     country: "New Caledonia",
+    imageUrl: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800&h=600&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=1920&h=800&fit=crop",
+    overview: undefined as string | undefined,
+    points_of_interest: undefined as string[] | undefined,
     excursions: [
       {
         name: "A Swim With Sea Turtle Experience",
@@ -62,10 +72,12 @@ export const destinations = [
   },
   {
     id: "lifou",
-    port: "Lifou, New Caledonia",
+    title: "Lifou, New Caledonia",
+    slug: "lifou",
     country: "New Caledonia",
-    overview:
-      "The largest of the loyalty islands, Lifou lies some 118 miles to the northwest of New Caledonia. Today's visitors are drawn to the island's spectacular scenery, which ranges from dense tropical forest to dramatic cliffs towering above the crashing waves. Lifou's white-sand beaches are some of the finest to be found in the entire Pacific.",
+    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&h=800&fit=crop",
+    overview: "The largest of the loyalty islands, Lifou lies some 118 miles to the northwest of New Caledonia. Today's visitors are drawn to the island's spectacular scenery, which ranges from dense tropical forest to dramatic cliffs towering above the crashing waves. Lifou's white-sand beaches are some of the finest to be found in the entire Pacific.",
     points_of_interest: ["Cliff of Jokin", "Vanilla Plantation", "Lueciba Beach"],
     excursions: [
       {
@@ -86,8 +98,13 @@ export const destinations = [
   },
   {
     id: "fiji",
-    port: "Fiji Island Excursion (Lautoka)",
+    title: "Fiji Island Excursion (Lautoka)",
+    slug: "fiji",
     country: "Fiji",
+    imageUrl: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&h=600&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1920&h=800&fit=crop",
+    overview: undefined as string | undefined,
+    points_of_interest: undefined as string[] | undefined,
     excursions: [
       {
         name: "Lautoka Essentielle",
@@ -106,10 +123,12 @@ export const destinations = [
   },
   {
     id: "roatan",
-    port: "Roatan, Honduras",
+    title: "Roatan, Honduras",
+    slug: "roatan",
     country: "Honduras",
-    overview:
-      "Discover the beauty of Roatan — a premier cruise port in the Bay Islands of Honduras, renowned for its stunning coral reefs, white-sand beaches, and rich Garifuna culture.",
+    imageUrl: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&h=600&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=1920&h=800&fit=crop",
+    overview: "Discover the beauty of Roatan — a premier cruise port in the Bay Islands of Honduras, renowned for its stunning coral reefs, white-sand beaches, and rich Garifuna culture.",
     points_of_interest: ["West Bay Beach", "Carambola Gardens", "Roatan Marine Park"],
     excursions: [
       {
@@ -147,10 +166,12 @@ export const destinations = [
   },
   {
     id: "cozumel",
-    port: "Cozumel, Mexico",
+    title: "Cozumel, Mexico",
+    slug: "cozumel",
     country: "Mexico",
-    overview:
-      "Discover the magic of Cozumel — a Caribbean island paradise off the Yucatán Peninsula, world-famous for its crystal-clear waters, magnificent coral reefs, and rich Mayan heritage.",
+    imageUrl: "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&h=600&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=1920&h=800&fit=crop",
+    overview: "Discover the magic of Cozumel — a Caribbean island paradise off the Yucatán Peninsula, world-famous for its crystal-clear waters, magnificent coral reefs, and rich Mayan heritage.",
     points_of_interest: ["Chankanaab National Marine Park", "San Miguel de Cozumel", "Mayan Ruins"],
     excursions: [
       {
@@ -197,12 +218,22 @@ export const destinations = [
   },
 ];
 
-export function getDestinationById(id) {
-  return destinations.find((d) => d.id === id) || null;
-}
+export type DestinationCard = {
+  id: string;
+  title: string;
+  slug: string;
+  country: string;
+  imageUrl: string;
+  heroImage: string;
+  overview?: string;
+  points_of_interest?: string[];
+  excursions: Excursion[];
+};
 
-export function getDestinationsByCountry(country) {
-  return destinations.filter((d) => d.country === country);
-}
-
-export const countries = [...new Set(destinations.map((d) => d.country))];
+export type Excursion = {
+  name: string;
+  pricing: { adult: number; child?: number };
+  description?: string;
+  requiresTime?: boolean;
+  highlights: string[];
+};

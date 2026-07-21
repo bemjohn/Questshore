@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { destinations } from "@/data/excursions";
 
-export default function Hero() {
+export default function Hero({ heroImage, heroTitle, heroSubtitle }) {
   const router = useRouter();
   const [port, setPort] = useState("");
   const [cruiseLine, setCruiseLine] = useState("");
@@ -20,7 +19,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+        src={heroImage || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"}
         alt=""
         className="absolute inset-0 w-full h-full object-cover z-0"
         onError={(e) => {
@@ -31,12 +30,12 @@ export default function Hero() {
 
       <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-16 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
-          Make every destination memorable
+          {heroTitle || "Make every destination memorable"}
           <br />
           <span className="text-cyan-300">Shore Excursions</span>
         </h1>
         <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto drop-shadow">
-          Curated bucket-list adventures waiting for you at every port of call.
+          {heroSubtitle || "Curated bucket-list adventures waiting for you at every port of call."}
         </p>
 
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 max-w-3xl mx-auto">
