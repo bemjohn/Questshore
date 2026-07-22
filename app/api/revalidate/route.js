@@ -19,12 +19,24 @@ export async function POST(req) {
     if (docType === "homePage") {
       revalidatePath("/", "page");
     } else if (docType === "destination") {
-      revalidatePath("/destinations", "page");
+      revalidatePath("/destinations/south-pacific", "page");
+      revalidatePath("/destinations/caribbean", "page");
+      revalidatePath("/travel-agent", "page");
       if (slug) {
         revalidatePath(`/destinations/${slug}`, "page");
       }
     } else if (docType === "navigation") {
       revalidatePath("/", "layout");
+    } else if (docType === "aboutPage") {
+      revalidatePath("/about", "page");
+    } else if (docType === "southPacificPage") {
+      revalidatePath("/destinations/south-pacific", "page");
+    } else if (docType === "caribbeanPage") {
+      revalidatePath("/destinations/caribbean", "page");
+    } else if (docType === "groupExcursionsPage") {
+      revalidatePath("/group-excursions", "page");
+    } else if (docType === "travelAgentPage") {
+      revalidatePath("/travel-agent", "page");
     } else {
       revalidatePath("/", "layout");
     }
