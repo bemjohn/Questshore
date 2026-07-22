@@ -58,6 +58,51 @@ export const DESTINATION_BY_SLUG_QUERY = groq`
   }
 `;
 
+export const ABOUT_QUERY = groq`
+  *[_type == "aboutPage" && _id == "aboutPage"][0]{
+    heroBanner,
+    collageImage1,
+    collageImage2,
+    collageImage3
+  }
+`;
+
+export const SOUTH_PACIFIC_QUERY = groq`
+  *[_type == "southPacificPage" && _id == "southPacificPage"][0]{
+    heroBackgroundImage,
+    "destinations": destinations[]->{
+      _id,
+      title,
+      slug,
+      cardImage
+    }
+  }
+`;
+
+export const CARIBBEAN_QUERY = groq`
+  *[_type == "caribbeanPage" && _id == "caribbeanPage"][0]{
+    heroBackgroundImage,
+    "destinations": destinations[]->{
+      _id,
+      title,
+      slug,
+      cardImage
+    }
+  }
+`;
+
+export const GROUP_EXCURSIONS_QUERY = groq`
+  *[_type == "groupExcursionsPage" && _id == "groupExcursionsPage"][0]{
+    heroBackgroundImage
+  }
+`;
+
+export const TRAVEL_AGENT_QUERY = groq`
+  *[_type == "travelAgentPage" && _id == "travelAgentPage"][0]{
+    heroBackgroundImage
+  }
+`;
+
 export const NAVIGATION_QUERY = groq`
   *[_type == "navigation" && _id == "mainNavigation"][0]{
     links[]{

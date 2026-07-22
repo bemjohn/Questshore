@@ -39,6 +39,10 @@ yarn-error.log*
 # netlify
 .netlify
 
+# sanity build output
+.sanity/
+dist/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

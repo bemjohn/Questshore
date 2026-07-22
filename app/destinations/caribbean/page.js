@@ -1,28 +1,17 @@
 import Link from "next/link";
+import { client } from "@/lib/sanity/client";
+import { CARIBBEAN_QUERY } from "@/lib/sanity/queries";
+import { mergeCaribbeanContent } from "@/lib/content/caribbean.merge";
 
-const locations = [
-  {
-    id: "roatan",
-    title: "Roatan, Honduras",
-    badges: ["Adventure", "Wildlife", "Beach"],
-    image:
-      "https://images.unsplash.com/photo-1590523741831-ab7e8b3f8d1c?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "cozumel",
-    title: "Cozumel, Mexico",
-    badges: ["Marine", "History", "Culture"],
-    image:
-      "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
-  },
-];
+export default async function CaribbeanPage() {
+  const sanityDoc = await client.fetch(CARIBBEAN_QUERY).catch(() => null);
+  const content = mergeCaribbeanContent(sanityDoc);
 
-export default function CaribbeanPage() {
   return (
     <>
       <section className="w-full min-h-[550px] relative flex items-center bg-slate-900 overflow-hidden py-20 px-6 md:px-12">
         <img
-          src="https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1920&q=80"
+          src={content.heroBackgroundImage}
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center opacity-70 z-0"
         />
@@ -35,7 +24,7 @@ export default function CaribbeanPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        {locations.map((loc) => (
+        {content.destinations.map((loc) => (
           <Link
             key={loc.id}
             href={`/destinations/caribbean/${loc.id}`}

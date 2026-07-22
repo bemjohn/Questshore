@@ -1,42 +1,17 @@
 import Link from "next/link";
+import { client } from "@/lib/sanity/client";
+import { SOUTH_PACIFIC_QUERY } from "@/lib/sanity/queries";
+import { mergeSouthPacificContent } from "@/lib/content/southPacific.merge";
 
-const locations = [
-  {
-    id: "port-vila",
-    title: "Port Vila, Vanuatu",
-    badges: ["Adventure", "Culture", "Islands"],
-    image:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "noumea",
-    title: "Noumea, New Caledonia",
-    badges: ["Marine", "Wildlife"],
-    image:
-      "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "lifou",
-    title: "Lifou, New Caledonia",
-    badges: ["Scenic", "Heritage", "Beach"],
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "fiji",
-    title: "Fiji Islands",
-    badges: ["Culture", "Nature", "Relaxation"],
-    image:
-      "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80",
-  },
-];
+export default async function SouthPacificPage() {
+  const sanityDoc = await client.fetch(SOUTH_PACIFIC_QUERY).catch(() => null);
+  const content = mergeSouthPacificContent(sanityDoc);
 
-export default function SouthPacificPage() {
   return (
     <>
       <section className="w-full min-h-[550px] relative flex items-center bg-slate-900 overflow-hidden py-20 px-6 md:px-12">
         <img
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+          src={content.heroBackgroundImage}
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center opacity-70 z-0"
         />
@@ -54,7 +29,7 @@ export default function SouthPacificPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        {locations.map((loc) => (
+        {content.destinations.map((loc) => (
           <Link
             key={loc.id}
             href={`/destinations/south-pacific/${loc.id}`}
