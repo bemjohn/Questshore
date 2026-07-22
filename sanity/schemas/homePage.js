@@ -4,11 +4,17 @@ export default defineType({
   name: 'homePage',
   title: 'Home Page',
   type: 'document',
+  fieldsets: [
+    {name: 'hero', title: 'Hero Section', options: {collapsible: true, collapsed: false}},
+    {name: 'destinations', title: 'Explore Our Destinations Section', options: {collapsible: true, collapsed: false}},
+    {name: 'testimonials', title: 'Real Stories From Real Cruisers Section', options: {collapsible: true, collapsed: false}},
+  ],
   fields: [
     defineField({
       name: 'hero',
       title: 'Hero',
       type: 'object',
+      fieldset: 'hero',
       fields: [
         {name: 'title', type: 'string', title: 'Title'},
         {name: 'subtitle', type: 'string', title: 'Subtitle'},
@@ -19,12 +25,14 @@ export default defineType({
       name: 'featuredDestinations',
       title: 'Featured Destinations',
       type: 'array',
+      fieldset: 'destinations',
       of: [{type: 'reference', to: [{type: 'destination'}]}],
     }),
     defineField({
       name: 'testimonials',
       title: 'Testimonials',
       type: 'array',
+      fieldset: 'testimonials',
       of: [
         {
           type: 'object',

@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 
-export default function AboutBody({ heroBanner, collageImage1, collageImage2, collageImage3 }) {
+export default function AboutBody({ heroBanner, collageImage1, collageImage2, collageImage3, givingBackImage1, givingBackImage2, givingBackImage3 }) {
   const [activeTab, setActiveTab] = useState("how-it-started");
+  const leftImg1 = activeTab === "giving-back" ? givingBackImage1 : collageImage1;
+  const leftImg2 = activeTab === "giving-back" ? givingBackImage2 : collageImage2;
+  const rightImg = activeTab === "giving-back" ? givingBackImage3 : collageImage3;
   return (
     <>
       <section className="w-full min-h-[70vh] md:min-h-[85vh] relative flex items-end pb-12 md:pb-20 overflow-hidden">
@@ -50,19 +53,19 @@ export default function AboutBody({ heroBanner, collageImage1, collageImage2, co
             <div className="flex items-center gap-6 md:gap-8 w-full">
               <div className="w-[40%] flex flex-col gap-6">
                 <img
-                  src={collageImage1}
+                  src={leftImg1}
                   alt="Travelers exploring a tropical destination"
                   className="w-full aspect-[4/5] object-cover rounded-[32px] shadow-sm"
                 />
                 <img
-                  src={collageImage2}
+                  src={leftImg2}
                   alt="Group of friends laughing on a boat excursion"
                   className="w-full aspect-[4/5] object-cover rounded-[32px] shadow-sm"
                 />
               </div>
               <div className="w-[60%] -mt-12 md:-mt-16 mb-12 md:mb-16">
                 <img
-                  src={collageImage3}
+                  src={rightImg}
                   alt="Travelers on a shore excursion boat adventure"
                   className="w-full aspect-[4/5] object-cover rounded-[40px] shadow-md"
                 />

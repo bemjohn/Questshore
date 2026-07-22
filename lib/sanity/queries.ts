@@ -63,7 +63,10 @@ export const ABOUT_QUERY = groq`
     heroBanner,
     collageImage1,
     collageImage2,
-    collageImage3
+    collageImage3,
+    givingBackImage1,
+    givingBackImage2,
+    givingBackImage3
   }
 `;
 
