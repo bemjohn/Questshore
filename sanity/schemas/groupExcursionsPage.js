@@ -10,4 +10,9 @@ export default defineType({
   fields: [
     defineField({name: 'heroBackgroundImage', title: 'Hero Background Image', type: 'image', options: {hotspot: true}, fieldset: 'hero'}),
   ],
+  preview: {
+    prepare() {
+      return { title: "Group Excursions Page" };
+    },
+  },
 })

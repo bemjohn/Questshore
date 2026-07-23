@@ -18,4 +18,9 @@ export default defineType({
       of: [defineArrayMember({type: 'reference', to: [{type: 'destination'}]})],
     }),
   ],
+  preview: {
+    prepare() {
+      return { title: "Travel Agent Page" };
+    },
+  },
 })

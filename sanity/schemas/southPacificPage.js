@@ -19,4 +19,9 @@ export default defineType({
       fieldset: 'destinations',
     }),
   ],
+  preview: {
+    prepare() {
+      return { title: "South Pacific Page" };
+    },
+  },
 })

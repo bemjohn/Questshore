@@ -18,4 +18,9 @@ export default defineType({
     defineField({name: 'givingBackImage2', title: 'Giving Back Photo — Left Bottom', type: 'image', options: {hotspot: true}, fieldset: 'givingBack'}),
     defineField({name: 'givingBackImage3', title: 'Giving Back Photo — Right Column', type: 'image', options: {hotspot: true}, fieldset: 'givingBack'}),
   ],
+  preview: {
+    prepare() {
+      return { title: "About Us Page" };
+    },
+  },
 })
