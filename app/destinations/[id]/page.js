@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const sanityDoc = await client.fetch(DESTINATION_BY_SLUG_QUERY, { slug: id }).catch(() => null);
+  const sanityDoc = await client.fetch(DESTINATION_BY_SLUG_QUERY, { slug: id }, { next: { tags: ["destination"] } }).catch(() => null);
   const fb = destinationsFallback.find((d) => d.slug === id) || destinationsFallback[0];
   const dest = mergeSingleDestination(sanityDoc, fb);
   return {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
 
 export default async function DestinationPage({ params }) {
   const { id } = await params;
-  const sanityDoc = await client.fetch(DESTINATION_BY_SLUG_QUERY, { slug: id }).catch(() => null);
+  const sanityDoc = await client.fetch(DESTINATION_BY_SLUG_QUERY, { slug: id }, { next: { tags: ["destination"] } }).catch(() => null);
   const fb = destinationsFallback.find((d) => d.slug === id);
 
   if (!fb) {

@@ -4,7 +4,7 @@ import { SOUTH_PACIFIC_QUERY } from "@/lib/sanity/queries";
 import { mergeSouthPacificContent } from "@/lib/content/southPacific.merge";
 
 export default async function SouthPacificPage() {
-  const sanityDoc = await client.fetch(SOUTH_PACIFIC_QUERY).catch(() => null);
+  const sanityDoc = await client.fetch(SOUTH_PACIFIC_QUERY, {}, { next: { tags: ["southPacificPage"] } }).catch(() => null);
   const content = mergeSouthPacificContent(sanityDoc);
 
   return (

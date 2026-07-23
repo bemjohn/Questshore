@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function DestinationsIndexPage() {
-  const sanityDocs = await client.fetch(DESTINATIONS_QUERY).catch(() => null);
+  const sanityDocs = await client.fetch(DESTINATIONS_QUERY, {}, { next: { tags: ["destinations"] } }).catch(() => null);
   const destinations = mergeDestinations(sanityDocs);
 
   return (

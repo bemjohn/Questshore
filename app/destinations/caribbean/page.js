@@ -4,7 +4,7 @@ import { CARIBBEAN_QUERY } from "@/lib/sanity/queries";
 import { mergeCaribbeanContent } from "@/lib/content/caribbean.merge";
 
 export default async function CaribbeanPage() {
-  const sanityDoc = await client.fetch(CARIBBEAN_QUERY).catch(() => null);
+  const sanityDoc = await client.fetch(CARIBBEAN_QUERY, {}, { next: { tags: ["caribbeanPage"] } }).catch(() => null);
   const content = mergeCaribbeanContent(sanityDoc);
 
   return (

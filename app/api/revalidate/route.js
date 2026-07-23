@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { parseBody } from "next-sanity/webhook";
 
 export async function POST(req) {
@@ -18,10 +18,17 @@ export async function POST(req) {
 
     if (docType === "homePage") {
       revalidatePath("/", "page");
+      revalidateTag("homePage");
     } else if (docType === "destination") {
       revalidatePath("/destinations/south-pacific", "page");
       revalidatePath("/destinations/caribbean", "page");
       revalidatePath("/travel-agent", "page");
+      revalidatePath("/destinations", "page");
+      revalidateTag("southPacificPage");
+      revalidateTag("caribbeanPage");
+      revalidateTag("travelAgentPage");
+      revalidateTag("destinations");
+      revalidateTag("destination");
       if (slug) {
         revalidatePath(`/destinations/${slug}`, "page");
       }
@@ -29,14 +36,19 @@ export async function POST(req) {
       revalidatePath("/", "layout");
     } else if (docType === "aboutPage") {
       revalidatePath("/about", "page");
+      revalidateTag("aboutPage");
     } else if (docType === "southPacificPage") {
       revalidatePath("/destinations/south-pacific", "page");
+      revalidateTag("southPacificPage");
     } else if (docType === "caribbeanPage") {
       revalidatePath("/destinations/caribbean", "page");
+      revalidateTag("caribbeanPage");
     } else if (docType === "groupExcursionsPage") {
       revalidatePath("/group-excursions", "page");
+      revalidateTag("groupExcursionsPage");
     } else if (docType === "travelAgentPage") {
       revalidatePath("/travel-agent", "page");
+      revalidateTag("travelAgentPage");
     } else {
       revalidatePath("/", "layout");
     }

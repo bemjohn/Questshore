@@ -6,7 +6,7 @@ import { HOME_QUERY } from "@/lib/sanity/queries";
 import { mergeHomeContent } from "@/lib/content/home.merge";
 
 export default async function HomePage() {
-  const sanityDoc = await client.fetch(HOME_QUERY).catch(() => null);
+  const sanityDoc = await client.fetch(HOME_QUERY, {}, { next: { tags: ["homePage"] } }).catch(() => null);
   const content = mergeHomeContent(sanityDoc);
 
   return (
