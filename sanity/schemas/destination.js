@@ -6,7 +6,16 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({name: 'title', type: 'string', title: 'Title'}),
-    defineField({name: 'slug', type: 'slug', title: 'Slug', options: {source: 'title'}}),
+    defineField({
+      name: 'slug',
+      title: 'URL Slug',
+      type: 'slug',
+      description: "Type the short port name only, lowercase, with dashes instead of spaces — e.g. 'port-vila', NOT 'port-vila-vanuatu'. This must exactly match the folder name under app/destinations/[region]/ in the code.",
+      options: {
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 40),
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({name: 'country', type: 'string', title: 'Country'}),
     defineField({
       name: 'region',
