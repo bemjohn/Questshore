@@ -57,6 +57,7 @@ export default function CozumelPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Dolphin Swim Encounter at Chankanaab Marine Park"
+              destinationPort="Cozumel, Mexico"
               showForm
               showCheckout
               showInfo
@@ -101,6 +102,7 @@ export default function CozumelPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Manatee Encounter"
+              destinationPort="Cozumel, Mexico"
               showForm
               showCheckout
               showInfo
@@ -146,6 +148,7 @@ export default function CozumelPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Explore Cozumel Historical & Beach Break"
+              destinationPort="Cozumel, Mexico"
               showForm
               showCheckout
               showInfo

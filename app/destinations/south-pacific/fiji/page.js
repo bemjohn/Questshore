@@ -54,6 +54,7 @@ export default function FijiPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Lautoka Essentielle"
+              destinationPort="Fiji Islands"
               showForm
               showCheckout
               showInfo

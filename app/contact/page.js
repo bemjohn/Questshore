@@ -22,16 +22,12 @@ export default function ContactPage() {
     setError(false);
     try {
       const formData = new FormData(e.target);
-      const res = await fetch("/__forms.html", {
+      await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
-      if (res.status === 200) {
-        setSubmitted(true);
-      } else {
-        throw new Error("Form submission failed");
-      }
+      setSubmitted(true);
     } catch {
       setError(true);
     }
@@ -107,9 +103,9 @@ export default function ContactPage() {
             <form
               onSubmit={handleSubmit}
               className="bg-white p-6 md:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-6"
-              name="contact-us"
+              name="contact"
             >
-              <input type="hidden" name="form-name" value="contact-us" />
+              <input type="hidden" name="form-name" value="contact" />
 
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-semibold text-slate-700">

@@ -5,6 +5,7 @@ import Counter from "./Counter";
 
 export default function BookingSidebar({
   title,
+  destinationPort,
   showForm,
   showCheckout,
   showInfo,
@@ -20,6 +21,17 @@ export default function BookingSidebar({
 
   const totalTourCost = adultCount * adultPrice + childCount * childPrice;
   const commitmentFeeToday = (adultCount + childCount) * 10;
+
+  function openBookingModal() {
+    window.dispatchEvent(
+      new CustomEvent("openBookingModal", {
+        detail: {
+          excursionName: title || "",
+          destinationPort: destinationPort || "",
+        },
+      })
+    );
+  }
 
   return (
     <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-100 space-y-6 lg:sticky lg:top-6">
@@ -82,6 +94,7 @@ export default function BookingSidebar({
           </div>
           <button
             type="button"
+            onClick={openBookingModal}
             className="w-full bg-emerald-700 text-white font-medium py-3 rounded-xl hover:bg-emerald-600 transition-colors text-sm text-center cursor-pointer"
           >
             RESERVE NOW

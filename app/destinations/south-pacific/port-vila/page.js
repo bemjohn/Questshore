@@ -54,6 +54,7 @@ export default function PortVilaPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Vila Signature"
+              destinationPort="Port Vila, Vanuatu"
               showForm
               showCheckout
               showInfo
@@ -85,6 +86,7 @@ export default function PortVilaPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Vila Tranquil/Snorkel Combo"
+              destinationPort="Port Vila, Vanuatu"
               showForm
               showCheckout
               showInfo
@@ -113,6 +115,7 @@ export default function PortVilaPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Adventurous Splash"
+              destinationPort="Port Vila, Vanuatu"
               showForm
               showCheckout
               showInfo

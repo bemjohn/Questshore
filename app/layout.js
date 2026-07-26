@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import BookingModal from "@/components/BookingModal";
+import NetlifyFormDetection from "@/components/NetlifyFormDetection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
           </div>
         </footer>
         <BookingModal />
+        <NetlifyFormDetection />
       </body>
     </html>
   );

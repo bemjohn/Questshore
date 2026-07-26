@@ -53,6 +53,7 @@ export default function NoumeaPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="A Swim With Sea Turtle Experience"
+              destinationPort="Noumea, New Caledonia"
               showForm
               showCheckout
               showInfo

@@ -59,15 +59,15 @@ export default function ExcursionCard({ excursion, destinationPort, destinationI
 
         <button
           onClick={() => {
-            const modal = document.getElementById("booking-modal");
-            if (modal) {
-              modal.dataset.excursion = excursion.name;
-              modal.dataset.destination = destinationPort;
-              modal.dataset.destinationId = destinationId;
-              modal.dataset.requiresTime = String(!!excursion.requiresTime);
-              modal.classList.remove("hidden");
-              modal.classList.add("flex");
-            }
+            window.dispatchEvent(
+              new CustomEvent("openBookingModal", {
+                detail: {
+                  excursionName: excursion.name,
+                  destinationPort: destinationPort,
+                  destinationId: destinationId,
+                },
+              })
+            );
           }}
           className="w-full py-3 px-6 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-sky-700 hover:to-cyan-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
         >

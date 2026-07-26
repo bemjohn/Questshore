@@ -25,16 +25,12 @@ export default function TravelAgentBody({ heroBackgroundImage, destinations }) {
     setError(false);
     try {
       const formData = new FormData(e.target);
-      const res = await fetch("/__forms.html", {
+      await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
-      if (res.status === 200) {
-        setSubmitted(true);
-      } else {
-        throw new Error("Form submission failed");
-      }
+      setSubmitted(true);
     } catch {
       setError(true);
     }
@@ -169,9 +165,9 @@ export default function TravelAgentBody({ heroBackgroundImage, destinations }) {
             <form
               onSubmit={handleSubmit}
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6"
-              name="travel-agent-network"
+              name="travel-agent"
             >
-              <input type="hidden" name="form-name" value="travel-agent-network" />
+              <input type="hidden" name="form-name" value="travel-agent" />
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">

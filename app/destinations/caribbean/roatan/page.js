@@ -77,6 +77,7 @@ export default function RoatanPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Roatan By Land And Sea"
+              destinationPort="Roatan, Honduras"
               showForm
               showCheckout
               showInfo
@@ -116,6 +117,7 @@ export default function RoatanPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Day Pass at a Private Island Beach Resort & Orphanage Visit"
+              destinationPort="Roatan, Honduras"
               showForm
               showCheckout
               showInfo
@@ -159,6 +161,7 @@ export default function RoatanPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Roatan Animal Sanctuary & Beach Break"
+              destinationPort="Roatan, Honduras"
               showForm
               showCheckout
               showInfo

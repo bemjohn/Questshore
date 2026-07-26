@@ -36,16 +36,12 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
     setError(false);
     try {
       const formData = new FormData(e.target);
-      const res = await fetch("/__forms.html", {
+      await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
-      if (res.status === 200) {
-        setSubmitted(true);
-      } else {
-        throw new Error("Form submission failed");
-      }
+      setSubmitted(true);
     } catch {
       setError(true);
     }
@@ -140,8 +136,8 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6" name="group-excursion-inquiry">
-              <input type="hidden" name="form-name" value="group-excursion-inquiry" />
+            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6" name="group-excursions">
+              <input type="hidden" name="form-name" value="group-excursions" />
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>

@@ -78,6 +78,7 @@ export default function LifouPage() {
           <div className="lg:col-span-5">
             <BookingSidebar
               title="Lifou Scenic Heritage"
+              destinationPort="Lifou, New Caledonia"
               showForm
               showCheckout
               showInfo

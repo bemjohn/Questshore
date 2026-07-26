@@ -5,28 +5,43 @@ import { useState, useEffect } from "react";
 export default function BookingModal() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    cruiseShip: "",
-    tourDate: "",
-    timeSlot: "",
-    adults: 1,
-    children: 0,
+    fullName: "",
+    email: "",
+    preferredDate: "",
+    numberOfGuests: 2,
     excursionName: "",
     destinationPort: "",
-    destinationId: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    function handleOpen(e) {
+      const detail = e.detail || {};
+      setForm((prev) => ({
+        ...prev,
+        fullName: "",
+        email: "",
+        preferredDate: "",
+        numberOfGuests: 2,
+        excursionName: detail.excursionName || "",
+        destinationPort: detail.destinationPort || "",
+      }));
+      setSubmitted(false);
+      setError(false);
+      setOpen(true);
+    }
+    window.addEventListener("openBookingModal", handleOpen);
+    return () => window.removeEventListener("openBookingModal", handleOpen);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
     function handleKeydown(e) {
       if (e.key === "Escape") closeModal();
     }
-    if (open) {
-      document.addEventListener("keydown", handleKeydown);
-      document.body.style.overflow = "hidden";
-    }
+    document.addEventListener("keydown", handleKeydown);
+    document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", handleKeydown);
       document.body.style.overflow = "";
@@ -39,30 +54,6 @@ export default function BookingModal() {
     setError(false);
   }
 
-  useEffect(() => {
-    const modal = document.getElementById("booking-modal");
-    if (!modal) return;
-    const observer = new MutationObserver(() => {
-      const isHidden = modal.classList.contains("hidden");
-      setOpen(!isHidden);
-      if (!isHidden) {
-        const name = modal.dataset.excursion || "";
-        const dest = modal.dataset.destination || "";
-        const destId = modal.dataset.destinationId || "";
-        const requiresTime = modal.dataset.requiresTime === "true";
-        setForm((prev) => ({
-          ...prev,
-          excursionName: name,
-          destinationPort: dest,
-          destinationId: destId,
-          timeSlot: requiresTime ? prev.timeSlot : "",
-        }));
-      }
-    });
-    observer.observe(modal, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
-
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -71,20 +62,14 @@ export default function BookingModal() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(false);
-
     try {
-      const body = new URLSearchParams({ "form-name": "booking-inquiry", ...form });
-      const res = await fetch("/__forms.html", {
+      const formData = new FormData(e.target);
+      await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
+        body: new URLSearchParams(formData).toString(),
       });
-
-      if (res.status === 200) {
-        setSubmitted(true);
-      } else {
-        throw new Error("Form submission failed");
-      }
+      setSubmitted(true);
     } catch {
       setError(true);
     }
@@ -92,19 +77,16 @@ export default function BookingModal() {
 
   if (!open) return null;
 
-  const requiresTime = form.excursionName === "A Swim With Sea Turtle Experience";
-
   return (
     <div
-      id="booking-modal"
-      className="hidden fixed inset-0 z-[100] items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) closeModal();
       }}
     >
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900">Book Your Excursion</h2>
+          <h2 className="text-xl font-bold text-gray-900">Book This Excursion</h2>
           <button
             onClick={closeModal}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
@@ -123,10 +105,9 @@ export default function BookingModal() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Booking Inquiry Submitted!</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Inquiry Submitted!</h3>
             <p className="text-gray-600 mb-6">
-              Thank you! Your excursion booking request has been received. We will contact you shortly to confirm
-              availability.
+              Thank you for your interest! We will contact you shortly to confirm availability and answer any questions.
             </p>
             <button
               onClick={closeModal}
@@ -136,150 +117,77 @@ export default function BookingModal() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 space-y-4" name="booking-inquiry">
-            <input type="hidden" name="form-name" value="booking-inquiry" />
+          <form onSubmit={handleSubmit} className="p-6 space-y-4" name="book-excursion">
+            <input type="hidden" name="form-name" value="book-excursion" />
             <input type="hidden" name="excursionName" value={form.excursionName || ""} />
             <input type="hidden" name="destinationPort" value={form.destinationPort || ""} />
-            <input type="hidden" name="destinationId" value={form.destinationId || ""} />
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  First Name *
-                </label>
-                <input
-                  required
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
-                />
+            {form.excursionName && (
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs font-semibold text-sky-700 uppercase tracking-wider">Excursion</p>
+                <p className="text-sm font-medium text-sky-900 mt-0.5">{form.excursionName}</p>
+                {form.destinationPort && (
+                  <p className="text-xs text-sky-600 mt-0.5">{form.destinationPort}</p>
+                )}
               </div>
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Last Name *
-                </label>
-                <input
-                  required
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
-                />
-              </div>
-            </div>
+            )}
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                Cruise Ship Details *
+                Full Name *
               </label>
               <input
                 required
-                name="cruiseShip"
-                value={form.cruiseShip}
+                name="fullName"
+                value={form.fullName}
                 onChange={handleChange}
-                placeholder="e.g. Quantum of the Seas"
+                placeholder="Your full name"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Tour Date *
-                </label>
-                <input
-                  required
-                  type="date"
-                  name="tourDate"
-                  value={form.tourDate}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Preferred Time {requiresTime ? "*" : ""}
-                </label>
-                <select
-                  name="timeSlot"
-                  value={form.timeSlot}
-                  onChange={handleChange}
-                  required={requiresTime}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer"
-                >
-                  <option value="">Select time</option>
-                  <option value="07:00">07:00</option>
-                  <option value="08:00">08:00</option>
-                  <option value="08:30">08:30</option>
-                  <option value="09:00">09:00</option>
-                  <option value="09:30">09:30</option>
-                  <option value="10:00">10:00</option>
-                  <option value="10:30">10:30</option>
-                  <option value="11:00">11:00</option>
-                  <option value="11:30">11:30</option>
-                  <option value="12:00">12:00</option>
-                  <option value="12:30">12:30</option>
-                  <option value="13:00">13:00</option>
-                  <option value="13:30">13:30</option>
-                  <option value="14:00">14:00</option>
-                </select>
-              </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
+                Email *
+              </label>
+              <input
+                required
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Your email address"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Adults *
-                </label>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setForm((p) => ({ ...p, adults: Math.max(1, p.adults - 1) }))}
-                    className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                    </svg>
-                  </button>
-                  <span className="w-8 text-center font-bold text-gray-900">{form.adults}</span>
-                  <button
-                    type="button"
-                    onClick={() => setForm((p) => ({ ...p, adults: p.adults + 1 }))}
-                    className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                  Children
-                </label>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setForm((p) => ({ ...p, children: Math.max(0, p.children - 1) }))}
-                    className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                    </svg>
-                  </button>
-                  <span className="w-8 text-center font-bold text-gray-900">{form.children}</span>
-                  <button
-                    type="button"
-                    onClick={() => setForm((p) => ({ ...p, children: Math.max(0, p.children + 1) }))}
-                    className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
+                Preferred Date *
+              </label>
+              <input
+                required
+                type="date"
+                name="preferredDate"
+                value={form.preferredDate}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
+                Number of Guests *
+              </label>
+              <input
+                required
+                type="number"
+                name="numberOfGuests"
+                min="1"
+                value={form.numberOfGuests}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
             </div>
 
             {error && (
