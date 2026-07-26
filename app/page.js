@@ -2,12 +2,17 @@ import Hero from "@/components/Hero";
 import DestinationCard from "@/components/DestinationCard";
 import FaqAccordion from "@/components/FaqAccordion";
 import { client } from "@/lib/sanity/client";
-import { HOME_QUERY } from "@/lib/sanity/queries";
+import { HOME_QUERY, DESTINATIONS_QUERY } from "@/lib/sanity/queries";
 import { mergeHomeContent } from "@/lib/content/home.merge";
+import { mergeDestinations } from "@/lib/content/destinations.merge";
 
 export default async function HomePage() {
-  const sanityDoc = await client.fetch(HOME_QUERY, {}, { next: { tags: ["homePage"] } }).catch(() => null);
+  const [sanityDoc, sanityDestinations] = await Promise.all([
+    client.fetch(HOME_QUERY, {}, { next: { tags: ["homePage"] } }).catch(() => null),
+    client.fetch(DESTINATIONS_QUERY, {}, { next: { tags: ["homePage", "destinations"] } }).catch(() => null),
+  ]);
   const content = mergeHomeContent(sanityDoc);
+  const destinations = mergeDestinations(sanityDestinations);
 
   return (
     <>
@@ -26,7 +31,7 @@ export default async function HomePage() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {content.cards.map((card) => (
+          {destinations.map((card) => (
             <DestinationCard key={card.id} dest={card} />
           ))}
         </div>
