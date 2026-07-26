@@ -30,7 +30,7 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
               if (link.hasDropdown) {
                 return (
@@ -79,7 +79,7 @@ export default function Header() {
           </nav>
 
           <button
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -96,7 +96,7 @@ export default function Header() {
         </div>
 
         {menuOpen && (
-          <div className="lg:hidden border-t border-gray-100 py-4 space-y-3">
+          <div className="md:hidden border-t border-gray-100 py-4 space-y-3">
             {navLinks.map((link) => {
               if (link.hasDropdown) {
                 return (
