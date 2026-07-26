@@ -3,9 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import DestinationCard from "@/components/DestinationCard";
-import { destinationsFallback as destinations } from "@/lib/content/destinations.fallback";
 
-export default function TravelAgentBody({ heroBackgroundImage }) {
+export default function TravelAgentBody({ heroBackgroundImage, destinations }) {
   const [form, setForm] = useState({
     agencyName: "",
     contactName: "",
