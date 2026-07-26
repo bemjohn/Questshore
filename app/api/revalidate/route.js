@@ -20,10 +20,12 @@ export async function POST(req) {
       revalidatePath("/", "page");
       revalidateTag("homePage");
     } else if (docType === "destination") {
+      revalidatePath("/", "page");
       revalidatePath("/destinations/south-pacific", "page");
       revalidatePath("/destinations/caribbean", "page");
       revalidatePath("/travel-agent", "page");
       revalidatePath("/destinations", "page");
+      revalidateTag("homePage");
       revalidateTag("southPacificPage");
       revalidateTag("caribbeanPage");
       revalidateTag("travelAgentPage");
