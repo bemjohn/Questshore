@@ -8,7 +8,7 @@ export function mergeDestinations(sanity: any[] | null | undefined): Destination
   return sanity.map((d: any, i: number) => {
     const fb = destinationsFallback[i];
     return {
-      id: d._id || fb?.id || `dest-${i}`,
+      id: d.slug?.current || fb?.id || `dest-${i}`,
       title: d.title || fb?.title || "Unknown",
       slug: d.slug?.current || fb?.slug || "",
       country: d.country || fb?.country || "",
@@ -23,7 +23,7 @@ export function mergeDestinations(sanity: any[] | null | undefined): Destination
 
 export function mergeSingleDestination(sanity: any, fallback: DestinationCard): DestinationCard {
   return {
-    id: sanity?._id || fallback.id,
+    id: sanity?.slug?.current || fallback.id,
     title: sanity?.title || fallback.title,
     slug: sanity?.slug?.current || fallback.slug,
     country: sanity?.country || fallback.country,
