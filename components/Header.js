@@ -2,10 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
 
 export default function Header() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  function isActive(href) {
+    return pathname === href;
+  }
+
+  function isDestinationsActive() {
+    return pathname === "/destinations" || pathname.startsWith("/destinations/");
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-xs">
@@ -25,10 +35,10 @@ export default function Header() {
               if (link.hasDropdown) {
                 return (
                   <div key={link.label} className="relative group">
-                    <Link href={link.href} className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-sky-700 transition-colors py-4 -my-4">
+                    <Link href={link.href} className={`flex items-center gap-1 text-sm font-medium transition-colors py-4 -my-4 ${isDestinationsActive() ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}>
                       {link.label}
                       <svg
-                        className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+                        className={`w-4 h-4 transition-transform duration-200 ${isDestinationsActive() ? "" : "group-hover:rotate-180"}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -40,13 +50,13 @@ export default function Header() {
                       <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
                         <Link
                           href="/destinations/south-pacific"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
+                          className={`block px-4 py-2 text-sm transition-colors ${pathname === "/destinations/south-pacific" ? "bg-sky-50 text-sky-700 font-semibold" : "text-gray-700 hover:bg-sky-50 hover:text-sky-700"}`}
                         >
                           South Pacific
                         </Link>
                         <Link
                           href="/destinations/caribbean"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
+                          className={`block px-4 py-2 text-sm transition-colors ${pathname === "/destinations/caribbean" ? "bg-sky-50 text-sky-700 font-semibold" : "text-gray-700 hover:bg-sky-50 hover:text-sky-700"}`}
                         >
                           Caribbean Excursions
                         </Link>
@@ -60,7 +70,7 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm font-medium text-gray-700 hover:text-sky-700 transition-colors"
+                  className={`text-sm font-medium transition-colors ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
                 >
                   {link.label}
                 </Link>
@@ -91,19 +101,19 @@ export default function Header() {
               if (link.hasDropdown) {
                 return (
                   <div key={link.label} className="px-2 space-y-1">
-                    <div className="text-xs font-bold uppercase tracking-wider text-gray-400 py-1">
+                    <div className={`text-xs font-bold uppercase tracking-wider py-1 ${isDestinationsActive() ? "text-sky-700" : "text-gray-400"}`}>
                       {link.label}
                     </div>
                     <Link
                       href="/destinations/south-pacific"
-                      className="block pl-4 py-1.5 text-sm text-gray-600 hover:text-sky-700"
+                      className={`block pl-4 py-1.5 text-sm transition-colors ${pathname === "/destinations/south-pacific" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
                       onClick={() => setMenuOpen(false)}
                     >
                       South Pacific
                     </Link>
                     <Link
                       href="/destinations/caribbean"
-                      className="block pl-4 py-1.5 text-sm text-gray-600 hover:text-sky-700"
+                      className={`block pl-4 py-1.5 text-sm transition-colors ${pathname === "/destinations/caribbean" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
                       onClick={() => setMenuOpen(false)}
                     >
                       Caribbean Excursions
@@ -116,7 +126,7 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="block px-2 py-2 text-sm font-medium text-gray-700 hover:text-sky-700"
+                  className={`block px-2 py-2 text-sm font-medium transition-colors ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
