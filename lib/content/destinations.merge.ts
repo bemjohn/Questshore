@@ -1,6 +1,14 @@
 import { destinationsFallback, type DestinationCard } from "./destinations.fallback";
 import { urlForString } from "@/lib/sanity/image";
 
+const regionSlug: Record<string, string> = {
+  "South Pacific": "south-pacific",
+  Caribbean: "caribbean",
+};
+function normalizeRegion(r: string | undefined): string {
+  return regionSlug[r ?? ""] || r || "";
+}
+
 export function mergeDestinations(sanity: any[] | null | undefined): DestinationCard[] {
   if (!sanity || !Array.isArray(sanity) || sanity.length === 0) {
     return destinationsFallback;
@@ -9,6 +17,7 @@ export function mergeDestinations(sanity: any[] | null | undefined): Destination
     const fb = destinationsFallback[i];
     return {
       id: d.slug?.current || fb?.id || `dest-${i}`,
+      region: normalizeRegion(d.region) || fb?.region || "",
       title: d.title || fb?.title || "Unknown",
       slug: d.slug?.current || fb?.slug || "",
       country: d.country || fb?.country || "",
@@ -24,6 +33,7 @@ export function mergeDestinations(sanity: any[] | null | undefined): Destination
 export function mergeSingleDestination(sanity: any, fallback: DestinationCard): DestinationCard {
   return {
     id: sanity?.slug?.current || fallback.id,
+    region: normalizeRegion(sanity?.region) || fallback.region,
     title: sanity?.title || fallback.title,
     slug: sanity?.slug?.current || fallback.slug,
     country: sanity?.country || fallback.country,
@@ -50,6 +60,7 @@ function mergeExcursions(sanityExcursions: any[] | null | undefined, fallbackExc
       description: e.description || fb?.description,
       requiresTime: e.requiresTime ?? fb?.requiresTime,
       highlights: e.highlights?.length > 0 ? e.highlights : fb?.highlights || [],
+      photo: urlForString(e.photo) || fb?.photo || "",
     };
   });
 }

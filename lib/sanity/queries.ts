@@ -25,6 +25,7 @@ export const DESTINATIONS_QUERY = groq`
     title,
     slug,
     country,
+    region,
     "cardImage": cardImage,
     overview,
     points_of_interest,
@@ -44,6 +45,7 @@ export const DESTINATION_BY_SLUG_QUERY = groq`
     title,
     slug,
     country,
+    region,
     "cardImage": cardImage,
     "heroImage": heroImage,
     overview,
@@ -53,7 +55,8 @@ export const DESTINATION_BY_SLUG_QUERY = groq`
       pricing,
       description,
       requiresTime,
-      highlights
+      highlights,
+      "photo": photo
     }
   }
 `;

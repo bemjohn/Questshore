@@ -16,7 +16,7 @@ export default function DestinationCard({ dest }) {
   const count = dest.excursionsCount ?? dest.excursions?.length;
   return (
     <Link
-      href={`/destinations/${dest.id}`}
+      href={`/destinations/${dest.region}/${dest.slug}`}
       className="relative overflow-hidden rounded-2xl group h-72 shadow-sm hover:shadow-xl transition-all duration-300 block"
     >
       <img

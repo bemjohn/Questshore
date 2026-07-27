@@ -32,7 +32,8 @@ export async function POST(req) {
       revalidateTag("destinations");
       revalidateTag("destination");
       if (slug) {
-        revalidatePath(`/destinations/${slug}`, "page");
+        revalidatePath(`/destinations/south-pacific/${slug}`, "page");
+        revalidatePath(`/destinations/caribbean/${slug}`, "page");
       }
     } else if (docType === "navigation") {
       revalidatePath("/", "layout");

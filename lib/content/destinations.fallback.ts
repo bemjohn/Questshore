@@ -1,6 +1,7 @@
 export const destinationsFallback = [
   {
     id: "port-vila",
+    region: "south-pacific",
     title: "Port Vila, Vanuatu",
     slug: "port-vila",
     country: "Vanuatu",
@@ -47,6 +48,7 @@ export const destinationsFallback = [
   },
   {
     id: "noumea",
+    region: "south-pacific",
     title: "Noumea, New Caledonia",
     slug: "noumea",
     country: "New Caledonia",
@@ -72,6 +74,7 @@ export const destinationsFallback = [
   },
   {
     id: "lifou",
+    region: "south-pacific",
     title: "Lifou, New Caledonia",
     slug: "lifou",
     country: "New Caledonia",
@@ -98,6 +101,7 @@ export const destinationsFallback = [
   },
   {
     id: "fiji",
+    region: "south-pacific",
     title: "Fiji Island Excursion (Lautoka)",
     slug: "fiji",
     country: "Fiji",
@@ -123,6 +127,7 @@ export const destinationsFallback = [
   },
   {
     id: "roatan",
+    region: "caribbean",
     title: "Roatan, Honduras",
     slug: "roatan",
     country: "Honduras",
@@ -166,6 +171,7 @@ export const destinationsFallback = [
   },
   {
     id: "cozumel",
+    region: "caribbean",
     title: "Cozumel, Mexico",
     slug: "cozumel",
     country: "Mexico",
@@ -220,6 +226,7 @@ export const destinationsFallback = [
 
 export type DestinationCard = {
   id: string;
+  region: string;
   title: string;
   slug: string;
   country: string;
@@ -236,4 +243,5 @@ export type Excursion = {
   description?: string;
   requiresTime?: boolean;
   highlights: string[];
+  photo?: string;
 };
