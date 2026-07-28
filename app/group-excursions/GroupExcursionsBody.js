@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Users, Briefcase, Sparkles } from "lucide-react";
+import { Users, Briefcase, Sparkles, Heart } from "lucide-react";
 
 export default function GroupExcursionsBody({ heroBackgroundImage }) {
   const [form, setForm] = useState({
@@ -70,7 +70,7 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
             GROUP EXPERIENCES DESIGNED WITH YOU IN MIND
           </h2>
           <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed">
-            We enjoy designing exclusive excursions for single cruisers, our hosted shore excursions are all about bringing people together. Meet fellow singles, discover incredible destinations, and enjoy experiences that are more fun when shared. Whether you&rsquo;re looking to make new friends, expand your social circle, or simply enjoy exploring with great company, every excursion offers a relaxed, welcoming atmosphere where meaningful connections happen naturally. Your next favorite travel memory could begin with the people you meet along the way.
+            Every group is unique, which is why every QuestAshore experience is thoughtfully customized to suit your interests, schedule, and travel style. Whether you&rsquo;re bringing loved ones together, rewarding your team, or connecting with a community, we create seamless shore excursions that turn your day in port into a memorable experience.
           </p>
         </div>
         <div className="flex flex-col gap-16 max-w-5xl mx-auto px-4 mt-16">
@@ -78,9 +78,9 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2">
               <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">01</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Family & Milestone Celebrations</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Family Groups</h3>
               <p className="text-gray-500 leading-relaxed">
-                Keep multi-generational families together with pacing, vehicles, and activities perfect for both kids and grandparents.
+                Create unforgettable memories with the people who matter most. Whether you&rsquo;re planning a family reunion, celebrating a birthday or anniversary, or simply enjoying a cruise together, we&rsquo;ll design an itinerary that caters to all ages and interests. From relaxing beach escapes to cultural sightseeing and exciting adventures, our experiences ensure everyone&mdash;from children to grandparents&mdash;has an incredible day ashore.
               </p>
             </div>
             <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-indigo-50 to-blue-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
@@ -91,9 +91,9 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
           <div className="flex flex-col md:flex-row-reverse items-center gap-10">
             <div className="w-full md:w-1/2">
               <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">02</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Corporate & Incentive Groups</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Corporate Groups</h3>
               <p className="text-gray-500 leading-relaxed">
-                Reward your team with exclusive private island tours, catamaran charters, or custom team-building events coordinated around your ship's docking window.
+                Strengthen relationships and inspire your team with professionally organized shore excursions. Whether you&rsquo;re hosting clients, rewarding employees, or planning a company retreat, we create experiences that balance leisure, networking, and team building. We take care of the planning and logistics so your group can focus on enjoying the destination.
               </p>
             </div>
             <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-blue-50 to-cyan-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
@@ -104,9 +104,22 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2">
               <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">03</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Single &amp; Solo Social</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Community &amp; Social Groups</h3>
               <p className="text-gray-500 leading-relaxed">
-                Create an unforgettable pre- or post-wedding island day trip curated with private local guides, custom dining setups, and premium transport.
+                Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums&rsquo; groups, alumni associations, church groups, hobby clubs, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we&rsquo;ll create an experience that reflects your group&rsquo;s interests and brings everyone together.
+              </p>
+            </div>
+            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-purple-50 to-violet-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
+              <Heart className="text-purple-400" size={48} />
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row-reverse items-center gap-10">
+            <div className="w-full md:w-1/2">
+              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">04</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Friends &amp; Private Groups</h3>
+              <p className="text-gray-500 leading-relaxed">
+                Whether it&rsquo;s a birthday celebration, bachelor or bachelorette getaway, graduation trip, or just a chance to reconnect with friends, we&rsquo;ll help you make the most of your time ashore. Enjoy a personalized itinerary, flexible scheduling, and memorable experiences designed exclusively for your group, without the crowds or rigid schedules of large tour operators.
               </p>
             </div>
             <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-rose-50 to-pink-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
