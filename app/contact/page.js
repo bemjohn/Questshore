@@ -59,9 +59,9 @@ export default function ContactPage() {
           <p className="text-slate-600 leading-relaxed mb-8 text-sm md:text-base">
             Whether you are looking to book a private, tailor-made shore
             experience, have questions about an existing reservation, or want to
-            discuss small-group options for your family, our team is ready to
-            assist. Drop us a message, and we will get back to you within 24
-            hours.
+            discuss small-group options for your squad, our team is ready to
+            assist. Drop us a message, and one of our travel expert team will
+            get back to you immediately
           </p>
           <div className="space-y-6 border-t border-slate-100 pt-6">
             <div>
