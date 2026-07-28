@@ -9,6 +9,13 @@ export default defineType({
   ],
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      initialValue: 'Exchange Rates',
+      hidden: true,
+    }),
+    defineField({
       name: 'exchangeRate',
       title: 'USD to AUD Exchange Rate',
       description: '1 USD equals how many AUD? Used to convert all prices.',
@@ -19,7 +26,7 @@ export default defineType({
   ],
   preview: {
     prepare() {
-      return { title: "Site Settings" };
+      return { title: 'Exchange Rates' };
     },
   },
 })
