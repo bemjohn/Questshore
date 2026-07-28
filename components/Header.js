@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
-import CurrencySwitcher from "@/components/CurrencySwitcher";
 
 export default function Header() {
   const pathname = usePathname();
@@ -79,10 +78,6 @@ export default function Header() {
             })}
           </nav>
 
-          <div className="max-[1000px]:hidden">
-            <CurrencySwitcher />
-          </div>
-
           <button
             className="hidden max-[1000px]:inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -138,9 +133,6 @@ export default function Header() {
                 </Link>
               );
             })}
-            <div className="px-2 pt-2">
-              <CurrencySwitcher />
-            </div>
           </div>
         )}
       </div>

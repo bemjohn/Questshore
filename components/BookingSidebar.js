@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Counter from "./Counter";
 import { useCurrency } from "@/lib/context/CurrencyContext";
+import CurrencySwitcher from "@/components/CurrencySwitcher";
 
 export default function BookingSidebar({
   title,
@@ -40,6 +41,9 @@ export default function BookingSidebar({
       <span className="text-sm font-semibold tracking-wider text-slate-900 uppercase block border-b border-slate-200 pb-2">
         BOOK THIS
       </span>
+      <div className="flex justify-end -mt-2">
+        <CurrencySwitcher />
+      </div>
 
       {showForm && (
         <div className="grid grid-cols-2 gap-4">

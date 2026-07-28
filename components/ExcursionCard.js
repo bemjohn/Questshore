@@ -1,6 +1,7 @@
 "use client";
 
 import PriceDisplay from "@/components/PriceDisplay";
+import CurrencySwitcher from "@/components/CurrencySwitcher";
 
 const placeholders = [
   "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop",
@@ -31,7 +32,10 @@ export default function ExcursionCard({ excursion, destinationPort, destinationI
             e.target.src = `https://placehold.co/600x400/0c4a6e/ffffff?text=${encodeURIComponent(excursion.name.substring(0, 20))}`;
           }}
         />
-        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-sm">
+        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-sm space-y-1">
+          <div className="flex justify-end">
+            <CurrencySwitcher />
+          </div>
           <div className="text-xs font-bold text-sky-800">
             Adult <span className="text-base"><PriceDisplay amountInUsd={excursion.pricing.adult} /></span>
           </div>
