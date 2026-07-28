@@ -6,6 +6,7 @@ import southPacificPage from './southPacificPage'
 import caribbeanPage from './caribbeanPage'
 import groupExcursionsPage from './groupExcursionsPage'
 import travelAgentPage from './travelAgentPage'
+import siteSettings from './siteSettings'
 
 export const schemaTypes = [
   homePage,
@@ -16,4 +17,5 @@ export const schemaTypes = [
   caribbeanPage,
   groupExcursionsPage,
   travelAgentPage,
+  siteSettings,
 ]

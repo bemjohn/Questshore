@@ -38,14 +38,6 @@ export default function ExcursionRow({
           showInfo
           pricing={[
             {
-              adultLabel: excursion.pricing.child !== undefined
-                ? `Per Adult $${excursion.pricing.adult}`
-                : `Per Adult $${excursion.pricing.adult}`,
-              ...(excursion.pricing.child !== undefined
-                ? { childLabel: excursion.pricing.child === 0
-                    ? "Per Child 1-12y/o Free"
-                    : `Per Child $${excursion.pricing.child} (6-12y/o)` }
-                : {}),
               adultPrice: excursion.pricing.adult,
               childPrice: excursion.pricing.child,
             },

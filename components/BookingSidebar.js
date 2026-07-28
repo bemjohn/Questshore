@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Counter from "./Counter";
+import { useCurrency } from "@/lib/context/CurrencyContext";
 
 export default function BookingSidebar({
   title,
@@ -14,6 +15,7 @@ export default function BookingSidebar({
   const [adultCount, setAdultCount] = useState(1);
   const [childCount, setChildCount] = useState(1);
   const [showPolicy, setShowPolicy] = useState(false);
+  const { formatPrice } = useCurrency();
 
   const item = pricing?.[0];
   const adultPrice = item?.adultPrice ?? 0;
@@ -61,20 +63,30 @@ export default function BookingSidebar({
 
       {pricing && pricing.length > 0 && (
         <div className="space-y-3">
-          {pricing.map((item, i) => (
-            <div key={i}>
-              <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100">
-                <span className="text-sm font-semibold text-slate-800">{item.adultLabel}</span>
-                <Counter value={adultCount} onChange={setAdultCount} />
-              </div>
-              {item.childLabel && (
-                <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100 mt-2">
-                  <span className="text-sm font-semibold text-slate-800">{item.childLabel}</span>
-                  <Counter value={childCount} onChange={setChildCount} />
+          {pricing.map((item, i) => {
+            const adultLabel = item.adultPrice !== undefined
+              ? `Per Adult ${formatPrice(item.adultPrice)}`
+              : null;
+            const childLabel = item.childPrice !== undefined
+              ? (item.childPrice === 0
+                  ? "Per Child 1-12y/o Free"
+                  : `Per Child ${formatPrice(item.childPrice)} (6-12y/o)`)
+              : null;
+            return (
+              <div key={i}>
+                <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100">
+                  <span className="text-sm font-semibold text-slate-800">{adultLabel}</span>
+                  <Counter value={adultCount} onChange={setAdultCount} />
                 </div>
-              )}
-            </div>
-          ))}
+                {childLabel && (
+                  <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100 mt-2">
+                    <span className="text-sm font-semibold text-slate-800">{childLabel}</span>
+                    <Counter value={childCount} onChange={setChildCount} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -85,11 +97,11 @@ export default function BookingSidebar({
               <span>
                 Total Tour Cost ({adultCount} Adults, {childCount} Children)
               </span>
-              <span className="font-semibold text-slate-900">${totalTourCost}</span>
+              <span className="font-semibold text-slate-900">{formatPrice(totalTourCost)}</span>
             </div>
             <div className="flex justify-between items-center text-sm font-medium text-emerald-600 bg-emerald-50/50 p-2.5 rounded-lg">
               <span>Due Today (Commitment Fee)</span>
-              <span className="font-bold">${commitmentFeeToday}</span>
+              <span className="font-bold">{formatPrice(commitmentFeeToday)}</span>
             </div>
           </div>
           <button
@@ -99,7 +111,7 @@ export default function BookingSidebar({
           >
             RESERVE NOW
           </button>
-          <p className="text-xs text-slate-500">Price Tag Label: due today ${commitmentFeeToday}</p>
+          <p className="text-xs text-slate-500">Price Tag Label: due today {formatPrice(commitmentFeeToday)}</p>
         </div>
       )}
 

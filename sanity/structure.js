@@ -5,6 +5,7 @@ const PAGES = [
   {id: 'caribbeanPage', type: 'caribbeanPage', title: 'Caribbean Excursions (listing)'},
   {id: 'groupExcursionsPage', type: 'groupExcursionsPage', title: 'Group Excursions (Custom)'},
   {id: 'travelAgentPage', type: 'travelAgentPage', title: 'Travel Agent'},
+  {id: 'siteSettings', type: 'siteSettings', title: 'Site Settings'},
 ]
 
 export const myStructure = (S) =>

@@ -52,6 +52,9 @@ export async function POST(req) {
     } else if (docType === "travelAgentPage") {
       revalidatePath("/travel-agent", "page");
       revalidateTag("travelAgentPage");
+    } else if (docType === "siteSettings") {
+      revalidatePath("/", "layout");
+      revalidateTag("siteSettings");
     } else {
       revalidatePath("/", "layout");
     }

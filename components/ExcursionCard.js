@@ -1,5 +1,7 @@
 "use client";
 
+import PriceDisplay from "@/components/PriceDisplay";
+
 const placeholders = [
   "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop",
   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop",
@@ -31,10 +33,10 @@ export default function ExcursionCard({ excursion, destinationPort, destinationI
         />
         <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-sm">
           <div className="text-xs font-bold text-sky-800">
-            Adult <span className="text-base">${excursion.pricing.adult}</span>
+            Adult <span className="text-base"><PriceDisplay amountInUsd={excursion.pricing.adult} /></span>
           </div>
           <div className="text-xs font-bold text-sky-600">
-            Child <span className="text-base">${excursion.pricing.child}</span>
+            Child <span className="text-base"><PriceDisplay amountInUsd={excursion.pricing.child} /></span>
           </div>
         </div>
       </div>

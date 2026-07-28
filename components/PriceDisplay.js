@@ -1,0 +1,8 @@
+"use client";
+
+import { useCurrency } from "@/lib/context/CurrencyContext";
+
+export default function PriceDisplay({ amountInUsd, className }) {
+  const { formatPrice } = useCurrency();
+  return <span className={className}>{formatPrice(amountInUsd)}</span>;
+}
