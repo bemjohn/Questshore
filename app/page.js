@@ -5,6 +5,7 @@ import { client } from "@/lib/sanity/client";
 import { HOME_QUERY, DESTINATIONS_QUERY } from "@/lib/sanity/queries";
 import { mergeHomeContent } from "@/lib/content/home.merge";
 import { mergeDestinations } from "@/lib/content/destinations.merge";
+import { Sparkles } from "lucide-react";
 
 export default async function HomePage() {
   const [sanityDoc, sanityDestinations] = await Promise.all([
@@ -65,13 +66,11 @@ export default async function HomePage() {
             </div>
             <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
               <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-amber-100 transition-colors">
-                <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <Sparkles className="w-7 h-7 text-amber-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Payment Plan ($)</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Bespoke Experiences</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Experiences are meant to be affordable and convenient. Flexible scheduling allows users to pay for upcoming experiences in full, or via a weekly or monthly plan.
+                Every experience is carefully selected and thoughtfully planned by our travel specialists. We focus on destinations we deeply understand and love, ensuring meaningful/authentic shore experiences that combine local insight, seamless planning, and unforgettable moments—so all you have to do is enjoy the journey.
               </p>
             </div>
             <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">
