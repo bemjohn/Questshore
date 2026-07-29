@@ -37,10 +37,10 @@ export default function ExcursionCard({ excursion, destinationPort, destinationI
             <CurrencySwitcher />
           </div>
           <div className="text-xs font-bold text-sky-800">
-            Adult <span className="text-base"><PriceDisplay amountInUsd={excursion.pricing.adult} /></span>
+            Adult <span className="text-base"><PriceDisplay amountInAud={excursion.pricing.adult} /></span>
           </div>
           <div className="text-xs font-bold text-sky-600">
-            Child <span className="text-base"><PriceDisplay amountInUsd={excursion.pricing.child} /></span>
+            Child <span className="text-base"><PriceDisplay amountInAud={excursion.pricing.child} /></span>
           </div>
         </div>
       </div>
