@@ -17,7 +17,7 @@ export default defineType({
     defineField({
       name: 'exchangeRate',
       title: 'Exchange Rate',
-      description: '1 USD equals how many AUD? The AUD price stored in Sanity is divided by this rate to show the USD price.',
+      description: '1 AUD equals how many USD? The AUD price stored in Sanity is multiplied by this rate to show the USD price.',
       type: 'number',
       fieldset: 'currency',
       validation: (Rule) => Rule.required().min(0.01),
