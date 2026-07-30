@@ -22,7 +22,7 @@ export default async function DestinationsIndexPage() {
           Explore Our Destinations
         </h1>
         <p className="mt-3 text-gray-500 max-w-xl mx-auto">
-          Handpicked shore excursions across the most breathtaking South Pacific ports.
+          Handpicked shore excursions across the world's most breathtaking cruise destinations
         </p>
       </div>
 

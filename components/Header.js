@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
 
@@ -18,24 +19,29 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex flex-col leading-tight shrink-0">
-            <span className="text-xl font-extrabold tracking-wide text-sky-900">
-              QuestAshore
-            </span>
-            <span className="text-[10px] sm:text-xs font-medium text-gray-500 tracking-wider uppercase">
-              Bucket List Experiences Beyond The Pier
-            </span>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+        <div className="flex items-center justify-between h-20">
+          <Link href="/" className="shrink-0 ms-2 sm:ms-4">
+            <div className="overflow-hidden rounded-full w-[72px] h-[72px] sm:w-[76px] sm:h-[76px]">
+              <Image
+                src="/logo.jpeg"
+                alt="QuestAshore"
+                width={76}
+                height={76}
+                className="h-full w-full object-cover scale-[1.4]"
+                priority
+                sizes="76px"
+              />
+            </div>
           </Link>
 
-          <nav className="flex max-[1000px]:hidden items-center gap-8">
+          <nav className="flex max-[1000px]:hidden items-center gap-[60px]">
             {navLinks.map((link) => {
               if (link.hasDropdown) {
                 return (
                   <div key={link.label} className="relative group">
-                    <Link href={link.href} className={`flex items-center gap-1 text-sm font-medium transition-colors py-4 -my-4 ${isDestinationsActive() ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}>
+                    <Link href={link.href} className={`relative flex items-center gap-1 text-sm font-medium transition-colors duration-[250ms] py-5 -my-5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sky-700 after:transition-all after:duration-[250ms] ${isDestinationsActive() ? "text-sky-700 after:w-full" : "text-gray-700 hover:text-sky-700 hover:after:w-full"}`}>
                       {link.label}
                       <svg
                         className={`w-4 h-4 transition-transform duration-200 ${isDestinationsActive() ? "" : "group-hover:rotate-180"}`}
@@ -70,7 +76,7 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
+                  className={`relative text-sm font-medium transition-colors duration-[250ms] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sky-700 after:transition-all after:duration-[250ms] ${isActive(link.href) ? "text-sky-700 after:w-full" : "text-gray-700 hover:text-sky-700 hover:after:w-full"}`}
                 >
                   {link.label}
                 </Link>
@@ -106,14 +112,14 @@ export default function Header() {
                     </div>
                     <Link
                       href="/destinations/south-pacific"
-                      className={`block pl-4 py-1.5 text-sm transition-colors ${pathname === "/destinations/south-pacific" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
+                      className={`block pl-4 py-1.5 text-sm transition-colors duration-200 ${pathname === "/destinations/south-pacific" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
                       onClick={() => setMenuOpen(false)}
                     >
                       South Pacific
                     </Link>
                     <Link
                       href="/destinations/caribbean"
-                      className={`block pl-4 py-1.5 text-sm transition-colors ${pathname === "/destinations/caribbean" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
+                      className={`block pl-4 py-1.5 text-sm transition-colors duration-200 ${pathname === "/destinations/caribbean" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
                       onClick={() => setMenuOpen(false)}
                     >
                       Caribbean Excursions
@@ -126,7 +132,7 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`block px-2 py-2 text-sm font-medium transition-colors ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
+                  className={`block px-2 py-2 text-sm font-medium transition-colors duration-200 ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
