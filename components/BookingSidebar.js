@@ -139,19 +139,19 @@ export default function BookingSidebar({
           {showPolicy && (
             <div className="mt-3 space-y-0">
               <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                To secure your booking, a non -refundable commitment fee of $10 per guest is required at the time of reservation.
+                To secure your booking, a small deposit as commitment fee per guest is required at the time of reservation.
               </p>
               <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
                 This fee covers administrative costs and confirms your place on the tour and is deducted from your total tour price.
               </p>
               <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                The remaining balance is payable before or on the day of your excursion
+                The remaining balance is payable before or on the day of your excursion.
               </p>
               <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
                 A reservation is not confirmed until the commitment fee has been made!
               </p>
               <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                The commitment fee is non refundable if the guest cancels or does not show up. If your cruise unable to dock due to weather or port changes, the commitment fee will be refundable or transferred to another booking..
+                The commitment fee is non refundable if the guest cancels or does not show up. If your cruise is unable to dock due to weather or port changes, the commitment fee will be refundable or transferred to another booking.
               </p>
             </div>
           )}
