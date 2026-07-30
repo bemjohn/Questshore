@@ -31,6 +31,10 @@ export default function BookingSidebar({
         detail: {
           excursionName: title || "",
           destinationPort: destinationPort || "",
+          adultCount,
+          childCount,
+          commitmentFee: commitmentFeeToday,
+          totalTourCost,
         },
       })
     );
@@ -44,26 +48,6 @@ export default function BookingSidebar({
       <div className="flex justify-end -mt-2">
         <CurrencySwitcher />
       </div>
-
-      {showForm && (
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { label: "First Name:", placeholder: "First Name:" },
-            { label: "Last Name:", placeholder: "Last Name:" },
-            { label: "Ship Details:", placeholder: "Ship Details:" },
-            { label: "Date:", placeholder: "Date:" },
-          ].map((field) => (
-            <div key={field.label} className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-slate-700">{field.label}</label>
-              <input
-                type="text"
-                placeholder={field.placeholder}
-                className="w-full bg-white px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
-              />
-            </div>
-          ))}
-        </div>
-      )}
 
       {pricing && pricing.length > 0 && (
         <div className="space-y-3">
