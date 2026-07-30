@@ -27,7 +27,7 @@ export default async function HomePage() {
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Explore Our Destinations</h2>
           <p className="mt-3 text-gray-500 max-w-xl mx-auto">
-            Handpicked shore excursions across the most breathtaking South Pacific ports.
+            Handpicked shore excursions across the world's most breathtaking cruise destinations
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default async function HomePage() {
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Back To Ship Guaranteed</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Itineraries curated by travelers and locals who hand-in-hand understand ship schedules. Enjoy best unrushed exploring time with an absolute early return to the ship guaranteed.
+                We coordinate every excursion with your cruise itinerary and none of our guests has ever missed departure.
               </p>
             </div>
             <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer group text-center">

@@ -134,7 +134,7 @@ export default function AboutBody({ heroBanner, collageImage1, collageImage2, co
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-3">Back to Ship Guaranteed</h3>
             <p className="text-gray-500 text-sm leading-relaxed">
-              We coordinate with your ship&apos;s schedule. If delayed, we get you to the next port at no cost.
+              We coordinate every excursion with your cruise itinerary and none of our guests has ever missed departure.
             </p>
           </div>
           <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
