@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
+import { Tag } from "lucide-react";
 
 export default function AboutBody({ heroBanner, collageImage1, collageImage2, collageImage3, givingBackImage1, givingBackImage2, givingBackImage3 }) {
   const [activeTab, setActiveTab] = useState("how-it-started");
@@ -139,11 +139,11 @@ export default function AboutBody({ heroBanner, collageImage1, collageImage2, co
           </div>
           <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
             <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-amber-100 transition-colors">
-              <Sparkles className="w-7 h-7 text-amber-600" />
+              <Tag className="w-7 h-7 text-amber-600" />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Bespoke Experiences</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Lowest Prices. Same Quality</h3>
             <p className="text-gray-500 text-sm leading-relaxed">
-              Every experience is carefully selected and thoughtfully planned by our travel specialists. We focus on destinations we deeply understand and love, ensuring meaningful/authentic shore experiences that combine local insight, seamless planning, and unforgettable moments—so all you have to do is enjoy the journey.
+              You save 40% by booking with us over your cruise-line. Enjoy exceptional shore experiences at some of the best prices available—without compromising on quality, safety, or service.
             </p>
           </div>
           <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
