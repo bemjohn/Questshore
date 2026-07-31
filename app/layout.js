@@ -22,6 +22,15 @@ export const metadata = {
   title: "QuestAshore — Bucket List Experiences Beyond The Pier",
   description:
     "Premium cruise shore excursions across the South Pacific. Book unforgettable adventures in Vanuatu, New Caledonia, and Fiji.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+    ],
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default async function RootLayout({ children }) {
