@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: "How do I receive my excursion confirmation and tickets?",
-    a: "Once you fill out our booking inquiry form, our coordination team processes the request and sends your detailed itinerary sheet directly to your email inbox.",
+    a: "Once your reservation has been made and your deposit has been securely processed through our PayPal seller account , you will receive a booking confirmation, along with your detailed excursion information and itinerary, at the email address you provided.",
   },
 ];
 
