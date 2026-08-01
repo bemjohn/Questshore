@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
@@ -8,6 +8,17 @@ import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [menuOpen]);
 
   function isActive(href) {
     return pathname === href;
@@ -28,7 +39,7 @@ export default function Header() {
           />
         </Link>
 
-          <nav className="flex max-[1000px]:hidden items-center gap-[60px]">
+          <nav className="hidden md:flex items-center gap-[60px]">
             {navLinks.map((link) => {
               if (link.hasDropdown) {
                 return (
@@ -77,59 +88,79 @@ export default function Header() {
           </nav>
 
           <button
-            className="hidden max-[1000px]:inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+            className="md:hidden inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label="Open menu"
           >
-            {menuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </button>
 
         {menuOpen && (
-          <div className="hidden max-[1000px]:block border-t border-gray-100 py-4 space-y-3">
-            {navLinks.map((link) => {
-              if (link.hasDropdown) {
-                return (
-                  <div key={link.label} className="px-2 space-y-1">
-                    <div className={`text-xs font-bold uppercase tracking-wider py-1 ${isDestinationsActive() ? "text-sky-700" : "text-gray-400"}`}>
-                      {link.label}
+          <div className="fixed inset-0 z-50 bg-white flex flex-col justify-start px-6 py-6 w-full h-screen md:hidden overflow-y-auto">
+            <div className="flex items-center justify-between w-full mb-8">
+              <Link href="/" onClick={() => setMenuOpen(false)} className="shrink-0">
+                <img
+                  src="/QuestAshore Logo2.svg"
+                  alt="QuestAshore"
+                  className="h-14 w-auto sm:h-18 object-contain"
+                />
+              </Link>
+              <button
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <nav className="flex flex-col gap-6 text-lg font-medium">
+              {navLinks.map((link) => {
+                if (link.hasDropdown) {
+                  return (
+                    <div key={link.label}>
+                      <Link
+                        href={link.href}
+                        className={`block transition-colors duration-200 ${isDestinationsActive() ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                      <div className="flex flex-col mt-2 gap-2 pl-6 text-base text-gray-600">
+                        <Link
+                          href="/destinations/south-pacific"
+                          className={`block py-1 transition-colors duration-200 ${pathname === "/destinations/south-pacific" ? "text-sky-700 font-semibold" : "hover:text-sky-700"}`}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          South Pacific
+                        </Link>
+                        <Link
+                          href="/destinations/caribbean"
+                          className={`block py-1 transition-colors duration-200 ${pathname === "/destinations/caribbean" ? "text-sky-700 font-semibold" : "hover:text-sky-700"}`}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          Caribbean Excursions
+                        </Link>
+                      </div>
                     </div>
-                    <Link
-                      href="/destinations/south-pacific"
-                      className={`block pl-4 py-1.5 text-sm transition-colors duration-200 ${pathname === "/destinations/south-pacific" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      South Pacific
-                    </Link>
-                    <Link
-                      href="/destinations/caribbean"
-                      className={`block pl-4 py-1.5 text-sm transition-colors duration-200 ${pathname === "/destinations/caribbean" ? "text-sky-700 font-semibold" : "text-gray-600 hover:text-sky-700"}`}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      Caribbean Excursions
-                    </Link>
-                  </div>
-                );
-              }
+                  );
+                }
 
-              return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={`block px-2 py-2 text-sm font-medium transition-colors duration-200 ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className={`block transition-colors duration-200 ${isActive(link.href) ? "text-sky-700" : "text-gray-700 hover:text-sky-700"}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
         )}
       </div>
