@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { navFallback as navLinks } from "@/lib/content/navigation.fallback";
 
@@ -20,21 +19,14 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="shrink-0 ms-2 sm:ms-4">
-            <div className="overflow-hidden rounded-full w-[72px] h-[72px] sm:w-[76px] sm:h-[76px]">
-              <Image
-                src="/logo.jpeg"
-                alt="QuestAshore"
-                width={76}
-                height={76}
-                className="h-full w-full object-cover scale-[1.4]"
-                priority
-                sizes="76px"
-              />
-            </div>
-          </Link>
+      <div className="w-full flex items-center justify-between pl-8 pr-6 md:pl-12 md:pr-10 py-1 h-20">
+        <Link href="/" className="shrink-0">
+          <img
+            src="/QuestAshore Logo.svg"
+            alt="QuestAshore"
+            className="h-14 w-auto sm:h-18 object-contain"
+          />
+        </Link>
 
           <nav className="flex max-[1000px]:hidden items-center gap-[60px]">
             {navLinks.map((link) => {
@@ -99,7 +91,6 @@ export default function Header() {
               </svg>
             )}
           </button>
-        </div>
 
         {menuOpen && (
           <div className="hidden max-[1000px]:block border-t border-gray-100 py-4 space-y-3">

@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import DestinationCard from "@/components/DestinationCard";
 import FaqAccordion from "@/components/FaqAccordion";
+import TrustpilotWidget from "@/components/TrustpilotWidget";
 import { client } from "@/lib/sanity/client";
 import { HOME_QUERY, DESTINATIONS_QUERY } from "@/lib/sanity/queries";
 import { mergeHomeContent } from "@/lib/content/home.merge";
@@ -27,7 +28,7 @@ export default async function HomePage() {
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Explore Our Destinations</h2>
           <p className="mt-3 text-gray-500 max-w-xl mx-auto">
-            Handpicked shore excursions across the world's most breathtaking cruise destinations
+            Handpicked shore excursions across the world&apos;s most breathtaking cruise destinations
           </p>
         </div>
 
@@ -119,6 +120,9 @@ export default async function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-12">
+            <TrustpilotWidget />
           </div>
         </div>
       </section>
