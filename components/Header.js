@@ -22,7 +22,7 @@ export default function Header() {
       <div className="w-full flex items-center justify-between pl-8 pr-6 md:pl-12 md:pr-10 py-1 h-20">
         <Link href="/" className="shrink-0">
           <img
-            src="/QuestAshore Logo.svg"
+            src="/QuestAshore Logo2.svg"
             alt="QuestAshore"
             className="h-14 w-auto sm:h-18 object-contain"
           />
