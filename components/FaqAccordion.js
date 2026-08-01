@@ -11,6 +11,17 @@ const faqs = [
     q: "How do I receive my excursion confirmation and tickets?",
     a: "Once your reservation has been made and your deposit has been securely processed through our PayPal seller account , you will receive a booking confirmation, along with your detailed excursion information and itinerary, at the email address you provided.",
   },
+  {
+    q: "Can I book all my shore excursions with you?",
+    a: "We believe your holiday should be effortless from embarkation to disembarkation. Instead of searching for excursions at every port, let us take care of the planning.",
+    bullets: [
+      "Save up and enjoy our multiple port discounts on your total booking",
+      "One dedicated team throughout your cruise",
+      "Carefully planned experiences in every destination",
+      "Less time planning during your holiday and more time enjoying it",
+      "Peace of mind with our return-to-ship commitment",
+    ],
+  },
 ];
 
 export default function FaqAccordion() {
@@ -41,9 +52,26 @@ export default function FaqAccordion() {
               </svg>
             </button>
             <div
-              className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 mt-3" : "max-h-0"}`}
+              className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[600px] mt-3" : "max-h-0"}`}
             >
               <p className="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+              {faq.bullets && (
+                <ul className="mt-3 space-y-2">
+                  {faq.bullets.map((bullet, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-gray-600 leading-relaxed">
+                      <svg
+                        className="w-4 h-4 text-sky-600 shrink-0 mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         );
