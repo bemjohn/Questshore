@@ -7,6 +7,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/QuestAshore?country.x=AU&loc
 export default function BookingModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -60,6 +61,24 @@ export default function BookingModal() {
   function closeModal() {
     setOpen(false);
     setStep(1);
+    setError(false);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(false);
+    try {
+      const formData = new FormData(e.target);
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      });
+      if (!res.ok) throw new Error("Form submission failed");
+      setStep(3);
+    } catch {
+      setError(true);
+    }
   }
 
   function handleChange(e) {
@@ -176,12 +195,19 @@ export default function BookingModal() {
         {/* Step 2: Customer Details */}
         {step === 2 && (
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setStep(3);
-            }}
+            onSubmit={handleSubmit}
+            action="/"
+            name="book-excursion"
+            data-netlify="true"
             className="p-6 space-y-4"
           >
+            <input type="hidden" name="form-name" value="book-excursion" />
+            <input type="hidden" name="excursionName" value={form.excursionName} />
+            <input type="hidden" name="destinationPort" value={form.destinationPort} />
+            <input type="hidden" name="adultCount" value={form.adultCount} />
+            <input type="hidden" name="childCount" value={form.childCount} />
+            <input type="hidden" name="commitmentFee" value={form.commitmentFee} />
+            <input type="hidden" name="totalTourCost" value={form.totalTourCost} />
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
@@ -253,6 +279,12 @@ export default function BookingModal() {
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
             </div>
+
+            {error && (
+              <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2">
+                Something went wrong. Please try again or email us directly.
+              </p>
+            )}
 
             <button
               type="submit"

@@ -30,12 +30,26 @@ export default function NetlifyFormDetection() {
       </form>
       <form name="book-excursion" data-netlify="true">
         <input type="hidden" name="form-name" value="book-excursion" />
-        <input name="fullName" type="text" />
+        <input name="firstName" type="text" />
+        <input name="lastName" type="text" />
         <input name="email" type="text" />
         <input name="preferredDate" type="text" />
-        <input name="numberOfGuests" type="text" />
+        <input name="shipDetails" type="text" />
         <input name="excursionName" type="text" />
         <input name="destinationPort" type="text" />
+        <input name="adultCount" type="text" />
+        <input name="childCount" type="text" />
+        <input name="commitmentFee" type="text" />
+        <input name="totalTourCost" type="text" />
+      </form>
+      <form name="affiliate-network" data-netlify="true">
+        <input type="hidden" name="form-name" value="affiliate-network" />
+        <input name="name" type="text" />
+        <input name="email" type="text" />
+        <input name="website" type="text" />
+        <input name="platform" type="text" />
+        <input name="audienceSize" type="text" />
+        <input name="message" type="text" />
       </form>
     </div>
   );

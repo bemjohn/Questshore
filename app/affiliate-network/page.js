@@ -27,7 +27,7 @@ export default function AffiliateNetworkPage() {
     setError(false);
     try {
       const formData = new FormData(e.target);
-      const res = await fetch("/__forms.html", {
+      const res = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
@@ -233,8 +233,10 @@ export default function AffiliateNetworkPage() {
           ) : (
             <form
               onSubmit={handleSubmit}
+              action="/"
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6"
               name="affiliate-network"
+              data-netlify="true"
             >
               <input type="hidden" name="form-name" value="affiliate-network" />
 

@@ -165,6 +165,7 @@ export default function TravelAgentBody({ heroBackgroundImage, destinations }) {
           ) : (
             <form
               onSubmit={handleSubmit}
+              action="/"
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6"
               name="travel-agent"
               data-netlify="true"

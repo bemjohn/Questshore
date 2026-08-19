@@ -103,6 +103,7 @@ export default function ContactPage() {
           ) : (
             <form
               onSubmit={handleSubmit}
+              action="/"
               className="bg-white p-6 md:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-6"
               name="contact"
               data-netlify="true"

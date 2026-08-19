@@ -150,7 +150,7 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6" name="group-excursions" data-netlify="true">
+            <form onSubmit={handleSubmit} action="/" className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10 space-y-6" name="group-excursions" data-netlify="true">
               <input type="hidden" name="form-name" value="group-excursions" />
 
               <div className="grid sm:grid-cols-2 gap-4">
