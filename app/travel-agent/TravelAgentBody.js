@@ -25,7 +25,7 @@ export default function TravelAgentBody({ heroBackgroundImage, destinations }) {
     setError(false);
     try {
       const formData = new FormData(e.target);
-      const res = await fetch("/", {
+      const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
