@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 
-const PAYPAL_URL = "https://www.paypal.com/paypalme/QuestAshore?country.x=AU&locale.x=en_AU";
-
 export default function BookingModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [error, setError] = useState(false);
+  const [paymentError, setPaymentError] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -62,6 +62,8 @@ export default function BookingModal() {
     setOpen(false);
     setStep(1);
     setError(false);
+    setPaymentError(false);
+    setProcessing(false);
   }
 
   async function handleSubmit(e) {
@@ -86,8 +88,32 @@ export default function BookingModal() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handlePayPal() {
-    window.open(PAYPAL_URL, "_blank", "noopener,noreferrer");
+  async function handlePayment() {
+    setPaymentError(false);
+    setProcessing(true);
+    try {
+      const res = await fetch("/api/create-stripe-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          excursionName: form.excursionName,
+          amount: form.commitmentFee,
+          email: form.email,
+          firstName: form.firstName,
+          lastName: form.lastName,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to create payment session");
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("No payment URL returned");
+      }
+    } catch {
+      setPaymentError(true);
+      setProcessing(false);
+    }
   }
 
   if (!open) return null;
@@ -333,18 +359,25 @@ export default function BookingModal() {
               </div>
             </div>
 
+            {paymentError && (
+              <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2">
+                We couldn&apos;t start your secure payment. Please try again or email us directly.
+              </p>
+            )}
+
             <button
-              onClick={handlePayPal}
-              className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
+              onClick={handlePayment}
+              disabled={processing}
+              className="w-full py-3 px-6 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-sky-700 hover:to-cyan-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106z"/>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
-              Pay with PayPal
+              {processing ? "Redirecting to secure payment..." : "Proceed to Secure Payment"}
             </button>
 
             <p className="text-xs text-gray-400 text-center">
-              After payment, your booking will be confirmed. You can close this window.
+              You&apos;ll be redirected to Stripe Checkout to complete your payment securely.
             </p>
           </div>
         )}
