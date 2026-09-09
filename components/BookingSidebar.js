@@ -15,7 +15,8 @@ export default function BookingSidebar({
 }) {
   const [adultCount, setAdultCount] = useState(1);
   const [childCount, setChildCount] = useState(1);
-  const [showPolicy, setShowPolicy] = useState(false);
+  const [bookingPolicyOpen, setBookingPolicyOpen] = useState(false);
+  const [cancellationPolicyOpen, setCancellationPolicyOpen] = useState(false);
   const { formatPrice } = useCurrency();
 
   const item = pricing?.[0];
@@ -104,41 +105,52 @@ export default function BookingSidebar({
       )}
 
       {showInfo && (
-        <div className="mt-4 pt-4 border-t border-slate-200">
-          <button
-            type="button"
-            onClick={() => setShowPolicy(!showPolicy)}
-            className="w-full flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
-          >
-            <span>Booking Policy</span>
-            <svg
-              className={`w-3.5 h-3.5 transition-transform duration-200 ${showPolicy ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          <div className="border border-slate-200 rounded-xl overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setBookingPolicyOpen((o) => !o)}
+              className="w-full flex items-center justify-between px-3 py-2.5 bg-white text-left cursor-pointer"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {showPolicy && (
-            <div className="mt-3 space-y-0">
-              <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                To secure your booking, a small deposit as commitment fee per guest is required at the time of reservation.
-              </p>
-              <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                This fee covers administrative costs and confirms your place on the tour and is deducted from your total tour price.
-              </p>
-              <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                The remaining balance is payable before or on the day of your excursion.
-              </p>
-              <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                A reservation is not confirmed until the commitment fee has been made!
-              </p>
-              <p className="mb-3 last:mb-0 text-xs text-slate-500 leading-relaxed font-normal">
-                The commitment fee is non refundable if the guest cancels or does not show up. If your cruise is unable to dock due to weather or port changes, the commitment fee will be refundable or transferred to another booking.
-              </p>
-            </div>
-          )}
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-700">Booking Policy</span>
+              <svg className={`w-3.5 h-3.5 text-slate-400 transition-transform ${bookingPolicyOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {bookingPolicyOpen && (
+              <div className="px-3 py-2.5 text-xs text-slate-500 leading-relaxed space-y-2 bg-white border-t border-slate-100">
+                <p>To secure your booking, a small deposit as commitment fee per guest is required at the time of reservation.</p>
+                <p>This fee covers administrative costs and confirms your place on the tour and is deducted from your total tour price.</p>
+                <p>The remaining balance is payable before or on the day of your excursion.</p>
+                <p>A reservation is not confirmed until the commitment fee has been made!</p>
+                <p>The commitment fee is non refundable if the guest cancels or does not show up. If your cruise is unable to dock due to weather or port changes, the commitment fee will be refundable or transferred to another booking.</p>
+              </div>
+            )}
+          </div>
+
+          <div className="border border-slate-200 rounded-xl overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setCancellationPolicyOpen((o) => !o)}
+              className="w-full flex items-center justify-between px-3 py-2.5 bg-white text-left cursor-pointer"
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider text-red-500">Cancellation Policy</span>
+              <svg className={`w-3.5 h-3.5 text-red-500 transition-transform ${cancellationPolicyOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {cancellationPolicyOpen && (
+              <div className="px-3 py-2.5 text-xs text-slate-500 leading-relaxed space-y-2 bg-white border-t border-slate-100">
+                <p>Please be informed that QuestAshore does not offer cash refunds for NO SHOW shore excursions reserved &amp; deposited for by guests.</p>
+                <p>However, we understand the weather window and port changes situations, we offer the following options in that case:</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li>All deposits are non-refundable. You have the option to hold your deposit or full payment as credit or transfer it to a future experience or new guest to use with QuestAshore.</li>
+                  <li>Cancellations made 4 days or more before the scheduled date are eligible for a transfer towards a new guest, new experience, or destination.</li>
+                  <li>Cancellations made 3 days prior or same day of excursions will incur a 50% cancellation fee of the total payment/deposit. The remaining balance will be applied as credit towards a future excursion.</li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

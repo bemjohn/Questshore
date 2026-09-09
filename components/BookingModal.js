@@ -8,6 +8,7 @@ export default function BookingModal() {
   const [error, setError] = useState(false);
   const [paymentError, setPaymentError] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [cancellationPolicyAgreed, setCancellationPolicyAgreed] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -64,6 +65,7 @@ export default function BookingModal() {
     setError(false);
     setPaymentError(false);
     setProcessing(false);
+    setCancellationPolicyAgreed(false);
   }
 
   async function handleSubmit(e) {
@@ -202,13 +204,6 @@ export default function BookingModal() {
               </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-              <p className="text-xs text-amber-800 leading-relaxed">
-                <span className="font-semibold">Weather Refund Policy: </span>
-                If your cruise is unable to dock due to weather or port changes, the commitment fee will be refundable or transferred to another booking.
-              </p>
-            </div>
-
             <button
               onClick={() => setStep(2)}
               className="w-full py-3 px-6 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
@@ -234,6 +229,7 @@ export default function BookingModal() {
             <input type="hidden" name="childCount" value={form.childCount} />
             <input type="hidden" name="commitmentFee" value={form.commitmentFee} />
             <input type="hidden" name="totalTourCost" value={form.totalTourCost} />
+            <input type="hidden" name="cancellationPolicyAgreed" value={cancellationPolicyAgreed ? "true" : "false"} />
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
@@ -295,9 +291,10 @@ export default function BookingModal() {
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
-                Ship Details
+                Ship Details *
               </label>
               <input
+                required
                 name="shipDetails"
                 value={form.shipDetails}
                 onChange={handleChange}
@@ -312,9 +309,22 @@ export default function BookingModal() {
               </p>
             )}
 
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={cancellationPolicyAgreed}
+                onChange={(e) => setCancellationPolicyAgreed(e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500 cursor-pointer"
+              />
+              <span className="text-sm text-gray-700">
+                I AGREE to the QuestAshore Cancellation &amp; Change Policy *
+              </span>
+            </label>
+
             <button
               type="submit"
-              className="w-full py-3 px-6 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-sky-700 hover:to-cyan-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+              disabled={!cancellationPolicyAgreed}
+              className="w-full py-3 px-6 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-sky-700 hover:to-cyan-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Proceed to Checkout
             </button>
