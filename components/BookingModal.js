@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 export default function BookingModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const [error, setError] = useState(false);
   const [paymentError, setPaymentError] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [cancellationPolicyAgreed, setCancellationPolicyAgreed] = useState(false);
@@ -62,27 +61,9 @@ export default function BookingModal() {
   function closeModal() {
     setOpen(false);
     setStep(1);
-    setError(false);
     setPaymentError(false);
     setProcessing(false);
     setCancellationPolicyAgreed(false);
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError(false);
-    try {
-      const formData = new FormData(e.target);
-      const res = await fetch("/__forms.html", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
-      });
-      if (!res.ok) throw new Error("Form submission failed");
-      setStep(3);
-    } catch {
-      setError(true);
-    }
   }
 
   function handleChange(e) {
@@ -154,7 +135,6 @@ export default function BookingModal() {
             <h2 className="text-xl font-bold text-gray-900">
               {step === 1 && "Booking Summary"}
               {step === 2 && "Your Details"}
-              {step === 3 && "Complete Payment"}
             </h2>
           </div>
           <button
@@ -170,7 +150,7 @@ export default function BookingModal() {
 
         {/* Step indicators */}
         <div className="flex justify-center gap-2 pt-4 pb-2">
-          {[1, 2, 3].map((s) => (
+          {[1, 2].map((s) => (
             <div
               key={s}
               className={`w-2.5 h-2.5 rounded-full transition-colors ${
@@ -223,20 +203,9 @@ export default function BookingModal() {
         {/* Step 2: Customer Details */}
         {step === 2 && (
           <form
-            onSubmit={handleSubmit}
-            action="/"
-            name="book-excursion"
-            data-netlify="true"
+            onSubmit={(e) => { e.preventDefault(); handlePayment(); }}
             className="p-6 space-y-4"
           >
-            <input type="hidden" name="form-name" value="book-excursion" />
-            <input type="hidden" name="excursionName" value={form.excursionName} />
-            <input type="hidden" name="destinationPort" value={form.destinationPort} />
-            <input type="hidden" name="adultCount" value={form.adultCount} />
-            <input type="hidden" name="childCount" value={form.childCount} />
-            <input type="hidden" name="commitmentFee" value={form.commitmentFee} />
-            <input type="hidden" name="totalTourCost" value={form.totalTourCost} />
-            <input type="hidden" name="cancellationPolicyAgreed" value={cancellationPolicyAgreed ? "true" : "false"} />
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
@@ -310,12 +279,6 @@ export default function BookingModal() {
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2">
-                Something went wrong. Please try again or email us directly.
-              </p>
-            )}
-
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
@@ -338,63 +301,11 @@ export default function BookingModal() {
           </form>
         )}
 
-        {/* Step 3: Payment Hand-off */}
-        {step === 3 && (
-          <div className="p-6 space-y-5">
-            <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 space-y-2">
-              {form.excursionName && (
-                <div className="flex justify-between text-sm text-slate-600">
-                  <span>Excursion</span>
-                  <span className="font-medium text-slate-900">{form.excursionName}</span>
-                </div>
-              )}
-              <div className="flex justify-between text-sm text-slate-600">
-                <span>Name</span>
-                <span className="font-medium text-slate-900">{form.firstName} {form.lastName}</span>
-              </div>
-              <div className="flex justify-between text-sm text-slate-600">
-                <span>Email</span>
-                <span className="font-medium text-slate-900">{form.email}</span>
-              </div>
-              {form.preferredDate && (
-                <div className="flex justify-between text-sm text-slate-600">
-                  <span>Date</span>
-                  <span className="font-medium text-slate-900">{form.preferredDate}</span>
-                </div>
-              )}
-              {form.shipDetails && (
-                <div className="flex justify-between text-sm text-slate-600">
-                  <span>Ship</span>
-                  <span className="font-medium text-slate-900">{form.shipDetails}</span>
-                </div>
-              )}
-              <div className="border-t border-slate-200 pt-2 mt-2">
-                <div className="flex justify-between text-sm font-medium text-emerald-600">
-                  <span>Due Today (Commitment Fee)</span>
-                  <span className="font-bold">${form.commitmentFee.toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-
-            {paymentError && (
-              <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2">
-                We couldn&apos;t start your secure payment. Please try again or email us directly.
-              </p>
-            )}
-
-            <button
-              onClick={handlePayment}
-              disabled={processing}
-              className="w-full py-3 px-6 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-sky-700 hover:to-cyan-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              {processing ? "Redirecting to secure payment..." : "Proceed to Secure Payment"}
-            </button>
-
-            <p className="text-xs text-gray-400 text-center">
-              You&apos;ll be redirected to Stripe Checkout to complete your payment securely.
+        {/* Payment Error */}
+        {paymentError && (
+          <div className="px-6 pb-4">
+            <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-2">
+              We couldn&apos;t start your secure payment. Please try again or email us directly.
             </p>
           </div>
         )}
