@@ -103,6 +103,13 @@ export default function BookingModal() {
           email: form.email,
           firstName: form.firstName,
           lastName: form.lastName,
+          destinationPort: form.destinationPort,
+          preferredDate: form.preferredDate,
+          shipDetails: form.shipDetails,
+          adultCount: form.adultCount,
+          childCount: form.childCount,
+          totalTourCost: form.totalTourCost,
+          cancellationPolicyAgreed,
         }),
       });
       const data = await res.json();

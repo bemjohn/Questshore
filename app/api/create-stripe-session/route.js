@@ -13,7 +13,20 @@ export async function POST(req) {
 
   const stripe = new Stripe(stripeSecretKey);
 
-  const { excursionName, amount, email, firstName, lastName } = await req.json();
+  const {
+    excursionName,
+    amount,
+    email,
+    firstName,
+    lastName,
+    destinationPort,
+    preferredDate,
+    shipDetails,
+    adultCount,
+    childCount,
+    totalTourCost,
+    cancellationPolicyAgreed,
+  } = await req.json();
 
   const parsedAmount = parseFloat(String(amount ?? "").replace(/[^0-9.]/g, ""));
 
@@ -56,6 +69,21 @@ export async function POST(req) {
       mode: "payment",
       success_url: `${origin}/?booking=success`,
       cancel_url: `${origin}/?booking=cancelled`,
+      metadata: {
+        bookingRef: crypto.randomUUID(),
+        excursionName,
+        destinationPort,
+        preferredDate,
+        shipDetails,
+        adultCount: String(adultCount ?? ""),
+        childCount: String(childCount ?? ""),
+        commitmentFee: String(parsedAmount),
+        totalTourCost: String(totalTourCost ?? ""),
+        firstName,
+        lastName,
+        email: email || "",
+        cancellationPolicyAgreed: String(!!cancellationPolicyAgreed),
+      },
     });
 
     return new Response(
