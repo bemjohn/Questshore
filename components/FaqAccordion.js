@@ -5,14 +5,14 @@ import { useState } from "react";
 const faqs = [
   {
     q: "What happens if our ship misses the port or changes its itinerary?",
-    a: "Since all bookings are handled individually and routed straight to our team via email, we offer 100% flexible manual updates or full refunds if your ship cannot dock.",
+    a: "Questa Credits: If your cruise ship changes its scheduled port of call and you are unable to join your booked experience, we will issue the full value of your shore excursions as QuestaCredits. These credits can be used toward a future experience with us, a different port experience, or transferred to a new cruise passenger of your choice.",
   },
   {
     q: "How do I receive my excursion confirmation and tickets?",
-    a: "Once your reservation has been made and your deposit has been securely processed through our PayPal seller account , you will receive a booking confirmation, along with your detailed excursion information and itinerary, at the email address you provided.",
+    a: "Once your reservation has been made and a deposit/payment towards your shore excursions is complete, you will receive a booking confirmation along with your detailed port excursions information and itinerary at the email address you provided during your booking.",
   },
   {
-    q: "Can I book all my shore excursions with you?",
+    q: "Can I book all port shore excursions with Questashore?",
     a: "We believe your holiday should be effortless from embarkation to disembarkation. Instead of searching for excursions at every port, let us take care of the planning.",
     bullets: [
       "Save up and enjoy our multiple port discounts on your total booking",
