@@ -86,6 +86,22 @@ export async function POST(req) {
         console.error("Failed to send booking confirmation email:", err);
       }
     }
+  } else if (event.type === "checkout.session.expired") {
+    const session = event.data.object;
+    const metadata = session.metadata || {};
+
+    const bookingRef = metadata.bookingRef || session.id;
+    const email = session.customer_email || metadata.email || "";
+    const firstName = metadata.firstName || "";
+    const lastName = metadata.lastName || "";
+    const excursionName = metadata.excursionName || "";
+
+    console.log(`[Abandoned Booking] Reference: ${bookingRef}, Customer: ${email}`);
+
+    return new Response(JSON.stringify({ received: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   return new Response(JSON.stringify({ received: true }), {
