@@ -5,7 +5,7 @@ import { useState } from "react";
 const faqs = [
   {
     q: "What happens if our ship misses the port or changes its itinerary?",
-    a: "Questa Credits: If your cruise ship changes its scheduled port of call and you are unable to join your booked experience, we will issue the full value of your shore excursions as QuestaCredits. These credits can be used toward a future experience with us, a different port experience, or transferred to a new cruise passenger of your choice.",
+    a: "Questa Credits: If your cruise ship changes its scheduled port of call or is unable to dock for any reason, we will issue the full value of your shore excursions as QuestaCredits. These credits can be used toward a future experience with us, a different port experience, or transferred to a new cruise passenger of your choice.",
   },
   {
     q: "How do I receive my excursion confirmation and tickets?",
