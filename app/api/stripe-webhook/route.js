@@ -1,9 +1,6 @@
 import Stripe from "stripe";
-import { sendBookingConfirmation } from "@/lib/notifications/booking-confirmation";
 
 export const runtime = "nodejs";
-
-const emailedSessions = new Set();
 
 export async function POST(req) {
   const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -72,20 +69,6 @@ export async function POST(req) {
       paymentStatus: session.payment_status,
       ...booking,
     });
-
-    if (session.payment_status === "paid" && booking.email && !emailedSessions.has(session.id)) {
-      emailedSessions.add(session.id);
-      try {
-        const res = await sendBookingConfirmation(booking);
-        if (res && res.ok) {
-          console.log(`Confirmation email sent for session ${session.id}`);
-        } else if (res) {
-          console.error(`Confirmation email failed for session ${session.id}:`, await res.text());
-        }
-      } catch (err) {
-        console.error("Failed to send booking confirmation email:", err);
-      }
-    }
   } else if (event.type === "checkout.session.expired") {
     const session = event.data.object;
     const metadata = session.metadata || {};
