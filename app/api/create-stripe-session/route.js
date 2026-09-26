@@ -67,6 +67,7 @@ export async function POST(req) {
         },
       ],
       mode: "payment",
+      allow_promotion_codes: true,
       success_url: `${origin}/?booking=success`,
       cancel_url: `${origin}/?booking=cancelled`,
       metadata: {
