@@ -24,7 +24,7 @@ export default function BookingSidebar({
   const childPrice = item?.childPrice ?? 0;
 
   const totalTourCost = adultCount * adultPrice + childCount * childPrice;
-  const commitmentFeeToday = (adultCount + childCount) * 10;
+  const commitmentFeeToday = (adultCount + childCount) * 20;
 
   function openBookingModal() {
     window.dispatchEvent(
