@@ -97,12 +97,13 @@ async function sendAdminBookingEmail(session, stripe) {
     </html>
   `;
 
-  await resend.emails.send({
+  const adminResponse = await resend.emails.send({
     from: "QuestAshore Bookings <notifications@questashore.com>",
-    to: process.env.ADMIN_NOTIFICATION_EMAIL,
-    subject: `New Booking: ${metadata.excursionName || "Excursion"} - ${customerName}`,
+    to: [process.env.ADMIN_NOTIFICATION_EMAIL || "hello@questashore.com"],
+    subject: `New Booking: ${metadata.excursionName || "Tour"}`,
     html,
   });
+  console.log("Admin email response:", adminResponse);
 }
 
 async function sendCustomerConfirmationEmail(session, stripe) {
@@ -203,12 +204,13 @@ async function sendCustomerConfirmationEmail(session, stripe) {
     </html>
   `;
 
-  await resend.emails.send({
+  const customerResponse = await resend.emails.send({
     from: "QuestAshore Bookings <notifications@questashore.com>",
-    to: customerEmail,
-    subject: `Booking Confirmed: ${excursionName} - ${bookingRef}`,
+    to: [customerEmail],
+    subject: `Booking Confirmed: ${metadata.excursionName || "Tour"}`,
     html,
   });
+  console.log("Customer email response:", customerResponse);
 }
 
 export async function POST(req) {
