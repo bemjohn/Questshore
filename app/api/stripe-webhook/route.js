@@ -106,16 +106,7 @@ async function sendBookingEmail(session, stripe) {
 }
 
 export async function POST(req) {
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || process.env.STRIPE_TEST_WEBHOOK_SECRET;
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-
-  if (!webhookSecret) {
-    console.error("Stripe webhook secret missing from server environment.");
-    return new Response(
-      JSON.stringify({ message: "Stripe webhook secret missing from server environment." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
 
   if (!stripeSecretKey) {
     console.error("Stripe secret key missing from server environment.");
@@ -135,13 +126,30 @@ export async function POST(req) {
     );
   }
 
+  const secrets = [process.env.STRIPE_WEBHOOK_SECRET, process.env.STRIPE_TEST_WEBHOOK_SECRET].filter(Boolean);
+
+  if (secrets.length === 0) {
+    console.error("Stripe webhook secret missing from server environment.");
+    return new Response(
+      JSON.stringify({ message: "Stripe webhook secret missing from server environment." }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const rawBody = await req.text();
   let event;
 
-  try {
-    const rawBody = await req.text();
-    event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
-  } catch (err) {
-    console.error("Stripe webhook signature verification failed:", err.message);
+  for (const secret of secrets) {
+    try {
+      event = stripe.webhooks.constructEvent(rawBody, signature, secret);
+      break;
+    } catch (err) {
+      continue;
+    }
+  }
+
+  if (!event) {
+    console.error("Stripe webhook signature verification failed for all secrets");
     return new Response(
       JSON.stringify({ message: "Invalid webhook signature" }),
       { status: 400, headers: { "Content-Type": "application/json" } }
