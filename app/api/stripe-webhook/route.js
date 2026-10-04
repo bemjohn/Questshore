@@ -106,17 +106,6 @@ async function sendBookingEmail(session, stripe) {
 }
 
 export async function POST(req) {
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-
-  if (!stripeSecretKey) {
-    console.error("Stripe secret key missing from server environment.");
-    return new Response(
-      JSON.stringify({ message: "Stripe secret key missing from server environment." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  const stripe = new Stripe(stripeSecretKey);
   const signature = req.headers.get("stripe-signature");
 
   if (!signature) {
@@ -141,7 +130,7 @@ export async function POST(req) {
 
   for (const secret of secrets) {
     try {
-      event = stripe.webhooks.constructEvent(rawBody, signature, secret);
+      event = Stripe.webhooks.constructEvent(rawBody, signature, secret);
       break;
     } catch (err) {
       continue;
@@ -155,6 +144,21 @@ export async function POST(req) {
       { status: 400, headers: { "Content-Type": "application/json" } }
     );
   }
+
+  const isLiveMode = event.livemode === true;
+  const apiKey = isLiveMode
+    ? process.env.STRIPE_SECRET_KEY
+    : process.env.STRIPE_TEST_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+
+  if (!apiKey) {
+    console.error(`Stripe ${isLiveMode ? "live" : "test"} secret key missing from server environment.`);
+    return new Response(
+      JSON.stringify({ message: `Stripe ${isLiveMode ? "live" : "test"} secret key missing from server environment.` }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const stripe = new Stripe(apiKey);
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
@@ -178,6 +182,7 @@ export async function POST(req) {
     console.log("Stripe checkout.session.completed:", {
       id: session.id,
       paymentStatus: session.payment_status,
+      livemode: event.livemode,
       ...booking,
     });
 
