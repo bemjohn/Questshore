@@ -106,10 +106,10 @@ async function sendBookingEmail(session, stripe) {
 }
 
 export async function POST(req) {
-  const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || process.env.STRIPE_TEST_WEBHOOK_SECRET;
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-  if (!stripeWebhookSecret) {
+  if (!webhookSecret) {
     console.error("Stripe webhook secret missing from server environment.");
     return new Response(
       JSON.stringify({ message: "Stripe webhook secret missing from server environment." }),
@@ -139,7 +139,7 @@ export async function POST(req) {
 
   try {
     const rawBody = await req.text();
-    event = stripe.webhooks.constructEvent(rawBody, signature, stripeWebhookSecret);
+    event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
     console.error("Stripe webhook signature verification failed:", err.message);
     return new Response(
