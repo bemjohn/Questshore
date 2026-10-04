@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-async function sendBookingEmail(session, stripe) {
+async function sendAdminBookingEmail(session, stripe) {
   if (!process.env.RESEND_API_KEY) {
     console.warn("RESEND_API_KEY not configured, skipping email send");
     return;
@@ -105,6 +105,112 @@ async function sendBookingEmail(session, stripe) {
   });
 }
 
+async function sendCustomerConfirmationEmail(session, stripe) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not configured, skipping customer confirmation email");
+    return;
+  }
+
+  const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+
+  const metadata = session.metadata || {};
+  const customerDetails = session.customer_details || {};
+  const amountTotal = (session.amount_total / 100).toFixed(2);
+  const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Customer";
+  const customerEmail = customerDetails.email || session.customer_email || metadata.email;
+  const phone = customerDetails.phone || "Not provided";
+
+  if (!customerEmail || customerEmail === "Not provided") {
+    console.warn("Customer email not available, skipping confirmation email");
+    return;
+  }
+
+  const lineItemsHtml = lineItems.data.map(item => `
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${item.description || item.price?.product_data?.name || "Item"}</td>
+      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">${item.quantity}</td>
+      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">$${(item.amount_total / 100).toFixed(2)}</td>
+    </tr>
+  `).join("");
+
+  const bookingRef = metadata.bookingRef || session.id;
+  const excursionName = metadata.excursionName || "Excursion";
+  const destinationPort = metadata.destinationPort || "Not specified";
+  const preferredDate = metadata.preferredDate || "Not specified";
+  const shipDetails = metadata.shipDetails || "Not provided";
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <div style="background: #f8fafc; border-radius: 12px; padding: 32px;">
+        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Booking Confirmed!</h1>
+
+        <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">
+          Hi ${customerName},<br>
+          Thank you for booking with QuestAshore! Your booking has been confirmed.
+        </p>
+
+        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Reference</h2>
+          <p style="margin: 0; font-family: monospace; font-size: 14px; color: #0ea5e9; font-weight: 600;">${bookingRef}</p>
+        </div>
+
+        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Excursion Details</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Destination Port</td><td style="padding: 8px 0; font-weight: 500;">${destinationPort}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Preferred Date</td><td style="padding: 8px 0; font-weight: 500;">${preferredDate}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Ship Details</td><td style="padding: 8px 0; font-weight: 500;">${shipDetails}</td></tr>
+          </table>
+        </div>
+
+        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Payment Summary</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 8px 0; color: #6b7280;">Total Paid</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Payment Status</td><td style="padding: 8px 0; font-weight: 500;">${session.payment_status}</td></tr>
+          </table>
+        </div>
+
+        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Line Items</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #f9fafb;">
+                <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Item</th>
+                <th style="padding: 12px; text-align: center; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Qty</th>
+                <th style="padding: 12px; text-align: right; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${lineItemsHtml}
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 12px;">
+          This email was sent automatically from the QuestAshore booking system.<br>
+          If you have any questions, please contact us at support@questashore.com
+        </p>
+      </div>
+    </body>
+    </html>
+  `;
+
+  await resend.emails.send({
+    from: "QuestAshore Bookings <notifications@questashore.com>",
+    to: customerEmail,
+    subject: `Booking Confirmed: ${excursionName} - ${bookingRef}`,
+    html,
+  });
+}
+
 export async function POST(req) {
   const signature = req.headers.get("stripe-signature");
 
@@ -187,10 +293,17 @@ export async function POST(req) {
     });
 
     try {
-      await sendBookingEmail(session, stripe);
-      console.log("Booking confirmation email sent successfully");
+      await sendAdminBookingEmail(session, stripe);
+      console.log("Admin booking notification email sent successfully");
     } catch (emailErr) {
-      console.error("Failed to send booking email:", emailErr.message);
+      console.error("Failed to send admin booking email:", emailErr.message);
+    }
+
+    try {
+      await sendCustomerConfirmationEmail(session, stripe);
+      console.log("Customer confirmation email sent successfully");
+    } catch (emailErr) {
+      console.error("Failed to send customer confirmation email:", emailErr.message);
     }
   } else if (event.type === "checkout.session.expired") {
     const session = event.data.object;
