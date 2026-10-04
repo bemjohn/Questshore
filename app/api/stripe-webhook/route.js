@@ -1,24 +1,15 @@
 import Stripe from "stripe";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
-async function sendBookingEmail(session, stripe) {
-  const host = process.env.EMAIL_HOST || "mail.spacemail.com";
-  const user = process.env.EMAIL_USER;
-  const pass = process.env.EMAIL_PASS;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-  if (!user || !pass) {
-    console.warn("Email credentials not configured, skipping email send");
+async function sendBookingEmail(session, stripe) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not configured, skipping email send");
     return;
   }
-
-  const transporter = nodemailer.createTransport({
-    host,
-    port: 465,
-    secure: true,
-    auth: { user, pass },
-  });
 
   const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
 
@@ -106,9 +97,9 @@ async function sendBookingEmail(session, stripe) {
     </html>
   `;
 
-  await transporter.sendMail({
-    from: user,
-    to: user,
+  await resend.emails.send({
+    from: "QuestAshore Bookings <notifications@questashore.com>",
+    to: process.env.ADMIN_NOTIFICATION_EMAIL,
     subject: `New Booking: ${metadata.excursionName || "Excursion"} - ${customerName}`,
     html,
   });
