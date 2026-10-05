@@ -25,6 +25,11 @@ async function sendAdminBookingEmail(session, stripe) {
   const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Not provided";
   const customerEmail = session.customer_email || metadata.email || "Not provided";
   const phone = customerDetails.phone || "Not provided";
+  const excursionDate = metadata.preferredDate || "Not provided";
+  const adultCount = Number(metadata.adultCount || 0);
+  const childCount = Number(metadata.childCount || 0);
+  const totalTourCost = Number(metadata.totalTourCost || 0).toFixed(2);
+  const commitmentFee = Number(metadata.commitmentFee || 0).toFixed(2);
 
   const html = `
     <!DOCTYPE html>
@@ -35,18 +40,26 @@ async function sendAdminBookingEmail(session, stripe) {
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="background: #f8fafc; border-radius: 12px; padding: 32px;">
-        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Reservation Confirmed (Deposit Paid)</h1>
+        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">New Booking Received (Deposit Paid)</h1>
 
-        <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
-          <p style="margin: 0; font-size: 14px; color: #92400e;">
-            <strong>Your booking is confirmed. Thanks for your payment to QuestAshore. This receipt confirms your deposit. Your final excursion details and meeting instructions will be provided separately to the email address provided in your booking.</strong>
-          </p>
+        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Reference</h2>
+          <p style="margin: 0; font-family: monospace; font-size: 16px; color: #0ea5e9; font-weight: 700;">${bookingId}</p>
+        </div>
+
+        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Excursion Details</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion Name</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Date of Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionDate}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Guest Count</td><td style="padding: 8px 0; font-weight: 500;">${adultCount} Adults / ${childCount} Children</td></tr>
+          </table>
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
           <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Customer Details</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Name</td><td style="padding: 8px 0; font-weight: 500;">${customerName}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Guest Name</td><td style="padding: 8px 0; font-weight: 500;">${customerName}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Email</td><td style="padding: 8px 0; font-weight: 500;">${customerEmail}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Phone</td><td style="padding: 8px 0; font-weight: 500;">${phone}</td></tr>
           </table>
@@ -55,18 +68,11 @@ async function sendAdminBookingEmail(session, stripe) {
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
           <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Payment Summary</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Commitment Deposit Paid Today</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Total Excursion Amount</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #374151;">$${totalTourCost}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Deposit Paid Today</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Remaining Balance Due on Excursion Day</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #dc2626;">$${remainingBalance}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Payment Status</td><td style="padding: 8px 0; font-weight: 500;">${session.payment_status}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Session ID</td><td style="padding: 8px 0; font-family: monospace; font-size: 12px;">${session.id}</td></tr>
-          </table>
-        </div>
-
-        <div style="background: white; border-radius: 8px; padding: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Details</h2>
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Booking Reference</td><td style="padding: 8px 0; font-family: monospace; font-size: 14px; color: #0ea5e9; font-weight: 600;">${bookingId}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Stripe Session ID</td><td style="padding: 8px 0; font-family: monospace; font-size: 12px;">${session.id}</td></tr>
           </table>
         </div>
 
@@ -119,17 +125,13 @@ async function sendCustomerConfirmationEmail(session, stripe) {
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="background: #f8fafc; border-radius: 12px; padding: 32px;">
-        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Reservation Confirmed (Deposit Paid)</h1>
+        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Your Booking is Confirmed!</h1>
 
-        <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
-          <p style="margin: 0; font-size: 14px; color: #92400e;">
-            <strong>Your booking is confirmed. Thanks for your payment to QuestAshore. This receipt confirms your deposit. Your final excursion details and meeting instructions will be provided separately to the email address provided in your booking.</strong>
-          </p>
-        </div>
-
-        <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">
-          Hi ${customerName},<br>
-          Thank you for booking with QuestAshore! Your commitment deposit has been successfully processed to hold your reservation spot.
+        <p style="font-size: 16px; color: #374151; margin-bottom: 24px; white-space: pre-line;">
+          Hi ${customerName},
+          Thank you for your payment to QuestAshore. Your deposit has been received and your place on the excursion is now secured.
+          Your detailed shore excursion information will be sent to the email address provided with your booking.
+          We look forward to welcoming you!
         </p>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
