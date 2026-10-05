@@ -19,7 +19,7 @@ async function sendAdminBookingEmail(session, stripe) {
   const metadata = session.metadata || {};
   const customerDetails = session.customer_details || {};
   const amountTotal = (session.amount_total / 100).toFixed(2);
-  const remainingBalance = metadata.remainingBalance || "0.00";
+  const remainingBalance = Number(metadata.remainingBalance || "0").toFixed(2);
   const bookingId = metadata.bookingId || metadata.reservationRef || session.id;
   const excursionName = metadata.excursionName || "Tour";
   const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Not provided";
@@ -99,7 +99,7 @@ async function sendCustomerConfirmationEmail(session, stripe) {
   const metadata = session.metadata || {};
   const customerDetails = session.customer_details || {};
   const amountTotal = (session.amount_total / 100).toFixed(2);
-  const remainingBalance = metadata.remainingBalance || "0.00";
+  const remainingBalance = Number(metadata.remainingBalance || "0").toFixed(2);
   const bookingId = metadata.bookingId || metadata.reservationRef || session.id;
   const excursionName = metadata.excursionName || "Tour";
   const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Customer";
