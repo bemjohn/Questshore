@@ -11,31 +11,15 @@ async function sendAdminBookingEmail(session, stripe) {
     return;
   }
 
-  const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-
   const metadata = session.metadata || {};
   const customerDetails = session.customer_details || {};
   const amountTotal = (session.amount_total / 100).toFixed(2);
+  const remainingBalance = metadata.remainingBalance || "0.00";
+  const bookingId = metadata.bookingId || metadata.reservationRef || session.id;
+  const excursionName = metadata.excursionName || "Tour";
   const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Not provided";
   const customerEmail = session.customer_email || metadata.email || "Not provided";
   const phone = customerDetails.phone || "Not provided";
-
-  const lineItemsHtml = lineItems.data.map(item => `
-    <tr>
-      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${item.description || item.price?.product_data?.name || "Item"}</td>
-      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">${item.quantity}</td>
-      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">$${(item.amount_total / 100).toFixed(2)}</td>
-    </tr>
-  `).join("");
-
-  const metadataHtml = Object.entries(metadata)
-    .filter(([key]) => !["firstName", "lastName", "email"].includes(key))
-    .map(([key, value]) => `
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #374151;">${key}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${value || "Not provided"}</td>
-      </tr>
-    `).join("");
 
   const html = `
     <!DOCTYPE html>
@@ -46,7 +30,7 @@ async function sendAdminBookingEmail(session, stripe) {
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="background: #f8fafc; border-radius: 12px; padding: 32px;">
-        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">New Booking Received</h1>
+        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Reservation Confirmed (Deposit Paid)</h1>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
           <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Customer Details</h2>
@@ -60,32 +44,18 @@ async function sendAdminBookingEmail(session, stripe) {
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
           <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Payment Summary</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Total Paid</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Commitment Deposit Paid Today</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Remaining Balance Due on Excursion Day</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #dc2626;">$${remainingBalance}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Payment Status</td><td style="padding: 8px 0; font-weight: 500;">${session.payment_status}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Session ID</td><td style="padding: 8px 0; font-family: monospace; font-size: 12px;">${session.id}</td></tr>
           </table>
         </div>
 
-        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Line Items</h2>
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="background: #f9fafb;">
-                <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Item</th>
-                <th style="padding: 12px; text-align: center; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Qty</th>
-                <th style="padding: 12px; text-align: right; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${lineItemsHtml}
-            </tbody>
-          </table>
-        </div>
-
         <div style="background: white; border-radius: 8px; padding: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Details</h2>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Reservation Details</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            ${metadataHtml}
+            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Booking ID / Reservation Ref</td><td style="padding: 8px 0; font-family: monospace; font-size: 12px;">${bookingId}</td></tr>
           </table>
         </div>
 
@@ -100,7 +70,7 @@ async function sendAdminBookingEmail(session, stripe) {
   const adminResponse = await resend.emails.send({
     from: "QuestAshore Bookings <notifications@questashore.com>",
     to: [process.env.ADMIN_NOTIFICATION_EMAIL || "hello@questashore.com"],
-    subject: `New Booking: ${metadata.excursionName || "Tour"}`,
+    subject: `Reservation Confirmed: ${excursionName} - Commitment Deposit Received`,
     html,
   });
   console.log("Admin email response:", adminResponse);
@@ -112,33 +82,19 @@ async function sendCustomerConfirmationEmail(session, stripe) {
     return;
   }
 
-  const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-
   const metadata = session.metadata || {};
   const customerDetails = session.customer_details || {};
   const amountTotal = (session.amount_total / 100).toFixed(2);
+  const remainingBalance = metadata.remainingBalance || "0.00";
+  const bookingId = metadata.bookingId || metadata.reservationRef || session.id;
+  const excursionName = metadata.excursionName || "Tour";
   const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Customer";
   const customerEmail = customerDetails.email || session.customer_email || metadata.email;
-  const phone = customerDetails.phone || "Not provided";
 
   if (!customerEmail || customerEmail === "Not provided") {
     console.warn("Customer email not available, skipping confirmation email");
     return;
   }
-
-  const lineItemsHtml = lineItems.data.map(item => `
-    <tr>
-      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${item.description || item.price?.product_data?.name || "Item"}</td>
-      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">${item.quantity}</td>
-      <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">$${(item.amount_total / 100).toFixed(2)}</td>
-    </tr>
-  `).join("");
-
-  const bookingRef = metadata.bookingRef || session.id;
-  const excursionName = metadata.excursionName || "Excursion";
-  const destinationPort = metadata.destinationPort || "Not specified";
-  const preferredDate = metadata.preferredDate || "Not specified";
-  const shipDetails = metadata.shipDetails || "Not provided";
 
   const html = `
     <!DOCTYPE html>
@@ -149,49 +105,31 @@ async function sendCustomerConfirmationEmail(session, stripe) {
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="background: #f8fafc; border-radius: 12px; padding: 32px;">
-        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Booking Confirmed!</h1>
+        <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">Reservation Confirmed (Deposit Paid)</h1>
 
         <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">
           Hi ${customerName},<br>
-          Thank you for booking with QuestAshore! Your booking has been confirmed.
+          Thank you for booking with QuestAshore! Your commitment deposit has been successfully processed to hold your reservation spot.
         </p>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Reference</h2>
-          <p style="margin: 0; font-family: monospace; font-size: 14px; color: #0ea5e9; font-weight: 600;">${bookingRef}</p>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Reservation Reference</h2>
+          <p style="margin: 0; font-family: monospace; font-size: 14px; color: #0ea5e9; font-weight: 600;">${bookingId}</p>
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
           <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Excursion Details</h2>
           <table style="width: 100%; border-collapse: collapse;">
             <tr><td style="padding: 8px 0; color: #6b7280;">Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Destination Port</td><td style="padding: 8px 0; font-weight: 500;">${destinationPort}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Preferred Date</td><td style="padding: 8px 0; font-weight: 500;">${preferredDate}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Ship Details</td><td style="padding: 8px 0; font-weight: 500;">${shipDetails}</td></tr>
           </table>
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
           <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Payment Summary</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Total Paid</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Commitment Deposit Paid Today</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Remaining Balance Due on Excursion Day</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #dc2626;">$${remainingBalance}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Payment Status</td><td style="padding: 8px 0; font-weight: 500;">${session.payment_status}</td></tr>
-          </table>
-        </div>
-
-        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Line Items</h2>
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="background: #f9fafb;">
-                <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Item</th>
-                <th style="padding: 12px; text-align: center; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Qty</th>
-                <th style="padding: 12px; text-align: right; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${lineItemsHtml}
-            </tbody>
           </table>
         </div>
 
@@ -207,7 +145,7 @@ async function sendCustomerConfirmationEmail(session, stripe) {
   const customerResponse = await resend.emails.send({
     from: "QuestAshore Bookings <notifications@questashore.com>",
     to: [customerEmail],
-    subject: `Booking Confirmed: ${metadata.excursionName || "Tour"}`,
+    subject: `Reservation Confirmed: ${excursionName} - Commitment Deposit Received`,
     html,
   });
   console.log("Customer email response:", customerResponse);
