@@ -63,10 +63,10 @@ async function sendAdminBookingEmail(session, stripe) {
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Reservation Details</h2>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Details</h2>
           <table style="width: 100%; border-collapse: collapse;">
             <tr><td style="padding: 8px 0; color: #6b7280;">Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Booking ID / Reservation Ref</td><td style="padding: 8px 0; font-family: monospace; font-size: 12px;">${bookingId}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Booking Reference</td><td style="padding: 8px 0; font-family: monospace; font-size: 14px; color: #0ea5e9; font-weight: 600;">${bookingId}</td></tr>
           </table>
         </div>
 
@@ -84,7 +84,7 @@ async function sendAdminBookingEmail(session, stripe) {
   const adminResponse = await resend.emails.send({
     from: "QuestAshore Bookings <noreply@questashore.com>",
     to: [process.env.ADMIN_NOTIFICATION_EMAIL || "hello@questashore.com"],
-    subject: `Reservation Confirmed: ${excursionName} - Commitment Deposit Received`,
+    subject: `Booking Confirmed: ${excursionName} - ${bookingId}`,
     html,
   });
   console.log("Admin email response:", adminResponse);
@@ -133,8 +133,8 @@ async function sendCustomerConfirmationEmail(session, stripe) {
         </p>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Reservation Reference</h2>
-          <p style="margin: 0; font-family: monospace; font-size: 14px; color: #0ea5e9; font-weight: 600;">${bookingId}</p>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Reference</h2>
+          <p style="margin: 0; font-family: monospace; font-size: 16px; color: #0ea5e9; font-weight: 700;">${bookingId}</p>
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
@@ -168,7 +168,7 @@ async function sendCustomerConfirmationEmail(session, stripe) {
   const customerResponse = await resend.emails.send({
     from: "QuestAshore Bookings <noreply@questashore.com>",
     to: [customerEmail],
-    subject: `Reservation Confirmed: ${excursionName} - Commitment Deposit Received`,
+    subject: `Booking Confirmed: ${excursionName} - ${bookingId}`,
     html,
   });
   console.log("Customer email response:", customerResponse);

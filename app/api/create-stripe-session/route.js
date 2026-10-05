@@ -49,7 +49,11 @@ export async function POST(req) {
 
   const origin = req.headers.get("origin") || "http://localhost:3000";
 
-  const bookingId = `QA-2026-${Math.floor(100000 + Math.random() * 900000)}`;
+  const firstInitial = (firstName || "").trim()[0]?.toUpperCase() || "";
+  const lastInitial = (lastName || "").trim()[0]?.toUpperCase() || "";
+  const initials = (firstInitial + lastInitial) || "QA";
+  const randomNum = Math.floor(1000 + Math.random() * 9000).toString();
+  const bookingId = `QA-${initials}${randomNum}`;
 
   try {
     const session = await stripe.checkout.sessions.create({
