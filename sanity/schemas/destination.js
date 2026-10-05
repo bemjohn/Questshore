@@ -49,6 +49,8 @@ export default defineType({
               fields: [
                 {name: 'adult', type: 'number', title: 'Adult Price'},
                 {name: 'child', type: 'number', title: 'Child Price'},
+                {name: 'adultDeposit', type: 'number', title: 'Adult Deposit', initialValue: 50},
+                {name: 'childDeposit', type: 'number', title: 'Child Deposit', initialValue: 30},
               ],
             },
             {name: 'description', type: 'text', title: 'Description'},

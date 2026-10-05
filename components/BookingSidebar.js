@@ -22,9 +22,12 @@ export default function BookingSidebar({
   const item = pricing?.[0];
   const adultPrice = item?.adultPrice ?? 0;
   const childPrice = item?.childPrice ?? 0;
+  const adultDeposit = item?.adultDeposit ?? 50;
+  const childDeposit = item?.childDeposit ?? 30;
 
   const totalTourCost = adultCount * adultPrice + childCount * childPrice;
-  const commitmentFeeToday = (adultCount + childCount) * 20;
+  const commitmentFeeToday = adultCount * adultDeposit + childCount * childDeposit;
+  const remainingBalance = Math.max(0, totalTourCost - commitmentFeeToday);
 
   function openBookingModal() {
     window.dispatchEvent(
@@ -36,6 +39,7 @@ export default function BookingSidebar({
           childCount,
           commitmentFee: commitmentFeeToday,
           totalTourCost,
+          remainingBalance,
         },
       })
     );

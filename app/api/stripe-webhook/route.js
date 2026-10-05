@@ -3,7 +3,12 @@ import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    return null;
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 async function sendAdminBookingEmail(session, stripe) {
   if (!process.env.RESEND_API_KEY) {
@@ -66,6 +71,9 @@ async function sendAdminBookingEmail(session, stripe) {
     </body>
     </html>
   `;
+
+  const resend = getResend();
+  if (!resend) return;
 
   const adminResponse = await resend.emails.send({
     from: "QuestAshore Bookings <notifications@questashore.com>",
@@ -141,6 +149,9 @@ async function sendCustomerConfirmationEmail(session, stripe) {
     </body>
     </html>
   `;
+
+  const resend = getResend();
+  if (!resend) return;
 
   const customerResponse = await resend.emails.send({
     from: "QuestAshore Bookings <notifications@questashore.com>",

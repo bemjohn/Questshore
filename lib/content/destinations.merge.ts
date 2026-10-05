@@ -56,6 +56,8 @@ function mergeExcursions(sanityExcursions: any[] | null | undefined, fallbackExc
       pricing: {
         adult: e.pricing?.adult ?? fb?.pricing?.adult ?? 0,
         child: e.pricing?.child ?? fb?.pricing?.child,
+        adultDeposit: e.pricing?.adultDeposit ?? fb?.pricing?.adultDeposit ?? 50,
+        childDeposit: e.pricing?.childDeposit ?? fb?.pricing?.childDeposit ?? 30,
       },
       description: e.description || fb?.description,
       requiresTime: e.requiresTime ?? fb?.requiresTime,

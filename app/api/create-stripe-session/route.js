@@ -25,6 +25,7 @@ export async function POST(req) {
     adultCount,
     childCount,
     totalTourCost,
+    remainingBalance,
     cancellationPolicyAgreed,
   } = await req.json();
 
@@ -47,6 +48,8 @@ export async function POST(req) {
   const unitAmount = Math.round(parsedAmount * 100);
 
   const origin = req.headers.get("origin") || "http://localhost:3000";
+
+  const bookingId = `QA-2026-${Math.floor(100000 + Math.random() * 900000)}`;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -72,6 +75,7 @@ export async function POST(req) {
       cancel_url: `${origin}/?booking=cancelled`,
       metadata: {
         bookingRef: crypto.randomUUID(),
+        bookingId,
         excursionName,
         destinationPort,
         preferredDate,
@@ -80,6 +84,7 @@ export async function POST(req) {
         childCount: String(childCount ?? ""),
         commitmentFee: String(parsedAmount),
         totalTourCost: String(totalTourCost ?? ""),
+        remainingBalance: String(remainingBalance ?? ""),
         firstName,
         lastName,
         email: email || "",

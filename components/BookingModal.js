@@ -20,6 +20,7 @@ export default function BookingModal() {
     childCount: 1,
     commitmentFee: 0,
     totalTourCost: 0,
+    remainingBalance: 0,
   });
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export default function BookingModal() {
         childCount: detail.childCount ?? 1,
         commitmentFee: detail.commitmentFee ?? 0,
         totalTourCost: detail.totalTourCost ?? 0,
+        remainingBalance: detail.remainingBalance ?? 0,
       });
       setStep(1);
       setOpen(true);
@@ -90,6 +92,7 @@ export default function BookingModal() {
           adultCount: form.adultCount,
           childCount: form.childCount,
           totalTourCost: form.totalTourCost,
+          remainingBalance: form.remainingBalance,
           cancellationPolicyAgreed,
         }),
       });

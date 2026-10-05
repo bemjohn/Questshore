@@ -86,7 +86,7 @@ const destinationsData = [
     excursions: [
       {
         name: "Vila Signature",
-        pricing: { adult: 90, child: 45 },
+        pricing: { adult: 90, child: 45, adultDeposit: 50, childDeposit: 30 },
         highlights: [
           "Enjoy a full day guided tour departing from Port-Vila, a scenic drive and tour through the local markets, duty free shops and the city centre",
           "Step into a traditional cultural village to discover the local customs of the islanders, arts and handcrafted creations",
@@ -97,7 +97,7 @@ const destinationsData = [
       },
       {
         name: "Vila Tranquil/Snorkel Combo",
-        pricing: { adult: 120, child: 60 },
+        pricing: { adult: 120, child: 60, adultDeposit: 50, childDeposit: 30 },
         description:
           "Make the most of your time in Port-Vila with a quick escape to some of its most stunning spots — head to the Blue Lagoon for crystal-clear swimming and return to relax by gorgeous Iririki Island which reveal vibrant marine life in a peaceful natural setting, where you can snorkel right off the beach of calm, turquoise waters surrounded by natural beauty and end your day discovering the best souvenir shops and duty free shopping",
         highlights: [
@@ -109,7 +109,7 @@ const destinationsData = [
       },
       {
         name: "Adventurous Splash",
-        pricing: { adult: 180, child: 90 },
+        pricing: { adult: 180, child: 90, adultDeposit: 50, childDeposit: 30 },
         description:
           "Experience the best of Efate in one unforgettable adventure combining land, sea and pure adrenaline.",
         highlights: [
@@ -132,7 +132,7 @@ const destinationsData = [
     excursions: [
       {
         name: "A Swim With Sea Turtle Experience",
-        pricing: { adult: 70, child: 35 },
+        pricing: { adult: 70, child: 35, adultDeposit: 50, childDeposit: 30 },
         description:
           "Snorkel in Noumea's clear waters and encounter sea turtles in their natural environment for a truly unforgettable experience, watch these gentle creatures glide gracefully through their natural habitat while enjoying a unique and memorable marine adventure. Tick this off your bucket list in Noumea.",
         requiresTime: true,
@@ -160,7 +160,7 @@ const destinationsData = [
     excursions: [
       {
         name: "Lifou Scenic Heritage",
-        pricing: { adult: 80, child: 40 },
+        pricing: { adult: 80, child: 40, adultDeposit: 50, childDeposit: 30 },
         description:
           "Satisfy the senses during this captivating half day tour that begins with a scenic drive through Easo village, which boasted several traditional homes and flowering gardens.",
         highlights: [
@@ -186,7 +186,7 @@ const destinationsData = [
     excursions: [
       {
         name: "Lautoka Essentielle",
-        pricing: { adult: 80, child: 40 },
+        pricing: { adult: 80, child: 40, adultDeposit: 50, childDeposit: 30 },
         description:
           "Begin with a scenic drive through Lautoka, Fiji's sugar city, where you'll discover local landmarks and everyday island life. Visit the vibrant local market and experience the colors, aromas and fresh produce that make Fiji's markets so unique. Continue to the famous mud pools and hot spring, where you can enjoy a natural spa experience and learn why locals have treasured these therapeutic waters for generations. Next, stroll through the stunning Garden of the Sleeping Giant, home to lush tropical landscapes, tranquil walking paths and an impressive collection of orchids nestled beneath the surrounding mountains. End the day at the beautiful Crowne Plaza Resort, where you'll have time to relax and enjoy Fiji at your own pace. Take a refreshing swim in the pool, unwind by the beach or simply soak up the tropical atmosphere before returning to your ship. This excursion offers the perfect blend of sightseeing, culture, nature and relaxation — an ideal way to experience the best of Lautoka in a single day.",
         highlights: [
@@ -218,7 +218,7 @@ const destinationsData = [
     excursions: [
       {
         name: "Roatan By Land And Sea",
-        pricing: { adult: 68 },
+        pricing: { adult: 68, adultDeposit: 50, childDeposit: 30 },
         highlights: [
           "Explore local villages, historic landmarks, and scenic lookout points on a guided island tour",
           "Set sail on a relaxing small-group cruise departing from West End Beach",
@@ -229,7 +229,7 @@ const destinationsData = [
       },
       {
         name: "Day Pass at a Private Island Beach Resort & Orphanage Visit",
-        pricing: { adult: 48 },
+        pricing: { adult: 48, adultDeposit: 50, childDeposit: 30 },
         highlights: [
           "Experience the beauty of Roatan's community and culture on the unique Roatan Orphanage tour — an opportunity to give back to the community, not to be missed",
           "Unwind at Bradey Cay's Island after your visit to the orphanage",
@@ -238,7 +238,7 @@ const destinationsData = [
       },
       {
         name: "Roatan Animal Sanctuary & Beach Break",
-        pricing: { adult: 74 },
+        pricing: { adult: 74, adultDeposit: 50, childDeposit: 30 },
         description:
           "This tour combines exploration and relaxation in a tropical paradise. Travel in comfort with our experienced local guide, who'll offer rich insights into Roatan's history and culture.",
         highlights: [
@@ -269,7 +269,7 @@ const destinationsData = [
     excursions: [
       {
         name: "Dolphin Swim Encounter at Chankanaab Marine Park",
-        pricing: { adult: 110, child: 0 },
+        pricing: { adult: 110, child: 0, adultDeposit: 50, childDeposit: 30 },
         description:
           "Chankanaab National Marine Park in Cozumel is the perfect setting for a memorable, bucket list dolphin experience. The Dolphin Connection program is designed to create a fun and personal connection with one of the ocean's most fascinating animals in a safe and respectful environment.",
         highlights: [
@@ -282,7 +282,7 @@ const destinationsData = [
       },
       {
         name: "Manatee Encounter",
-        pricing: { adult: 79 },
+        pricing: { adult: 79, adultDeposit: 50, childDeposit: 30 },
         description:
           "There's swimming, and then there's swimming with manatees! The Manatee Swim and Chankanaab Park excursion will be the absolute highlight of your Cozumel visit. Submerge yourself in the underwater world of the manatee.",
         highlights: [
@@ -295,7 +295,7 @@ const destinationsData = [
       },
       {
         name: "Explore Cozumel Historical & Beach Break",
-        pricing: { adult: 65 },
+        pricing: { adult: 65, adultDeposit: 50, childDeposit: 30 },
         description:
           "Want to combine a historical experience with beach fun? This is for you. Explore the Cozumel City tour with its historical center and flea market, iconic monuments, and a visit to a Mayan village for a tasting of tequila, organic chocolate, and a pre-Hispanic taco.",
         highlights: [
@@ -350,7 +350,12 @@ for (const dest of destinationsData) {
   const excursions = dest.excursions.map((exc) => ({
     _key: shortId(),
     name: exc.name,
-    pricing: { adult: exc.pricing.adult, child: exc.pricing.child ?? null },
+    pricing: {
+      adult: exc.pricing.adult,
+      child: exc.pricing.child ?? null,
+      adultDeposit: exc.pricing.adultDeposit ?? 50,
+      childDeposit: exc.pricing.childDeposit ?? 30,
+    },
     description: exc.description || "",
     requiresTime: exc.requiresTime ?? false,
     highlights: exc.highlights,
