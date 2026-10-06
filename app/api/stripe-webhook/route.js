@@ -21,15 +21,19 @@ async function sendAdminBookingEmail(session, stripe) {
   const amountTotal = (session.amount_total / 100).toFixed(2);
   const remainingBalance = Number(metadata.remainingBalance || "0").toFixed(2);
   const bookingId = metadata.bookingId || metadata.reservationRef || session.id;
-  const excursionName = metadata.excursionName || "Tour";
-  const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "Not provided";
-  const customerEmail = session.customer_email || metadata.email || "Not provided";
-  const phone = customerDetails.phone || "Not provided";
-  const excursionDate = metadata.preferredDate || "Not provided";
+  const excursionTitle = metadata.excursionName || "Tour";
+  const customerName = `${metadata.firstName || ""} ${metadata.lastName || ""}`.trim() || customerDetails.name || "N/A";
+  const customerEmail = session.customer_email || metadata.email || "N/A";
+  const customerPhone = metadata.phone || customerDetails.phone || "N/A";
+  const cruiseDetails = metadata.cruiseShip || metadata.cruiseLine || metadata.shipName || metadata.cruiseDetails || "N/A";
+  const excursionDate = metadata.preferredDate || metadata.tourDate || metadata.date || "N/A";
+  const bookingDate = new Date(session.created * 1000).toLocaleDateString('en-US', { dateStyle: 'full' });
   const adultCount = Number(metadata.adultCount || 0);
   const childCount = Number(metadata.childCount || 0);
-  const totalTourCost = Number(metadata.totalTourCost || 0).toFixed(2);
-  const commitmentFee = Number(metadata.commitmentFee || 0).toFixed(2);
+  const guestBreakdown = `${adultCount} Adult(s), ${childCount} Child(ren)`;
+  const totalCost = Number(metadata.totalTourCost || 0).toFixed(2);
+  const depositPaid = amountTotal;
+  const paymentStatus = session.payment_status;
 
   const html = `
     <!DOCTYPE html>
@@ -43,36 +47,33 @@ async function sendAdminBookingEmail(session, stripe) {
         <h1 style="color: #0ea5e9; margin: 0 0 24px; font-size: 24px;">New Booking Received (Deposit Paid)</h1>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Booking Reference</h2>
-          <p style="margin: 0; font-family: monospace; font-size: 16px; color: #0ea5e9; font-weight: 700;">${bookingId}</p>
-        </div>
-
-        <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Excursion Details</h2>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">--- EXCURSION & CRUISE DETAILS ---</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion Name</td><td style="padding: 8px 0; font-weight: 500;">${excursionName}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Date of Excursion</td><td style="padding: 8px 0; font-weight: 500;">${excursionDate}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Guest Count</td><td style="padding: 8px 0; font-weight: 500;">${adultCount} Adults / ${childCount} Children</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion Name</td><td style="padding: 8px 0; font-weight: 500;">${excursionTitle}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Excursion Date</td><td style="padding: 8px 0; font-weight: 500;">${excursionDate}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Cruise Ship / Line</td><td style="padding: 8px 0; font-weight: 500;">${cruiseDetails}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Total Guests</td><td style="padding: 8px 0; font-weight: 500;">${guestBreakdown}</td></tr>
           </table>
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Customer Details</h2>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">--- CUSTOMER INFORMATION ---</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Guest Name</td><td style="padding: 8px 0; font-weight: 500;">${customerName}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Email</td><td style="padding: 8px 0; font-weight: 500;">${customerEmail}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Phone</td><td style="padding: 8px 0; font-weight: 500;">${phone}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Full Name</td><td style="padding: 8px 0; font-weight: 500;">${customerName}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Email Address</td><td style="padding: 8px 0; font-weight: 500;">${customerEmail}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Phone Number</td><td style="padding: 8px 0; font-weight: 500;">${customerPhone}</td></tr>
           </table>
         </div>
 
         <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">Payment Summary</h2>
+          <h2 style="font-size: 16px; color: #374151; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb;">--- FINANCIAL & PAYMENT SUMMARY ---</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #6b7280;">Total Excursion Amount</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #374151;">$${totalTourCost}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Deposit Paid Today</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${amountTotal}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Remaining Balance Due on Excursion Day</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #dc2626;">$${remainingBalance}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Payment Status</td><td style="padding: 8px 0; font-weight: 500;">${session.payment_status}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Stripe Session ID</td><td style="padding: 8px 0; font-family: monospace; font-size: 12px;">${session.id}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Total Excursion Cost</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #374151;">$${totalCost}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Deposit Paid Today</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #059669;">$${depositPaid}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Balance Due on Excursion Day</td><td style="padding: 8px 0; font-weight: 600; font-size: 18px; color: #dc2626;">$${remainingBalance}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Payment Status</td><td style="padding: 8px 0; font-weight: 500;">${paymentStatus}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Booking Reference</td><td style="padding: 8px 0; font-family: monospace; font-size: 16px; color: #0ea5e9; font-weight: 700;">${bookingId}</td></tr>
+            <tr><td style="padding: 8px 0; color: #6b7280;">Payment Date</td><td style="padding: 8px 0; font-weight: 500;">${bookingDate}</td></tr>
           </table>
         </div>
 
@@ -90,7 +91,7 @@ async function sendAdminBookingEmail(session, stripe) {
   const adminResponse = await resend.emails.send({
     from: "QuestAshore Bookings <noreply@questashore.com>",
     to: [process.env.ADMIN_NOTIFICATION_EMAIL || "hello@questashore.com"],
-    subject: `Booking Confirmed: ${excursionName} - ${bookingId}`,
+    subject: `Booking Confirmed: ${excursionTitle} - ${bookingId}`,
     html,
   });
   console.log("Admin email response:", adminResponse);
