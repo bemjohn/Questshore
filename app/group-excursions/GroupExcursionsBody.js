@@ -107,7 +107,7 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
               <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">03</span>
               <h3 className="text-2xl font-bold text-slate-900 mb-3">Community &amp; Social Groups</h3>
               <p className="text-gray-500 leading-relaxed">
-                Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums&rsquo; groups, alumni associations, church groups, hobby clubs, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we&rsquo;ll create an experience that reflects your group&rsquo;s interests and brings everyone together.
+                Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums&rsquo; groups, alumni associations, church groups, hobby clubs, LGBTQ+ groups, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we&rsquo;ll create an experience that reflects your group&rsquo;s interests and brings everyone together.
               </p>
             </div>
             <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-purple-50 to-violet-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
