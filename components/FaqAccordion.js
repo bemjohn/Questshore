@@ -5,7 +5,7 @@ import { useState } from "react";
 const faqs = [
   {
     q: "What happens if our ship misses the port or changes its itinerary?",
-    a: "Questa Credits: If your cruise ship changes its scheduled port of call or is unable to dock for any reason, we will issue the full value of your shore excursions as QuestaCredits. These credits can be used toward a future experience with us, a different port experience, or transferred to a new cruise passenger of your choice.",
+    a: "If your cruise ship changes its scheduled port of call or is unable to dock for any reason, we will issue the full value of your shore excursions as QuestaCredits. These credits can be used toward a future experience with us, a different port experience, or transferred to a new cruise passenger of your choice.",
   },
   {
     q: "How do I receive my excursion confirmation and tickets?",
@@ -21,6 +21,14 @@ const faqs = [
       "Less time planning during your holiday and more time enjoying it",
       "Peace of mind with our return-to-ship commitment",
     ],
+  },
+  {
+    q: "Do you accomodate large groups?",
+    a: "Yes! We welcome large cruise passenger groups and private parties. We can tailor our excursions to suit your group's size, interests and schedules. We also make every effort to keep all group members together throughout the excursions, ensuring everyone can share the experience and enjoy their time together. Also contact us to discuss your group's requirements and we'll be happy to create a memorable experience for everyone.",
+  },
+  {
+    q: "Do group coordinators receive any special advantage?",
+    a: "Yes! We love helping group coordinators create an enjoyable experience for their tribe and even offer special benefits for group bookings. Depending on the size: Groups of 20 or more paying members receive a complimentary excursion for their group leader, while groups of up to 15 or more paying members can enjoy discounted rates. Contact us to discuss your group booking and plan better together.",
   },
 ];
 
