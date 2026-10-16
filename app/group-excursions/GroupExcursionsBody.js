@@ -1,7 +1,44 @@
 "use client";
 
 import { useState } from "react";
-import { Users, Briefcase, Sparkles, Heart } from "lucide-react";
+import Image from "next/image";
+
+const groupExperiences = [
+  {
+    num: "01",
+    title: "Family Groups",
+    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=800&auto=format&fit=crop",
+    alt: "Family group enjoying time together on vacation",
+    description:
+      "Create unforgettable memories with the people who matter most. Whether you\u2019re planning a family reunion, celebrating a birthday or anniversary, or simply enjoying a cruise together, we\u2019ll design an itinerary that caters to all ages and interests. From relaxing beach escapes to cultural sightseeing and exciting adventures, our experiences ensure everyone\u2014from children to grandparents\u2014has an incredible day ashore.",
+  },
+  {
+    num: "02",
+    title: "Corporate Groups",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+    alt: "Corporate team collaborating together",
+    reversed: true,
+    description:
+      "Strengthen relationships and inspire your team with professionally organized shore excursions. Whether you\u2019re hosting clients, rewarding employees, or planning a company retreat, we create experiences that balance leisure, networking, and team building. We take care of the planning and logistics so your group can focus on enjoying the destination.",
+  },
+  {
+    num: "03",
+    title: "Community & Social Groups",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop",
+    alt: "Community group of friends socializing together",
+    description:
+      "Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums\u2019 groups, alumni associations, church groups, hobby clubs, LGBTQ+ groups, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we\u2019ll create an experience that reflects your group\u2019s interests and brings everyone together.",
+  },
+  {
+    num: "04",
+    title: "Friends & Private Groups",
+    image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800&auto=format&fit=crop",
+    alt: "Friends celebrating together on a private getaway",
+    reversed: true,
+    description:
+      "Whether it\u2019s a birthday celebration, bachelor or bachelorette getaway, graduation trip, or just a chance to reconnect with friends, we\u2019ll help you make the most of your time ashore. Enjoy a personalized itinerary, flexible scheduling, and memorable experiences designed exclusively for your group, without the crowds or rigid schedules of large tour operators.",
+  },
+];
 
 export default function GroupExcursionsBody({ heroBackgroundImage }) {
   const [form, setForm] = useState({
@@ -75,59 +112,27 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
           </p>
         </div>
         <div className="flex flex-col gap-16 max-w-5xl mx-auto px-4 mt-16">
-
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="w-full md:w-1/2">
-              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">01</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Family Groups</h3>
-              <p className="text-gray-500 leading-relaxed">
-                Create unforgettable memories with the people who matter most. Whether you&rsquo;re planning a family reunion, celebrating a birthday or anniversary, or simply enjoying a cruise together, we&rsquo;ll design an itinerary that caters to all ages and interests. From relaxing beach escapes to cultural sightseeing and exciting adventures, our experiences ensure everyone&mdash;from children to grandparents&mdash;has an incredible day ashore.
-              </p>
+          {groupExperiences.map((item) => (
+            <div
+              key={item.num}
+              className={`flex flex-col ${item.reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-10`}
+            >
+              <div className="w-full md:w-1/2">
+                <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">{item.num}</span>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{item.title}</h3>
+                <p className="text-gray-500 leading-relaxed">{item.description}</p>
+              </div>
+              <div className="relative w-full md:w-1/2 h-64 md:h-80 overflow-hidden rounded-2xl transition-transform duration-500 hover:scale-[1.02]">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover w-full h-full rounded-2xl"
+                />
+              </div>
             </div>
-            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-indigo-50 to-blue-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
-              <Users className="text-indigo-400" size={48} />
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row-reverse items-center gap-10">
-            <div className="w-full md:w-1/2">
-              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">02</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Corporate Groups</h3>
-              <p className="text-gray-500 leading-relaxed">
-                Strengthen relationships and inspire your team with professionally organized shore excursions. Whether you&rsquo;re hosting clients, rewarding employees, or planning a company retreat, we create experiences that balance leisure, networking, and team building. We take care of the planning and logistics so your group can focus on enjoying the destination.
-              </p>
-            </div>
-            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-blue-50 to-cyan-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
-              <Briefcase className="text-blue-400" size={48} />
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="w-full md:w-1/2">
-              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">03</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Community &amp; Social Groups</h3>
-              <p className="text-gray-500 leading-relaxed">
-                Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums&rsquo; groups, alumni associations, church groups, hobby clubs, LGBTQ+ groups, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we&rsquo;ll create an experience that reflects your group&rsquo;s interests and brings everyone together.
-              </p>
-            </div>
-            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-purple-50 to-violet-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
-              <Heart className="text-purple-400" size={48} />
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row-reverse items-center gap-10">
-            <div className="w-full md:w-1/2">
-              <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">04</span>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">Friends &amp; Private Groups</h3>
-              <p className="text-gray-500 leading-relaxed">
-                Whether it&rsquo;s a birthday celebration, bachelor or bachelorette getaway, graduation trip, or just a chance to reconnect with friends, we&rsquo;ll help you make the most of your time ashore. Enjoy a personalized itinerary, flexible scheduling, and memorable experiences designed exclusively for your group, without the crowds or rigid schedules of large tour operators.
-              </p>
-            </div>
-            <div className="w-full md:w-1/2 h-64 rounded-2xl bg-gradient-to-tr from-rose-50 to-pink-100 opacity-90 transition-transform duration-500 hover:scale-[1.02] flex items-center justify-center">
-              <Sparkles className="text-rose-400" size={48} />
-            </div>
-          </div>
-
+          ))}
         </div>
       </section>
       <section className="bg-gray-50 py-20">
