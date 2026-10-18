@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Camera, Gift, Headset, ShieldCheck, Sliders, UserCheck } from "lucide-react";
 
 const groupExperiences = [
   {
@@ -37,6 +38,39 @@ const groupExperiences = [
     reversed: true,
     description:
       "Whether it\u2019s a birthday celebration, bachelor or bachelorette getaway, graduation trip, or just a chance to reconnect with friends, we\u2019ll help you make the most of your time ashore. Enjoy a personalized itinerary, flexible scheduling, and memorable experiences designed exclusively for your group, without the crowds or rigid schedules of large tour operators.",
+  },
+];
+
+const groupExpectations = [
+  {
+    title: "Dedicated Tour Guide",
+    description: "Personal guidance throughout your excursion.",
+    Icon: UserCheck,
+  },
+  {
+    title: "Back-to-Ship Guarantee",
+    description: "We return your group back to your cruise ship/port on time with extra time to spare.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Fully Customized Itinerary",
+    description: "Tailored excursions to your group interests and preferences.",
+    Icon: Sliders,
+  },
+  {
+    title: "Group Coordinator \u2014 Explore For Free",
+    description: "The group leader enjoys the excursions at no cost.",
+    Icon: Gift,
+  },
+  {
+    title: "Dedicated Group Specialist",
+    description: "Expert QuestAshore support team member assigned to your group from planning stage, during adventures, and after your cruise.",
+    Icon: Headset,
+  },
+  {
+    title: "Optional Add-ons",
+    description: "Scenic photo stops, professional photographers for your group.",
+    Icon: Camera,
   },
 ];
 
@@ -133,6 +167,28 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+      <section className="bg-white py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="text-sm font-bold uppercase tracking-[0.2em] text-amber-600">What You Can Expect</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Everything Included in Your Custom Group Excursion</h2>
+          </div>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {groupExpectations.map(({ title, description, Icon }) => (
+              <div
+                key={title}
+                className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group"
+              >
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 group-hover:bg-sky-50 transition-colors">
+                  <Icon className="w-7 h-7 text-sky-600" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">{title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       <section className="bg-gray-50 py-20">
