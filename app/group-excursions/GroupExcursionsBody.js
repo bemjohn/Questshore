@@ -28,7 +28,7 @@ const groupExperiences = [
     image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop",
     alt: "Community group of friends socializing together",
     description:
-      "Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums\u2019 groups, alumni associations, church groups, hobby clubs, LGBTQ+ groups, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we\u2019ll create an experience that reflects your group\u2019s interests and brings everyone together.",
+      "Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums\u2019 groups, alumni associations, church groups, hobby clubs, Lgbtq+, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we\u2019ll create an experience that reflects your group\u2019s interests and brings everyone together.",
   },
   {
     num: "04",
@@ -58,8 +58,8 @@ const groupExpectations = [
     Icon: Sliders,
   },
   {
-    title: "Group Coordinator \u2014 Explore For Free",
-    description: "The group leader enjoys the excursions at no cost.",
+    title: "A Group Perk \u2014 Your Group Coordinator Explores At No Cost",
+    description: "Bring a group of 20 or more and your group coordinator enjoys the excursion at no cost.",
     Icon: Gift,
   },
   {
