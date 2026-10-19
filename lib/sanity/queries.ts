@@ -99,7 +99,20 @@ export const CARIBBEAN_QUERY = groq`
 
 export const GROUP_EXCURSIONS_QUERY = groq`
   *[_type == "groupExcursionsPage" && _id == "groupExcursionsPage"][0]{
-    heroBackgroundImage
+    heroBackgroundImage,
+    groupExperiences[]{
+      order,
+      title,
+      description,
+      alt,
+      reversed,
+      image
+    },
+    groupExpectations[]{
+      title,
+      description,
+      iconKey
+    }
   }
 `;
 

@@ -7,5 +7,11 @@ export default async function GroupExcursionsPage() {
   const sanityDoc = await client.fetch(GROUP_EXCURSIONS_QUERY, {}, { next: { tags: ["groupExcursionsPage"] } }).catch(() => null);
   const content = mergeGroupExcursionsContent(sanityDoc);
 
-  return <GroupExcursionsBody heroBackgroundImage={content.heroBackgroundImage} />;
+  return (
+    <GroupExcursionsBody
+      heroBackgroundImage={content.heroBackgroundImage}
+      groupExperiences={content.groupExperiences}
+      groupExpectations={content.groupExpectations}
+    />
+  );
 }

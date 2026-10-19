@@ -4,77 +4,20 @@ import { useState } from "react";
 import Image from "next/image";
 import { Camera, Gift, Headset, ShieldCheck, Sliders, UserCheck } from "lucide-react";
 
-const groupExperiences = [
-  {
-    num: "01",
-    title: "Family Groups",
-    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=800&auto=format&fit=crop",
-    alt: "Family group enjoying time together on vacation",
-    description:
-      "Create unforgettable memories with the people who matter most. Whether you\u2019re planning a family reunion, celebrating a birthday or anniversary, or simply enjoying a cruise together, we\u2019ll design an itinerary that caters to all ages and interests. From relaxing beach escapes to cultural sightseeing and exciting adventures, our experiences ensure everyone\u2014from children to grandparents\u2014has an incredible day ashore.",
-  },
-  {
-    num: "02",
-    title: "Corporate Groups",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
-    alt: "Corporate team collaborating together",
-    reversed: true,
-    description:
-      "Strengthen relationships and inspire your team with professionally organized shore excursions. Whether you\u2019re hosting clients, rewarding employees, or planning a company retreat, we create experiences that balance leisure, networking, and team building. We take care of the planning and logistics so your group can focus on enjoying the destination.",
-  },
-  {
-    num: "03",
-    title: "Community & Social Groups",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop",
-    alt: "Community group of friends socializing together",
-    description:
-      "Travel is even more meaningful when shared with like-minded people. We love working with community groups of all kinds, including solo travel communities, singles groups, mums\u2019 groups, alumni associations, church groups, hobby clubs, Lgbtq+, wellness retreats, sports teams, and social organizations. Whether your goal is relaxation, adventure, cultural discovery, or simply spending quality time together, we\u2019ll create an experience that reflects your group\u2019s interests and brings everyone together.",
-  },
-  {
-    num: "04",
-    title: "Friends & Private Groups",
-    image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800&auto=format&fit=crop",
-    alt: "Friends celebrating together on a private getaway",
-    reversed: true,
-    description:
-      "Whether it\u2019s a birthday celebration, bachelor or bachelorette getaway, graduation trip, or just a chance to reconnect with friends, we\u2019ll help you make the most of your time ashore. Enjoy a personalized itinerary, flexible scheduling, and memorable experiences designed exclusively for your group, without the crowds or rigid schedules of large tour operators.",
-  },
-];
+const ICON_MAP = {
+  guide: UserCheck,
+  shield: ShieldCheck,
+  sliders: Sliders,
+  gift: Gift,
+  headset: Headset,
+  camera: Camera,
+};
 
-const groupExpectations = [
-  {
-    title: "Dedicated Tour Guide",
-    description: "Personal guidance throughout your excursion.",
-    Icon: UserCheck,
-  },
-  {
-    title: "Back-to-Ship Guarantee",
-    description: "We return your group back to your cruise ship/port on time with extra time to spare.",
-    Icon: ShieldCheck,
-  },
-  {
-    title: "Fully Customized Itinerary",
-    description: "Tailored excursions to your group interests and preferences.",
-    Icon: Sliders,
-  },
-  {
-    title: "A Group Perk \u2014 Your Group Coordinator Explores At No Cost",
-    description: "Bring a group of 20 or more and your group coordinator enjoys the excursion at no cost.",
-    Icon: Gift,
-  },
-  {
-    title: "Dedicated Group Specialist",
-    description: "Expert QuestAshore support team member assigned to your group from planning stage, during adventures, and after your cruise.",
-    Icon: Headset,
-  },
-  {
-    title: "Optional Add-ons",
-    description: "Scenic photo stops, professional photographers for your group.",
-    Icon: Camera,
-  },
-];
-
-export default function GroupExcursionsBody({ heroBackgroundImage }) {
+export default function GroupExcursionsBody({
+  heroBackgroundImage,
+  groupExperiences = [],
+  groupExpectations = [],
+}) {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -148,17 +91,17 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
         <div className="flex flex-col gap-16 max-w-5xl mx-auto px-4 mt-16">
           {groupExperiences.map((item) => (
             <div
-              key={item.num}
+              key={item.order || item.title}
               className={`flex flex-col ${item.reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-10`}
             >
               <div className="w-full md:w-1/2">
-                <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">{item.num}</span>
+                <span className="text-5xl font-extrabold text-slate-200 tracking-tight block mb-2 select-none">{item.order}</span>
                 <h3 className="text-2xl font-bold text-slate-900 mb-3">{item.title}</h3>
                 <p className="text-gray-500 leading-relaxed">{item.description}</p>
               </div>
               <div className="relative w-full md:w-1/2 h-64 md:h-80 overflow-hidden rounded-2xl transition-transform duration-500 hover:scale-[1.02]">
                 <Image
-                  src={item.image}
+                  src={item.imageUrl}
                   alt={item.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -176,18 +119,21 @@ export default function GroupExcursionsBody({ heroBackgroundImage }) {
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Everything Included in Your Custom Group Excursion</h2>
           </div>
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {groupExpectations.map(({ title, description, Icon }) => (
-              <div
-                key={title}
-                className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group"
-              >
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 group-hover:bg-sky-50 transition-colors">
-                  <Icon className="w-7 h-7 text-sky-600" />
+            {groupExpectations.map(({ title, description, iconKey }) => {
+              const Icon = ICON_MAP[iconKey] || Gift;
+              return (
+                <div
+                  key={`${iconKey}-${title}`}
+                  className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group"
+                >
+                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 group-hover:bg-sky-50 transition-colors">
+                    <Icon className="w-7 h-7 text-sky-600" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">{title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
