@@ -4,19 +4,42 @@ import { useState } from "react";
 import Image from "next/image";
 import { Camera, Gift, Headset, ShieldCheck, Sliders, UserCheck } from "lucide-react";
 
-const ICON_MAP = {
-  guide: UserCheck,
-  shield: ShieldCheck,
-  sliders: Sliders,
-  gift: Gift,
-  headset: Headset,
-  camera: Camera,
-};
+const groupExpectations = [
+  {
+    title: "Dedicated Tour Guide",
+    description: "Personal guidance throughout your excursion.",
+    Icon: UserCheck,
+  },
+  {
+    title: "Back-to-Ship Guarantee",
+    description: "We return your group back to your cruise ship/port on time with extra time to spare.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Fully Customized Itinerary",
+    description: "Tailored excursions to your group interests and preferences.",
+    Icon: Sliders,
+  },
+  {
+    title: "A Group Perk \u2014 Your Group Coordinator Explores At No Cost",
+    description: "Bring a group of 20 or more and your group coordinator enjoys the excursion at no cost.",
+    Icon: Gift,
+  },
+  {
+    title: "Dedicated Group Specialist",
+    description: "Expert QuestAshore support team member assigned to your group from planning stage, during adventures, and after your cruise.",
+    Icon: Headset,
+  },
+  {
+    title: "Optional Add-ons",
+    description: "Scenic photo stops, professional photographers, and restaurant reservations for your group.",
+    Icon: Camera,
+  },
+];
 
 export default function GroupExcursionsBody({
   heroBackgroundImage,
   groupExperiences = [],
-  groupExpectations = [],
 }) {
   const [form, setForm] = useState({
     firstName: "",
@@ -119,21 +142,18 @@ export default function GroupExcursionsBody({
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">Everything Included in Your Custom Group Excursion</h2>
           </div>
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {groupExpectations.map(({ title, description, iconKey }) => {
-              const Icon = ICON_MAP[iconKey] || Gift;
-              return (
-                <div
-                  key={`${iconKey}-${title}`}
-                  className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group"
-                >
-                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 group-hover:bg-sky-50 transition-colors">
-                    <Icon className="w-7 h-7 text-sky-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">{title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
+            {groupExpectations.map(({ title, description, Icon }) => (
+              <div
+                key={title}
+                className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group"
+              >
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 group-hover:bg-sky-50 transition-colors">
+                  <Icon className="w-7 h-7 text-sky-600" />
                 </div>
-              );
-            })}
+                <h3 className="text-lg font-bold text-gray-900 mb-3">{title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

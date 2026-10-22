@@ -7,7 +7,6 @@ export default defineType({
   fieldsets: [
     {name: 'hero', title: 'Hero Section', options: {collapsible: true, collapsed: false}},
     {name: 'groupExperiences', title: 'Group Experiences', options: {collapsible: true, collapsed: false}},
-    {name: 'groupExpectations', title: 'What You Can Expect', options: {collapsible: true, collapsed: false}},
   ],
   fields: [
     defineField({name: 'heroBackgroundImage', title: 'Hero Background Image', type: 'image', options: {hotspot: true}, fieldset: 'hero'}),
@@ -30,40 +29,6 @@ export default defineType({
           ],
           preview: {
             select: {title: 'title', subtitle: 'order'},
-          },
-        }),
-      ],
-    }),
-    defineField({
-      name: 'groupExpectations',
-      title: 'What You Can Expect',
-      type: 'array',
-      fieldset: 'groupExpectations',
-      of: [
-        defineArrayMember({
-          type: 'object',
-          name: 'groupExpectation',
-          fields: [
-            defineField({name: 'title', title: 'Title', type: 'string'}),
-            defineField({name: 'description', title: 'Description', type: 'text'}),
-            defineField({
-              name: 'iconKey',
-              title: 'Icon',
-              type: 'string',
-              options: {
-                list: [
-                  {title: 'Guide', value: 'guide'},
-                  {title: 'Shield', value: 'shield'},
-                  {title: 'Sliders', value: 'sliders'},
-                  {title: 'Gift', value: 'gift'},
-                  {title: 'Headset', value: 'headset'},
-                  {title: 'Camera', value: 'camera'},
-                ],
-              },
-            }),
-          ],
-          preview: {
-            select: {title: 'title', subtitle: 'iconKey'},
           },
         }),
       ],

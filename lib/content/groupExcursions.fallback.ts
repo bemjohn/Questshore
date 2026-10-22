@@ -43,41 +43,6 @@ export const groupExcursionsFallback = {
       reversed: true,
     },
   ],
-  groupExpectations: [
-    {
-      title: "Dedicated Tour Guide",
-      description: "Personal guidance throughout your excursion.",
-      iconKey: "guide",
-    },
-    {
-      title: "Back-to-Ship Guarantee",
-      description:
-        "We return your group back to your cruise ship/port on time with extra time to spare.",
-      iconKey: "shield",
-    },
-    {
-      title: "Fully Customized Itinerary",
-      description: "Tailored excursions to your group interests and preferences.",
-      iconKey: "sliders",
-    },
-    {
-      title: "A Group Perk — Your Group Coordinator Explores At No Cost",
-      description:
-        "Bring a group of 20 or more and your group coordinator enjoys the excursion at no cost.",
-      iconKey: "gift",
-    },
-    {
-      title: "Dedicated Group Specialist",
-      description:
-        "Expert QuestAshore support team member assigned to your group from planning stage, during adventures, and after your cruise.",
-      iconKey: "headset",
-    },
-    {
-      title: "Optional Add-ons",
-      description: "Scenic photo stops, professional photographers for your group.",
-      iconKey: "camera",
-    },
-  ],
 };
 
 export type GroupExcursionsContent = typeof groupExcursionsFallback;

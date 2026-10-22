@@ -107,11 +107,6 @@ export const GROUP_EXCURSIONS_QUERY = groq`
       alt,
       reversed,
       image
-    },
-    groupExpectations[]{
-      title,
-      description,
-      iconKey
     }
   }
 `;

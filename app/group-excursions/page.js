@@ -11,7 +11,6 @@ export default async function GroupExcursionsPage() {
     <GroupExcursionsBody
       heroBackgroundImage={content.heroBackgroundImage}
       groupExperiences={content.groupExperiences}
-      groupExpectations={content.groupExpectations}
     />
   );
 }
