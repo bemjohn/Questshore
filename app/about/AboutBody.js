@@ -143,7 +143,7 @@ export default function AboutBody({ heroBanner, collageImage1, collageImage2, co
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-3">Lowest Prices. Same Quality</h3>
             <p className="text-gray-500 text-sm leading-relaxed">
-              You save 40% by booking with us over your cruise-line. Enjoy exceptional shore experiences at some of the best prices available—without compromising on quality, safety, or service.
+              Save up to 40% when you book your port day experiences/ activities with Questashore. Consider us a quality-assured alternative to your cruise line. Enjoy exceptional shore experiences at competitive prices available.
             </p>
           </div>
           <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out group text-center">
